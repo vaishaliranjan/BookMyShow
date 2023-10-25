@@ -1,0 +1,22 @@
+[
+    {
+        "artistId": 1,
+        "Name": "Arijit Singh",
+        "timing": "2023-10-31 15:30"
+    },
+    {
+        "artistId": 2,
+        "Name": "KK Singh",
+        "timing": "2023-11-02 16:30"
+    },
+    {
+        "artistId": 3,
+        "Name": "Sunidhi Singh",
+        "timing": "2023-10-31 15:30"
+    },
+    {
+        "artistId": 4,
+        "Name": "Sunidhi Chauhan",
+        "timing": "2023-10-31 15:30"
+    }
+]

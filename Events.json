@@ -1,0 +1,21 @@
+[
+    {
+        "Id": 101,
+        "Name": "ED Sheeren Tour",
+        "Timing": "2023-10-31 15:30",
+        "artist": "ED Sheeren",
+        "venue": "SK Stadium",
+        "NumOfTicket": 5,
+        "Price": 5000.40
+    },
+    {
+        "Id": 102,
+        "Name": "Arijit Singh Heavy Motion",
+        "Timing": "2023-10-11 11:30",
+        "artist": "Arijit Singh",
+        "venue": "SRK Stadium",
+        "NumOfTicket": 10,
+        "Price": 2220.40
+    }
+
+]
