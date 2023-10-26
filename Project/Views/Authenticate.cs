@@ -14,6 +14,16 @@ namespace Project.UILayer
             while (true)
             {
                 Role roleOfUser;
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("-------------------------------------------------------------");
+                Console.WriteLine("-                                                           -");
+                Console.WriteLine("-                                                           -");
+                Console.WriteLine("-                        LOGIN PAGE                         -");
+                Console.WriteLine("-                                                           -");
+                Console.WriteLine("-                                                           -");
+                Console.WriteLine("-------------------------------------------------------------");
                 Console.Write("Enter username: ");
                 string username = Console.ReadLine();
                 if (username == null)
@@ -25,12 +35,14 @@ namespace Project.UILayer
                 {
                     Console.Write("Enter password: ");
                     string password = Console.ReadLine();
+
                     if(password == null)
                     {
                         Console.WriteLine("Password cant be blank!");
                     }
-                    string userRole = AuthManager.Login(username, password);
-                   if(userRole=="Admin")
+                    string userRole = AuthManager<User>.Login(username, password);
+                    Console.ResetColor();
+                    if (userRole=="Admin")
                     {
                         AdminUI.ADMINUI();
                         break;
@@ -53,7 +65,10 @@ namespace Project.UILayer
                         Console.WriteLine("Wrong credentials");
                         continue;
                     }
+                   
+
                 }
+                
 
             }
         }

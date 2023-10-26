@@ -1,8 +1,10 @@
 ﻿using Project.BusinessLayer;
+using Project.UI;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,16 +15,25 @@ namespace Project.UILayer
     {
         public static void ADMINUI()
         {
-            Console.WriteLine("************************************Admin page*******************************");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("*************************************************************");
+            Console.WriteLine("*                                                           *");
+            Console.WriteLine("*                                                           *");
+            Console.WriteLine("*                        ADMIN PAGE                         *");
+            Console.WriteLine("*                                                           *");
+            Console.WriteLine("*                                                           *");
+            Console.WriteLine("*************************************************************");
+            
             Console.WriteLine();
             Console.WriteLine();
-            Console.WriteLine("1. Add new admin");
+            Console.WriteLine("1. View admins");
             Console.WriteLine("2. View artists");
             Console.WriteLine("3. View venues");
             Console.WriteLine("4. View events");
             Console.WriteLine("5. View organizers");
             Console.WriteLine("6. View customers");
-
+            Console.WriteLine("7. Log out");
+            Console.ResetColor();
             Console.WriteLine();
             Console.WriteLine();
 
@@ -30,7 +41,7 @@ namespace Project.UILayer
             var input = Console.ReadLine();
             if (input == "1")
             {
-                Console.WriteLine("Not implemented");
+                ViewAdminsUI();
             }
             else if (input == "2")
             {
@@ -44,12 +55,27 @@ namespace Project.UILayer
             {
                 ViewEventsUI();
             }
+            else if (input == "5")
+            {
+                ViewOrganizersUI();
+            }
             else if (input == "6")
             {
                 ViewCustomersUI();
             }
+            else if(input == "7")
+            {
+                AuthManager<User>.Logout();
+            }
+            else
+            {
+                Console.WriteLine();
+                Console.WriteLine("Invalid input!");
+                Console.WriteLine();
+            }
         }
 
+       
 
         //************************************************ VIEW Events UI ****************************************
         public static void ViewEventsUI()
@@ -81,7 +107,7 @@ namespace Project.UILayer
         }
 
 
-        //************************************************ VIEW Events UI ****************************************
+        //************************************************ VIEW ORGANIZERS UI ****************************************
         public static void ViewOrganizersUI()
         {
             Console.WriteLine();
@@ -89,7 +115,7 @@ namespace Project.UILayer
             Console.WriteLine("");
             Console.WriteLine("Organizers: ");
             Console.WriteLine();
-            Artist.ViewArtists();
+            Organizer.ViewOrganizers();
             Console.WriteLine();
 
             Console.WriteLine("1. Add new Organizer");
@@ -100,7 +126,7 @@ namespace Project.UILayer
             var input = Console.ReadLine();
             if (input == "1")
             {
-                Console.WriteLine("Not implemmented yet");
+                RegistrationUI.AddNewUserUI(Role.Organizer);
             }
             else
             {
@@ -129,7 +155,7 @@ namespace Project.UILayer
             var input = Console.ReadLine();
             if (input == "1")
             {
-                Console.WriteLine("Not implemmented yet");
+                AddNewArtistUI();
             }
             else
             {
@@ -155,7 +181,7 @@ namespace Project.UILayer
             var input = Console.ReadLine();
             if(input == "1")
             {
-                Console.WriteLine("Not implemmented yet");
+                RegistrationUI.AddNewUserUI(Role.Customer);
             }
             else
             {
@@ -183,7 +209,7 @@ namespace Project.UILayer
             var input = Console.ReadLine();
             if (input == "1")
             {
-                Console.WriteLine("Not implemmented yet");
+                AddNewVenueUI();
             }
             else
             {
@@ -191,5 +217,64 @@ namespace Project.UILayer
                 ADMINUI();
             }
         }
+
+        //************************************************* VIEW ADMINS UI ************************************************
+        public static void  ViewAdminsUI()
+        {
+            Console.WriteLine();
+
+            Console.WriteLine("");
+            Console.WriteLine("Admins: ");
+            Console.WriteLine();
+            Admin.ViewAdmins();
+            Console.WriteLine();
+            Console.WriteLine("1. Add new admin");
+            Console.WriteLine("0. Back");
+            Console.WriteLine();
+            Console.Write("Enter any one: ");
+
+            var input = Console.ReadLine();
+            if (input == "1")
+            {
+               RegistrationUI.AddNewUserUI(Role.Admin);
+            }
+            else
+            {
+                Console.WriteLine();
+                ADMINUI();
+            }
+        }
+        //ADD NEW ARTIST
+        public static void AddNewArtistUI()
+        {
+            Console.WriteLine("Enter Name:");
+            var name = Console.ReadLine();
+            Console.WriteLine("Enter date and time (yyyy-MM-ddTHH:mm): ");
+            string userInput = Console.ReadLine();
+            DateTime dt = DateTime.ParseExact(userInput, "yyyy-MM-ddTHH:mm", CultureInfo.InvariantCulture);
+            var artist = new Artist(name, dt);
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.WriteLine();
+            Artist.AddNewArtist(artist);
+            Console.WriteLine();
+            Console.ResetColor();
+            ADMINUI();
+        }
+
+        //ADD NEW VENUE
+        public static void AddNewVenueUI()
+        {
+            Console.WriteLine("Enter Place:");
+            var place = Console.ReadLine();
+            var venue = new Venue(place);
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Venue.AddNewVenue(venue);
+            Console.WriteLine();
+            Console.ResetColor();
+            ADMINUI();
+        }
+
+        
     }
 }

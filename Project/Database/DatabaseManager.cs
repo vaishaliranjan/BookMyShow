@@ -15,6 +15,10 @@ namespace Project
         static List<User> users;
         static List<Artist> artists = new List<Artist>();
 
+
+        // PATHS
+
+
         private static string _user_path = @"C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Users.json";
         private static string _artist_path = @"C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Artists.json";
         private static string _venues_path = @"C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Venues.json";
@@ -56,6 +60,37 @@ namespace Project
             List<Event> events = JsonConvert.DeserializeObject<List<Event>>(allEvents);
 
             return events;
+        }
+
+        public static void AddUser(User newUser)
+        {
+            List<User> allUsers = DatabaseManager.ReadUsers();
+            allUsers.Add(newUser);
+
+            var usersJSON = JsonConvert.SerializeObject(allUsers);
+            File.WriteAllText(_user_path, usersJSON);
+        }
+
+        public static void AddArtist(Artist newArtist)
+        {
+            
+            var artistDetails = ReadArtists();
+            artistDetails.Add(newArtist);
+
+            var artistJSON = JsonConvert.SerializeObject(artistDetails);
+            File.WriteAllText(_artist_path, artistJSON);
+            Console.WriteLine("Artist added successfully");
+        }
+
+        public static void AddVenue(Venue venue)
+        {
+
+            var venueDetails = ReadVenues();
+            venueDetails.Add(venue);
+
+            var venueJSON = JsonConvert.SerializeObject(venueDetails);
+            File.WriteAllText(_venues_path, venueJSON);
+            Console.WriteLine("Venue added successfully");
         }
     }
 

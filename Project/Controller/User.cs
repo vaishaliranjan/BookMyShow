@@ -20,6 +20,7 @@ namespace Project.BusinessLayer
         public string Email;
         public Role role;
         public string Password;
+
     }
     
 }

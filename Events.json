@@ -2,20 +2,65 @@
     {
         "Id": 101,
         "Name": "ED Sheeren Tour",
-        "Timing": "2023-10-31 15:30",
-        "artist": "ED Sheeren",
-        "venue": "SK Stadium",
+        "Timing": "2023-10-31T15:30:00",
+        "artist": {
+            "artistId": 1,
+            "Name": "ED Sheeren",
+            "timing": "2023-10-31T10:00:00"
+        },
+        "venue": {
+            "venueId": 1,
+            "Place": "SK Stadium"
+        },
         "NumOfTicket": 5,
         "Price": 5000.40
     },
     {
         "Id": 102,
         "Name": "Arijit Singh Heavy Motion",
-        "Timing": "2023-10-11 11:30",
-        "artist": "Arijit Singh",
-        "venue": "SRK Stadium",
+        "Timing": "2023-10-11T11:30:00",
+        "artist": {
+            "artistId": 2,
+            "Name": "Arijit Singh",
+            "timing": "2023-10-11T09:00:00"
+        },
+        "venue": {
+            "venueId": 2,
+            "Place": "SRK Stadium"
+        },
         "NumOfTicket": 10,
         "Price": 2220.40
+    },
+    {
+        "Id": 103,
+        "Name": "Rock Fest 2023",
+        "Timing": "2023-11-15T18:00:00",
+        "artist": {
+            "artistId": 3,
+            "Name": "Linkin Park",
+            "timing": "2023-11-15T14:00:00"
+        },
+        "venue": {
+            "venueId": 3,
+            "Place": "Central Park"
+        },
+        "NumOfTicket": 8,
+        "Price": 3500.75
+    },
+    {
+        "Id": 104,
+        "Name": "Jazz Night",
+        "Timing": "2023-11-05T20:00:00",
+        "artist": {
+            "artistId": 4,
+            "Name": "John Coltrane Quartet",
+            "timing": "2023-11-05T18:00:00"
+        },
+        "venue": {
+            "venueId": 4,
+            "Place": "Blue Note Club"
+        },
+        "NumOfTicket": 12,
+        "Price": 1800.90
     }
-
 ]
