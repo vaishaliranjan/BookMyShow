@@ -41,6 +41,7 @@ namespace Project.BusinessLayer
             
             foreach (var artist in artists)
             {
+                Console.WriteLine("Artist Id: "+ artist.artistId);
                 Console.WriteLine("Artist Name: "+ artist.Name);
                 Console.WriteLine("Artist Time: "+ artist.timing);
                 Console.WriteLine();

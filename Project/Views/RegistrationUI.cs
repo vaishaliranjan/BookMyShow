@@ -52,7 +52,7 @@ namespace Project.UI
                 Console.ResetColor();
                 if (role == Role.Admin)
                 {
-                    AdminUI.ADMINUI();
+                    AdminUI.ADMINUI(username);
                 }
                 else
                 {

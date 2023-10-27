@@ -1,5 +1,6 @@
 ﻿using Project.BusinessLayer;
 using Project.UI;
+using Project.Views;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace Project.UILayer
 {
     internal class AdminUI
     {
-        public static void ADMINUI()
+        public static void ADMINUI(string username)
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("*************************************************************");
@@ -41,27 +42,27 @@ namespace Project.UILayer
             var input = Console.ReadLine();
             if (input == "1")
             {
-                ViewAdminsUI();
+                ViewAdminsUI(username);
             }
             else if (input == "2")
             {
-                ViewArtistUI();
+                ViewArtistUI(username);
             }
             else if (input == "3")
             {
-                ViewVenuesUI();
+                ViewVenuesUI(username);
             }
             else if (input == "4")
             {
-                ViewEventsUI();
+                ViewEventsUI(username);
             }
             else if (input == "5")
             {
-                ViewOrganizersUI();
+                ViewOrganizersUI(username);
             }
             else if (input == "6")
             {
-                ViewCustomersUI();
+                ViewCustomersUI(username);
             }
             else if(input == "7")
             {
@@ -78,14 +79,15 @@ namespace Project.UILayer
        
 
         //************************************************ VIEW Events UI ****************************************
-        public static void ViewEventsUI()
+        public static void ViewEventsUI(string username)
         {
             Console.WriteLine();
 
             Console.WriteLine("");
             Console.WriteLine("Events: ");
             Console.WriteLine();
-            Event.ViewEvents();
+
+            Event.ViewEvents(username, Role.Admin);
             Console.WriteLine();
 
             Console.WriteLine("1. Add new Event");
@@ -97,18 +99,19 @@ namespace Project.UILayer
             var input = Console.ReadLine();
             if (input == "1")
             {
-                Console.WriteLine("Not implemmented yet");
+                EventUI.CreateEventUI(username, Role.Admin);
+                ADMINUI(username);
             }
             else
             {
                 Console.WriteLine();
-                ADMINUI();
+                ADMINUI(username);
             }
         }
 
 
         //************************************************ VIEW ORGANIZERS UI ****************************************
-        public static void ViewOrganizersUI()
+        public static void ViewOrganizersUI( string username)
         {
             Console.WriteLine();
 
@@ -131,13 +134,13 @@ namespace Project.UILayer
             else
             {
                 Console.WriteLine();
-                ADMINUI();
+                ADMINUI(username);
             }
         }
 
 
         //************************************************ VIEW ARTIST UI ****************************************
-        public static void ViewArtistUI()
+        public static void ViewArtistUI(string username)
         {
             Console.WriteLine();
 
@@ -155,17 +158,17 @@ namespace Project.UILayer
             var input = Console.ReadLine();
             if (input == "1")
             {
-                AddNewArtistUI();
+                AddNewArtistUI(username);
             }
             else
             {
                 Console.WriteLine();
-                ADMINUI();
+                ADMINUI(username);
             }
         }
 
         //************************************************* VIEW CUSTOMERS UI ************************************************
-        public static void ViewCustomersUI()
+        public static void ViewCustomersUI(string username)
         {
             Console.WriteLine();
             
@@ -186,13 +189,13 @@ namespace Project.UILayer
             else
             {
                 Console.WriteLine();
-                ADMINUI();
+                ADMINUI(username);
             }
         }
 
 
         //************************************************* VIEW VENUES UI ************************************************
-        public static void ViewVenuesUI()
+        public static void ViewVenuesUI(string username)
         {
             Console.WriteLine();
 
@@ -209,17 +212,17 @@ namespace Project.UILayer
             var input = Console.ReadLine();
             if (input == "1")
             {
-                AddNewVenueUI();
+                AddNewVenueUI(username);
             }
             else
             {
                 Console.WriteLine();
-                ADMINUI();
+                ADMINUI(username);
             }
         }
 
         //************************************************* VIEW ADMINS UI ************************************************
-        public static void  ViewAdminsUI()
+        public static void  ViewAdminsUI(string username)
         {
             Console.WriteLine();
 
@@ -241,11 +244,11 @@ namespace Project.UILayer
             else
             {
                 Console.WriteLine();
-                ADMINUI();
+                ADMINUI(username);
             }
         }
         //ADD NEW ARTIST
-        public static void AddNewArtistUI()
+        public static void AddNewArtistUI(string username)
         {
             Console.WriteLine("Enter Name:");
             var name = Console.ReadLine();
@@ -258,11 +261,11 @@ namespace Project.UILayer
             Artist.AddNewArtist(artist);
             Console.WriteLine();
             Console.ResetColor();
-            ADMINUI();
+            ADMINUI(username);
         }
 
         //ADD NEW VENUE
-        public static void AddNewVenueUI()
+        public static void AddNewVenueUI(string username)
         {
             Console.WriteLine("Enter Place:");
             var place = Console.ReadLine();
@@ -272,7 +275,7 @@ namespace Project.UILayer
             Venue.AddNewVenue(venue);
             Console.WriteLine();
             Console.ResetColor();
-            ADMINUI();
+            ADMINUI(username);
         }
 
         

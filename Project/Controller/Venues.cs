@@ -34,6 +34,7 @@ namespace Project.BusinessLayer
             
             foreach (Venue venue in venues)
             {
+                Console.WriteLine("VenueID: " + venue.venueId);
                 Console.WriteLine("Location: "+venue.Place);
                 Console.WriteLine();
             }

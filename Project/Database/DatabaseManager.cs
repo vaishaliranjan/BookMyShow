@@ -31,6 +31,14 @@ namespace Project
 
             return users;
         }
+        public static List<Organizer> ReadOrganizer()
+        {
+            var allUsers = File.ReadAllText(_user_path);
+            List<Organizer> users = JsonConvert.DeserializeObject<List<Organizer>>(allUsers);
+            var organizers = users.FindAll(o=> o.role == Role.Organizer);
+
+            return organizers;
+        }
         public static List<Artist> ReadArtists()
         {
             var allArtists = File.ReadAllText(_artist_path);
@@ -79,7 +87,9 @@ namespace Project
 
             var artistJSON = JsonConvert.SerializeObject(artistDetails);
             File.WriteAllText(_artist_path, artistJSON);
+            Console.WriteLine();
             Console.WriteLine("Artist added successfully");
+            Console.WriteLine();
         }
 
         public static void AddVenue(Venue venue)
@@ -90,7 +100,132 @@ namespace Project
 
             var venueJSON = JsonConvert.SerializeObject(venueDetails);
             File.WriteAllText(_venues_path, venueJSON);
+            Console.WriteLine();
             Console.WriteLine("Venue added successfully");
+            Console.WriteLine(
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                );
+        }
+        public static void AddEventToDB(Event e)
+        {
+            var events = ReadEvents();
+            events.Add(e);
+            var eventsJSON = JsonConvert.SerializeObject(events);
+            File.WriteAllText(_events_path, eventsJSON);
+            
+
+        }
+        public static void RemoveArtist(Artist deleteArtist)
+        {
+            var artistDetails = ReadArtists();
+            foreach (var artist in artistDetails)
+            {
+                if (artist.artistId.Equals(deleteArtist.artistId))
+                {
+                    artistDetails.Remove(artist);
+                    var artistJSON = JsonConvert.SerializeObject(artistDetails);
+                    File.WriteAllText(_artist_path, artistJSON);
+                    break;
+                }
+            }
+        }
+
+        public static void RemoveVenue(Venue deleteVenue)
+        {
+            var venueDetails = ReadVenues();
+            foreach (var venue in venueDetails)
+            {
+                if (venue.venueId.Equals(deleteVenue.venueId))
+                {
+                    venueDetails.Remove(venue);
+                    var venueJSON = JsonConvert.SerializeObject(venueDetails);
+                    File.WriteAllText(_venues_path, venueJSON);
+                    break;
+                }
+            }
         }
     }
 

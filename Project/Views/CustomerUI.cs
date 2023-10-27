@@ -9,7 +9,7 @@ namespace Project.UILayer
 {
     internal class CustomerUI
     {
-        public static void CUSTOMERUI()
+        public static void CUSTOMERUI(string username)
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("*************************************************************");
@@ -24,7 +24,7 @@ namespace Project.UILayer
             Console.WriteLine();
             Console.WriteLine("1. View Events");
             Console.WriteLine("2. View Previous Bookings");
-            Console.WriteLine("7. Log out");
+            Console.WriteLine("3. Log out");
             Console.ResetColor();
             Console.WriteLine();
             Console.WriteLine();
@@ -33,7 +33,7 @@ namespace Project.UILayer
             var input = Console.ReadLine();
             if (input == "1")
             {
-                Event.ViewEvents();
+                Event.ViewEvents(username, Role.Customer);
 
                 Console.WriteLine();
                 
@@ -43,7 +43,7 @@ namespace Project.UILayer
                     string ip= Console.ReadLine();
                     if (ip == "0")
                     {
-                        CustomerUI.CUSTOMERUI();
+                        CustomerUI.CUSTOMERUI(username);
                         break;
                     }
                     Console.WriteLine();

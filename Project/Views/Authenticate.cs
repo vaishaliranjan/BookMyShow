@@ -44,19 +44,19 @@ namespace Project.UILayer
                     Console.ResetColor();
                     if (userRole=="Admin")
                     {
-                        AdminUI.ADMINUI();
+                        AdminUI.ADMINUI(username);
                         break;
                         
                     }
                     else if (userRole == "Customer")
                     {
-                        CustomerUI.CUSTOMERUI();
+                        CustomerUI.CUSTOMERUI(username);
                         break;
 
                     }
                     else if (userRole == "Organizer")
                     {
-                        OrganizerUI.ORGANIZERUI();
+                        OrganizerUI.ORGANIZERUI(username);
                         break;
 
                     }

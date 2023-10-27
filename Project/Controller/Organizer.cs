@@ -8,6 +8,10 @@ namespace Project.BusinessLayer
 {
     public class Organizer:User
     {
+
+
+        public Organizer():base()
+        { }
         //public Organizer(int id, string name, string username, string email, string password)
         //    : base(id, name, username, email, password)
         //{
@@ -38,6 +42,28 @@ namespace Project.BusinessLayer
 
             }
             Console.ResetColor();
+        }
+        public static Organizer GetOrganizer(string username)
+        {
+            var organizers = DatabaseManager.ReadOrganizer();
+           
+            Organizer organizer = organizers.Single(u => u.Username == username);
+            return organizer;
+        }
+        public static Artist SelectArtist(int id)
+        {
+            var artists = DatabaseManager.ReadArtists();
+            var choosenArtist = artists.Single(a => a.artistId == id);
+           DatabaseManager.RemoveArtist(choosenArtist);
+            return choosenArtist;
+        }
+
+        public static Venue SelectVenue(int id)
+        {
+            var venues = DatabaseManager.ReadVenues();
+            var choosenVenue = venues.Single(a => a.venueId == id);
+            DatabaseManager.RemoveVenue(choosenVenue);
+            return choosenVenue;
         }
     }
 }
