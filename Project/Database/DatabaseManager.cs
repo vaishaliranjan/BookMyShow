@@ -27,6 +27,24 @@ namespace Project
 
         private static string _bookings_path = @"C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Bookings.json";
 
+        public static void DecTicketToDB(int eventId, int numOfTickets)
+        {
+            var events = DatabaseManager.ReadEvents();
+            Event e = new Event();
+            foreach (var eve in events)
+            {
+                if (eve.Id == eventId)
+                {
+                    e = eve;
+                    e.NumOfTicket= e.NumOfTicket- numOfTickets;
+                    events.Remove(eve);
+                    break;
+                }
+            }
+            events.Add(e);
+            var eventsJSON = JsonConvert.SerializeObject(events);
+            File.WriteAllText(_events_path, eventsJSON);
+        }
         public static List<User> ReadUsers()
         {
             var allUsers= File.ReadAllText(_user_path);

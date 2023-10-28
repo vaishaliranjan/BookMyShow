@@ -16,6 +16,12 @@ namespace Project.BusinessLayer
         public int NumOfTicket;
         public float Price;
 
+        public static void DecrementTicket(Event bookedEvent, int numOfTickets)
+        {
+            
+            DatabaseManager.DecTicketToDB(bookedEvent.Id, numOfTickets);
+
+        }
         public static Event GetEvent(int  eventId)
         {
             var events = DatabaseManager.ReadEvents();
@@ -70,14 +76,6 @@ namespace Project.BusinessLayer
                     Console.WriteLine("Timing: " + e.artist.timing);
                     Console.WriteLine("Artist: " + e.artist.Name);
                     Console.WriteLine("Venue: " + e.venue.Place);
-                    if (e.organizer is Organizer)
-                    {
-                        Console.WriteLine("Organizer: " + e.organizer.Name);
-                    }
-                    else
-                    {
-                        Console.WriteLine("Error....");
-                    }
                     Console.WriteLine("Number of tickets left: " + e.NumOfTicket);
                     Console.WriteLine("Price per ticket: " + e.Price);
                     Console.WriteLine();

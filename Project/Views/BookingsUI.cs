@@ -101,6 +101,19 @@ namespace Project.Views
             Booking b = new Booking(e, c, numOfTickets, totalprice);
 
             Booking.BookEvent(b);
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine("-------------------------------------------------------------");
+            Console.WriteLine("-               Tickets Booked Successfully!                -");
+            Console.WriteLine("-------------------------------------------------------------");
+            Console.ResetColor();
+            if (role == Role.Customer)
+            {
+                CustomerUI.CUSTOMERUI(username);
+            }
+            else
+            {
+                AdminUI.ADMINUI(username);
+            }
         }
     }
 }

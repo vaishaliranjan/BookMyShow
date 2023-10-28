@@ -46,29 +46,6 @@
         "Price": 2220.4
     },
     {
-        "Id": 103,
-        "Name": "Rock Fest 2023",
-        "organizer": {
-            "UserId": 4,
-            "Name": "Ajay",
-            "Username": "ajay",
-            "Email": "ajay@gmail.com",
-            "role": 1,
-            "Password": "ajay"
-        },
-        "artist": {
-            "artistId": 3,
-            "Name": "Linkin Park",
-            "timing": "2023-11-15T14:00:00"
-        },
-        "venue": {
-            "venueId": 3,
-            "Place": "Central Park"
-        },
-        "NumOfTicket": 8,
-        "Price": 3500.75
-    },
-    {
         "Id": 104,
         "Name": "Jazz Night",
         "organizer": {
@@ -92,29 +69,6 @@
         "Price": 1800.9
     },
     {
-        "Id": 105,
-        "Name": "Horn OK",
-        "organizer": {
-            "UserId": 9,
-            "Name": "Rohit",
-            "Username": "rohit",
-            "Email": "rohit@gmail.com",
-            "role": 1,
-            "Password": "rohit"
-        },
-        "artist": {
-            "artistId": 4,
-            "Name": "KK Singh",
-            "timing": "2023-10-31T15:30:00Z"
-        },
-        "venue": {
-            "venueId": 104,
-            "Place": "JLN Stadium, Delhi"
-        },
-        "NumOfTicket": 200,
-        "Price": 2000.0
-    },
-    {
         "Id": 106,
         "Name": "We live together",
         "organizer": {
@@ -136,5 +90,51 @@
         },
         "NumOfTicket": 250,
         "Price": 2500.0
+    },
+    {
+        "Id": 105,
+        "Name": "Horn OK",
+        "organizer": {
+            "UserId": 9,
+            "Name": "Rohit",
+            "Username": "rohit",
+            "Email": "rohit@gmail.com",
+            "role": 1,
+            "Password": "rohit"
+        },
+        "artist": {
+            "artistId": 4,
+            "Name": "KK Singh",
+            "timing": "2023-10-31T15:30:00Z"
+        },
+        "venue": {
+            "venueId": 104,
+            "Place": "JLN Stadium, Delhi"
+        },
+        "NumOfTicket": 197,
+        "Price": 2000.0
+    },
+    {
+        "Id": 105,
+        "Name": "Rock Fest 2023",
+        "organizer": {
+            "UserId": 4,
+            "Name": "Ajay",
+            "Username": "ajay",
+            "Email": "ajay@gmail.com",
+            "role": 1,
+            "Password": "ajay"
+        },
+        "artist": {
+            "artistId": 4,
+            "Name": "KK Singh",
+            "timing": "2023-10-31T15:30:00Z"
+        },
+        "venue": {
+            "venueId": 104,
+            "Place": "JLN Stadium, Delhi"
+        },
+        "NumOfTicket": 120,
+        "Price": 3000.0
     }
 ]

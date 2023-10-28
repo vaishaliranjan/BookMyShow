@@ -69,7 +69,19 @@ namespace Project.UILayer
         public static void ViewPreviousEventsUI(string username, Role role) 
         {
             Event.ViewEvents(username, role);
-            OrganizerUI.ORGANIZERUI(username);
+            while (true)
+            {
+                Console.WriteLine();
+                Console.Write("Press 0 to exit: ");
+                var ip = Convert.ToInt32(Console.ReadLine());
+                if (ip == 0)
+                {
+                    OrganizerUI.ORGANIZERUI(username);
+                    break;
+                }
+                Console.WriteLine("Invalid Input!!!");
+            }
+            
         }
 
         

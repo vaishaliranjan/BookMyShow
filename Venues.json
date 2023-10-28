@@ -1,18 +1,1 @@
-[
-    {
-        "venueId": 101,
-        "Place": "Toy Boy, Noida"
-    },
-    {
-        "venueId": 102,
-        "Place": "Rubbaru, Noida"
-    },
-    {
-        "venueId": 103,
-        "Place": "GG, Noida"
-    },
-    {
-        "venueId": 104,
-        "Place": "JLN Stadium, Delhi"
-    }
-]
+[{"venueId":101,"Place":"Toy Boy, Noida"},{"venueId":102,"Place":"Rubbaru, Noida"},{"venueId":103,"Place":"GG, Noida"}]

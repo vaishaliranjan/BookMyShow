@@ -34,7 +34,7 @@ namespace Project.Views
             Console.Write("Enter number of tickets: ");
             int tickets = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Enter price per ticket: ");
+            Console.Write("Enter price per ticket: ");
             int price = Convert.ToInt32(Console.ReadLine());
             Organizer organizerOfEvent= new Organizer();
             if (role == Role.Organizer)

@@ -30,6 +30,8 @@ namespace Project.Controller
         public static void BookEvent(Booking booking)
         {
             DatabaseManager.AddBookingToDB(booking);
+            Event.DecrementTicket(booking.bookedEvent, booking.numOfTickets);
+            
         }
 
         public static void ViewBookings(string username, Role role)
