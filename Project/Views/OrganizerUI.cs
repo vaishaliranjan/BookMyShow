@@ -51,6 +51,7 @@ namespace Project.UILayer
                     break;
 
                 case (int)OrganizerUIOptions.CancelEvent:
+                    EventUI.CancelEventUI(username, Role.Organizer);
                     break;
 
                 case (int)OrganizerUIOptions.LogOut:
@@ -71,10 +72,7 @@ namespace Project.UILayer
             OrganizerUI.ORGANIZERUI(username);
         }
 
-        public static void CancelEventUI(string username)
-        {
-
-        }
+        
 
        
     }

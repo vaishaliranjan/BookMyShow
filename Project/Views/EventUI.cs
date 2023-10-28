@@ -77,5 +77,32 @@ namespace Project.Views
             }
 
         }
+
+        public static void CancelEventUI(string username, Role role)
+        {
+            if(role== Role.Organizer)
+            {
+                Event.ViewEvents(username, role);
+            }
+            Console.Write("Select EventId: ");
+            int deleteEventId = Convert.ToInt32(Console.ReadLine());
+            Event.DeleteEvent(deleteEventId);
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine();
+            Console.WriteLine("-------------------------------------------------------------");
+            Console.WriteLine("-                Event Deleted Successfully!                -");
+            Console.WriteLine("-------------------------------------------------------------");
+            Console.ResetColor();
+            if(role == Role.Admin)
+            {
+                AdminUI.ADMINUI(username);
+            }
+            else
+            {
+                OrganizerUI.ORGANIZERUI(username);
+            }
+            
+
+        }
     }
 }

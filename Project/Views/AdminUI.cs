@@ -89,24 +89,43 @@ namespace Project.UILayer
 
             Event.ViewEvents(username, Role.Admin);
             Console.WriteLine();
-
             Console.WriteLine("1. Add new Event");
             Console.WriteLine("2. Cancel an Event");
             Console.WriteLine("0. Back");
             Console.WriteLine();
-            Console.Write("Enter any one: ");
 
-            var input = Console.ReadLine();
-            if (input == "1")
+
+
+            while (true)
             {
-                EventUI.CreateEventUI(username, Role.Admin);
-                ADMINUI(username);
+               
+                Console.Write("Enter any one: ");
+
+                var input = Console.ReadLine();
+                if (input == "1")
+                {
+                    EventUI.CreateEventUI(username, Role.Admin);
+                    ADMINUI(username);
+                    break;
+                }
+                else if (input == "2")
+                {
+                    EventUI.CancelEventUI(username, Role.Admin);
+                    ADMINUI(username);
+                    break;
+                }
+                else if (input == "0")
+                {
+                    Console.WriteLine();
+                    ADMINUI(username);
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input!!");
+                }
             }
-            else
-            {
-                Console.WriteLine();
-                ADMINUI(username);
-            }
+            
         }
 
 

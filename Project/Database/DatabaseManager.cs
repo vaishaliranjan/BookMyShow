@@ -102,92 +102,7 @@ namespace Project
             File.WriteAllText(_venues_path, venueJSON);
             Console.WriteLine();
             Console.WriteLine("Venue added successfully");
-            Console.WriteLine(
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                );
+            Console.WriteLine();
         }
         public static void AddEventToDB(Event e)
         {
@@ -223,6 +138,21 @@ namespace Project
                     venueDetails.Remove(venue);
                     var venueJSON = JsonConvert.SerializeObject(venueDetails);
                     File.WriteAllText(_venues_path, venueJSON);
+                    break;
+                }
+            }
+        }
+
+        public static void RemoveEvent(int id)
+        {
+            var events = ReadEvents();
+            foreach (var e in events)
+            {
+                if (e.Id==id)
+                {
+                    events.Remove(e);
+                    var eventsJSON = JsonConvert.SerializeObject(events);
+                    File.WriteAllText(_events_path, eventsJSON);
                     break;
                 }
             }

@@ -59,6 +59,7 @@ namespace Project.BusinessLayer
                 foreach (Event e in events)
                 {
                     Console.WriteLine();
+                    Console.WriteLine("Event Id: " + e.Id);
                     Console.WriteLine("Name: " + e.Name);
                     Console.WriteLine("Timing: " + e.artist.timing);
                     Console.WriteLine("Artist: " + e.artist.Name);
@@ -82,6 +83,11 @@ namespace Project.BusinessLayer
         public static void AddEvent(Event newEvent)
         {
             DatabaseManager.AddEventToDB(newEvent);
+        }
+
+        public static void DeleteEvent(int deleteEventId)
+        {
+            DatabaseManager.RemoveEvent(deleteEventId);
         }
     }
 }
