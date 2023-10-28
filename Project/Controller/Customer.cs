@@ -8,7 +8,14 @@ namespace Project.BusinessLayer
 {
     public class Customer : User
     {
-        
+        public static Customer GetCustomer(string username)
+        {
+            var customers = DatabaseManager.ReadCustomer();
+
+            Customer customer = customers.Single(u => u.Username == username);
+            return customer;
+        }
+
         public static void ViewCustomers()
         {
             var users= DatabaseManager.ReadUsers();

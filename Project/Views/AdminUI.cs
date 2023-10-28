@@ -1,4 +1,5 @@
 ﻿using Project.BusinessLayer;
+using Project.Controller;
 using Project.UI;
 using Project.Views;
 using System;
@@ -33,7 +34,8 @@ namespace Project.UILayer
             Console.WriteLine("4. View events");
             Console.WriteLine("5. View organizers");
             Console.WriteLine("6. View customers");
-            Console.WriteLine("7. Log out");
+            Console.WriteLine("7. View bookings");
+            Console.WriteLine("8. Log out");
             Console.ResetColor();
             Console.WriteLine();
             Console.WriteLine();
@@ -64,7 +66,12 @@ namespace Project.UILayer
             {
                 ViewCustomersUI(username);
             }
-            else if(input == "7")
+            else if (input == "7")
+            {
+                BookingsUI.ViewBookingsUI(username, Role.Admin);
+                
+            }
+            else if(input == "8")
             {
                 AuthManager<User>.Logout();
             }

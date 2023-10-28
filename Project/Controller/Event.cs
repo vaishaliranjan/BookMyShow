@@ -16,7 +16,13 @@ namespace Project.BusinessLayer
         public int NumOfTicket;
         public float Price;
 
+        public static Event GetEvent(int  eventId)
+        {
+            var events = DatabaseManager.ReadEvents();
 
+            Event e = events.Single(e => e.Id == eventId);
+            return e;
+        }
         public static void ViewEvents(string username, Role r)
         {
             List<Event> events = DatabaseManager.ReadEvents();
@@ -28,7 +34,7 @@ namespace Project.BusinessLayer
             Console.WriteLine("-                                                           -");
             Console.WriteLine("-                                                           -");
             Console.WriteLine("-------------------------------------------------------------");
-            if (r == Role.Admin)
+            if (r == Role.Admin || r== Role.Customer)
             {
                 ShowEvents(events);
             }

@@ -1,4 +1,6 @@
 ﻿using Project.BusinessLayer;
+using Project.Controller;
+using Project.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,11 +41,18 @@ namespace Project.UILayer
                 
                 while (true)
                 {
-                    Console.Write("Press 0 to exit to main menu: ");
+                    Console.WriteLine("1. Book Ticket ");
+                    Console.WriteLine("0. Exit ");
+                    Console.Write("Enter any one: ");
                     string ip= Console.ReadLine();
                     if (ip == "0")
                     {
                         CustomerUI.CUSTOMERUI(username);
+                        break;
+                    }
+                    else if(ip == "1")
+                    {
+                       BookingsUI.BookTicketsUI(username, Role.Customer);
                         break;
                     }
                     Console.WriteLine();
@@ -51,6 +60,19 @@ namespace Project.UILayer
                     Console.WriteLine();
                 }
             }
+            else if (input == "2")
+            {
+                BookingsUI.ViewBookingsUI(username, Role.Customer);
+            }
+            else
+            {
+                AuthManager<User>.Logout();
+            }
+
+            
         }
+
+
+        
     }
 }

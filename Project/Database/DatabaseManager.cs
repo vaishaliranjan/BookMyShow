@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Project.BusinessLayer;
+using Project.Controller;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
@@ -24,6 +25,8 @@ namespace Project
         private static string _venues_path = @"C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Venues.json";
         private static string _events_path = @"C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Events.json";
 
+        private static string _bookings_path = @"C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Bookings.json";
+
         public static List<User> ReadUsers()
         {
             var allUsers= File.ReadAllText(_user_path);
@@ -38,6 +41,23 @@ namespace Project
             var organizers = users.FindAll(o=> o.role == Role.Organizer);
 
             return organizers;
+        }
+
+        public static List<Customer> ReadCustomer()
+        {
+            var allUsers = File.ReadAllText(_user_path);
+            List<Customer> users = JsonConvert.DeserializeObject<List<Customer>>(allUsers);
+            var customers = users.FindAll(c => c.role == Role.Customer);
+
+            return customers;
+        }
+        public static List<Booking> ReadBookings()
+        {
+            var allBookings = File.ReadAllText(_bookings_path);
+            List<Booking> bookings = JsonConvert.DeserializeObject<List<Booking>>(allBookings);
+            
+
+            return bookings;
         }
         public static List<Artist> ReadArtists()
         {
@@ -111,6 +131,15 @@ namespace Project
             var eventsJSON = JsonConvert.SerializeObject(events);
             File.WriteAllText(_events_path, eventsJSON);
             
+
+        }
+        public static void AddBookingToDB(Booking b)
+        {
+            var bookings = ReadBookings();
+            bookings.Add(b);
+            var bookingsJSON = JsonConvert.SerializeObject(bookings);
+            File.WriteAllText(_bookings_path, bookingsJSON);
+
 
         }
         public static void RemoveArtist(Artist deleteArtist)
