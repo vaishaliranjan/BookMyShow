@@ -66,6 +66,7 @@ namespace Project.Controller
                     Console.WriteLine("Event Name: " + booking.bookedEvent.Name);
                     Console.WriteLine("Artist: "+ booking.bookedEvent.artist.Name);
                     Console.WriteLine("Venue: "+ booking.bookedEvent.venue.Place);
+                    Console.WriteLine("Date: "+ booking.bookedEvent.artist.timing);
                     Console.WriteLine("Number of Tickets: "+ booking.numOfTickets);
                     Console.WriteLine("Price: "+ booking.totalPrice);
                     Console.WriteLine();

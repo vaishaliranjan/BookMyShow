@@ -1,1 +1,17 @@
-[{"artistId":1,"Name":"Arijit Singh","timing":"2023-10-31T15:30:00Z"},{"artistId":2,"Name":"Ankit Singh","timing":"2023-10-31T15:30:00Z"},{"artistId":3,"Name":"Sunidhi Singh","timing":"2023-10-31T15:30:00Z"}]
+[
+    {
+        "artistId": 1,
+        "Name": "Arijit Singh",
+        "timing": "2023-10-31T15:30:00Z"
+    },
+    {
+        "artistId": 2,
+        "Name": "Ankit Singh",
+        "timing": "2023-10-31T15:30:00Z"
+    },
+    {
+        "artistId": 3,
+        "Name": "Sunidhi Singh",
+        "timing": "2023-10-31T15:30:00Z"
+    }
+]
