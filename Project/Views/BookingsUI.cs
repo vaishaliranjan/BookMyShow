@@ -12,6 +12,11 @@ namespace Project.Views
 {
     public class BookingsUI
     {
+        enum BookingsOptions
+        {
+            AddNewBooking=1,
+            Exit=0
+        }
         public static void ViewBookingsUI(string username, Role role)
         {
             Console.WriteLine();
@@ -33,23 +38,25 @@ namespace Project.Views
 
                     Console.Write("Enter any one: ");
 
-                    var input = Console.ReadLine();
-                    if (input == "1")
+                    int input = Convert.ToInt32(Console.ReadLine());
+                    switch (input)
                     {
-                        BookTicketsUI(username, role);
-                        break;
+                        case (int)BookingsOptions.AddNewBooking:
+                            BookTicketsUI(username, role);
+                            break;
+
+                        case (int)BookingsOptions.Exit:
+                            Console.WriteLine();
+                            AdminUI.ADMINUI(username);
+                            break;
+
+                        default:
+                            Console.WriteLine();
+                            Console.WriteLine("Invalid input!!");
+                            continue;
                     }
-                  
-                    else if (input == "0")
-                    {
-                        Console.WriteLine();
-                        AdminUI.ADMINUI(username);
-                        break;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Invalid input!!");
-                    }
+
+                    break;
                 }
 
             }
@@ -59,19 +66,22 @@ namespace Project.Views
                 while (true)
                 {
 
-                    Console.Write("Enter 0: ");
-
-                    var input = Console.ReadLine();
-                    if (input == "0")
+                    int input = Convert.ToInt32(Console.ReadLine());
+                    switch (input)
                     {
+                       
+                        case (int)BookingsOptions.Exit:
+                            Console.WriteLine();
+                            CustomerUI.CUSTOMERUI(username);
+                            break;
+                          
 
-                        CustomerUI.CUSTOMERUI(username);
-                        break;
+                        default:
+                            Console.WriteLine();
+                            Console.WriteLine("Invalid input!!");
+                            continue;
                     }
-                    else
-                    {
-                        Console.WriteLine("Invalid input!!");
-                    }
+                    break;
                 }
 
             }

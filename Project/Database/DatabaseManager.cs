@@ -11,15 +11,24 @@ using System.Threading.Tasks;
 
 namespace Project
 {
-    public static class DatabaseManager
+    //Singleton class-> DBManager
+    public class DatabaseManager
     {
-        static List<User> users;
-        static List<Artist> artists = new List<Artist>();
+        private static DatabaseManager _dbObject;
+        private DatabaseManager() { }
 
-
+        public static DatabaseManager DbObject
+        {
+            get
+            {
+                if(_dbObject == null)
+                {
+                    _dbObject = new DatabaseManager();
+                }
+                return _dbObject;
+            }
+        }
         // PATHS
-
-
         private static string _user_path = @"C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Users.json";
         private static string _artist_path = @"C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Artists.json";
         private static string _venues_path = @"C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Venues.json";
@@ -27,32 +36,15 @@ namespace Project
 
         private static string _bookings_path = @"C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Bookings.json";
 
-        public static void DecTicketToDB(int eventId, int numOfTickets)
-        {
-            var events = DatabaseManager.ReadEvents();
-            Event e = new Event();
-            foreach (var eve in events)
-            {
-                if (eve.Id == eventId)
-                {
-                    e = eve;
-                    e.NumOfTicket= e.NumOfTicket- numOfTickets;
-                    events.Remove(eve);
-                    break;
-                }
-            }
-            events.Add(e);
-            var eventsJSON = JsonConvert.SerializeObject(events);
-            File.WriteAllText(_events_path, eventsJSON);
-        }
-        public static List<User> ReadUsers()
+        
+        public  List<User> ReadUsers()
         {
             var allUsers= File.ReadAllText(_user_path);
             List<User> users = JsonConvert.DeserializeObject<List<User>>(allUsers);
 
             return users;
         }
-        public static List<Organizer> ReadOrganizer()
+        public  List<Organizer> ReadOrganizer()
         {
             var allUsers = File.ReadAllText(_user_path);
             List<Organizer> users = JsonConvert.DeserializeObject<List<Organizer>>(allUsers);
@@ -60,8 +52,7 @@ namespace Project
 
             return organizers;
         }
-
-        public static List<Customer> ReadCustomer()
+        public  List<Customer> ReadCustomer()
         {
             var allUsers = File.ReadAllText(_user_path);
             List<Customer> users = JsonConvert.DeserializeObject<List<Customer>>(allUsers);
@@ -69,7 +60,7 @@ namespace Project
 
             return customers;
         }
-        public static List<Booking> ReadBookings()
+        public  List<Booking> ReadBookings()
         {
             var allBookings = File.ReadAllText(_bookings_path);
             List<Booking> bookings = JsonConvert.DeserializeObject<List<Booking>>(allBookings);
@@ -77,7 +68,7 @@ namespace Project
 
             return bookings;
         }
-        public static List<Artist> ReadArtists()
+        public  List<Artist> ReadArtists()
         {
             var allArtists = File.ReadAllText(_artist_path);
             var settings = new JsonSerializerSettings
@@ -89,8 +80,7 @@ namespace Project
 
             return artists;
         }
-
-        public static List<Venue> ReadVenues()
+        public  List<Venue> ReadVenues()
         {
             var allVenue = File.ReadAllText(_venues_path);
            
@@ -98,8 +88,7 @@ namespace Project
 
             return venues;
         }
-
-        public static List<Event> ReadEvents()
+        public  List<Event> ReadEvents()
         {
             var allEvents = File.ReadAllText(_events_path);
 
@@ -107,17 +96,15 @@ namespace Project
 
             return events;
         }
-
-        public static void AddUser(User newUser)
+        public  void AddUser(User newUser)
         {
-            List<User> allUsers = DatabaseManager.ReadUsers();
+            List<User> allUsers = ReadUsers();
             allUsers.Add(newUser);
 
             var usersJSON = JsonConvert.SerializeObject(allUsers);
             File.WriteAllText(_user_path, usersJSON);
         }
-
-        public static void AddArtist(Artist newArtist)
+        public void AddArtist(Artist newArtist)
         {
             
             var artistDetails = ReadArtists();
@@ -129,8 +116,7 @@ namespace Project
             Console.WriteLine("Artist added successfully");
             Console.WriteLine();
         }
-
-        public static void AddVenue(Venue venue)
+        public  void AddVenue(Venue venue)
         {
 
             var venueDetails = ReadVenues();
@@ -142,7 +128,7 @@ namespace Project
             Console.WriteLine("Venue added successfully");
             Console.WriteLine();
         }
-        public static void AddEventToDB(Event e)
+        public  void AddEventToDB(Event e)
         {
             var events = ReadEvents();
             events.Add(e);
@@ -151,7 +137,7 @@ namespace Project
             
 
         }
-        public static void AddBookingToDB(Booking b)
+        public  void AddBookingToDB(Booking b)
         {
             var bookings = ReadBookings();
             bookings.Add(b);
@@ -160,7 +146,7 @@ namespace Project
 
 
         }
-        public static void RemoveArtist(Artist deleteArtist)
+        public  void RemoveArtist(Artist deleteArtist)
         {
             var artistDetails = ReadArtists();
             foreach (var artist in artistDetails)
@@ -174,8 +160,7 @@ namespace Project
                 }
             }
         }
-
-        public static void RemoveVenue(Venue deleteVenue)
+        public  void RemoveVenue(Venue deleteVenue)
         {
             var venueDetails = ReadVenues();
             foreach (var venue in venueDetails)
@@ -189,8 +174,7 @@ namespace Project
                 }
             }
         }
-
-        public static void RemoveEvent(int id)
+        public  void RemoveEvent(int id)
         {
             var events = ReadEvents();
             foreach (var e in events)
@@ -203,6 +187,24 @@ namespace Project
                     break;
                 }
             }
+        }
+        public void DecTicketToDB(int eventId, int numOfTickets)
+        {
+            var events = ReadEvents();
+            Event e = new Event();
+            foreach (var eve in events)
+            {
+                if (eve.Id == eventId)
+                {
+                    e = eve;
+                    e.NumOfTicket = e.NumOfTicket - numOfTickets;
+                    events.Remove(eve);
+                    break;
+                }
+            }
+            events.Add(e);
+            var eventsJSON = JsonConvert.SerializeObject(events);
+            File.WriteAllText(_events_path, eventsJSON);
         }
     }
 

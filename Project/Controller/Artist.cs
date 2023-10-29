@@ -24,12 +24,12 @@ namespace Project.BusinessLayer
         }
         public static void AddNewArtist(Artist artist)
         {
-            DatabaseManager.AddArtist(artist);
+            DatabaseManager.DbObject.AddArtist(artist);
         }
 
         public static void ViewArtists()
         {
-            var artists = DatabaseManager.ReadArtists();
+            var artists = DatabaseManager.DbObject.ReadArtists();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("-------------------------------------------------------------");
             Console.WriteLine("-                                                           -");

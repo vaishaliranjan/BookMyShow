@@ -6,6 +6,12 @@ namespace Project.UILayer
 {
     public class HomePage
     {
+        enum HomePageOptions
+        {
+            Login =1,
+            Signup=2,
+            Exit=3
+        }
         static void Main(string[] args)
         {
             HomePageFunction();
@@ -40,26 +46,29 @@ namespace Project.UILayer
             while (true)
             {
                 Console.WriteLine("Choose any number: ");
-                string input = Console.ReadLine();
+                int input = Convert.ToInt32(Console.ReadLine());
 
-                //DatabaseManager.ReadJSON();
-                if (input == "1")
+                switch (input)
                 {
-                    Console.ResetColor();
-                    Authenticate.LoginUI();
-                    break;
+                    case (int)HomePageOptions.Login:
+                        Console.ResetColor();
+                        Authenticate.LoginUI();
+                        break;
+
+                    case (int)HomePageOptions.Signup:
+                        Console.ResetColor();
+                        RegistrationUI.AddNewUserUI(Role.Customer);
+                        break;
+
+                    case (int)HomePageOptions.Exit:
+                        Environment.Exit(0);
+                        break;
+
+                    default:
+                        Console.WriteLine("Invalid input!");
+                        continue;
                 }
-                else if(input == "2")
-                {
-                    Console.ResetColor();
-                    RegistrationUI.AddNewUserUI(Role.Customer);
-                    break;
-                }
-                else if(input == "3")
-                {
-                    Environment.Exit(0);
-                }
-                break;
+                break;   
             }
         }
     }

@@ -18,11 +18,11 @@ namespace Project.BusinessLayer
         }
         public static void AddNewVenue(Venue venue)
         {
-            DatabaseManager.AddVenue(venue);
+            DatabaseManager.DbObject.AddVenue(venue);
         }
         public static void ViewVenues()
         {
-            List<Venue> venues = DatabaseManager.ReadVenues();
+            List<Venue> venues = DatabaseManager.DbObject.ReadVenues();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("-------------------------------------------------------------");
             Console.WriteLine("-                                                           -");

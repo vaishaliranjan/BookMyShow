@@ -28,16 +28,16 @@ namespace Project.UI
             bool flag = false;
             if (role == Role.Admin)
             {
-                flag =AuthManager<Admin>.Register(name, username, email, password, Role.Admin);
+                flag =AuthManager<Admin>.AuthObject.Register(name, username, email, password, Role.Admin);
             }
 
             else if (role == Role.Customer)
             {
-                flag = AuthManager<Customer>.Register(name, username, email, password, Role.Customer);
+                flag = AuthManager<Customer>.AuthObject.Register(name, username, email, password, Role.Customer);
             }
             else if (role == Role.Organizer)
             {
-                flag = AuthManager<Organizer>.Register(name, username, email, password, Role.Organizer);
+                flag = AuthManager<Organizer>.AuthObject.Register(name, username, email, password, Role.Organizer);
             }
             if (flag)
             {

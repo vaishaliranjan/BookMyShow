@@ -9,17 +9,9 @@ namespace Project.BusinessLayer
     public class Organizer:User
     {
 
-
-        public Organizer():base()
-        { }
-        //public Organizer(int id, string name, string username, string email, string password)
-        //    : base(id, name, username, email, password)
-        //{
-        //    role = Role.Organizer;
-        //}
         public static void ViewOrganizers()
         {
-            var users = DatabaseManager.ReadUsers();
+            var users = DatabaseManager.DbObject.ReadUsers();
             var organizers = users.FindAll(u => u.role == Role.Organizer);
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("-------------------------------------------------------------");
@@ -45,24 +37,24 @@ namespace Project.BusinessLayer
         }
         public static Organizer GetOrganizer(string username)
         {
-            var organizers = DatabaseManager.ReadOrganizer();
+            var organizers = DatabaseManager.DbObject.ReadOrganizer();
            
             Organizer organizer = organizers.Single(u => u.Username == username);
             return organizer;
         }
         public static Artist SelectArtist(int id)
         {
-            var artists = DatabaseManager.ReadArtists();
+            var artists = DatabaseManager.DbObject.ReadArtists();
             var choosenArtist = artists.Single(a => a.artistId == id);
-           DatabaseManager.RemoveArtist(choosenArtist);
+           DatabaseManager.DbObject.RemoveArtist(choosenArtist);
             return choosenArtist;
         }
 
         public static Venue SelectVenue(int id)
         {
-            var venues = DatabaseManager.ReadVenues();
+            var venues = DatabaseManager.DbObject.ReadVenues();
             var choosenVenue = venues.Single(a => a.venueId == id);
-            DatabaseManager.RemoveVenue(choosenVenue);
+            DatabaseManager.DbObject.RemoveVenue(choosenVenue);
             return choosenVenue;
         }
     }

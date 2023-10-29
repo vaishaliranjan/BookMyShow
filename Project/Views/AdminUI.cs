@@ -15,6 +15,23 @@ namespace Project.UILayer
 {
     internal class AdminUI
     {
+        enum AdminUIOptions
+        {
+            ViewAdmins=1,
+            ViewArtists=2,
+            ViewVenues=3,
+            ViewEvents=4,
+            ViewOrganizers=5,
+            ViewCustomers=6,
+            ViewBookings=7,
+            LogOut=8
+        }
+        public enum AdminFuncOptions
+        {
+            AddNew = 1,
+            Cancel = 2,
+            Exit = 0
+        }
         public static void ADMINUI(string username)
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
@@ -39,48 +56,52 @@ namespace Project.UILayer
             Console.ResetColor();
             Console.WriteLine();
             Console.WriteLine();
+            while (true)
+            {
+                Console.Write("Enter any one: ");
+                int input = Convert.ToInt32(Console.ReadLine());
+                switch (input)
+                {
+                    case (int)AdminUIOptions.ViewAdmins:
+                        ViewAdminsUI(username);
+                        break;
 
-            Console.Write("Enter any one: ");
-            var input = Console.ReadLine();
-            if (input == "1")
-            {
-                ViewAdminsUI(username);
-            }
-            else if (input == "2")
-            {
-                ViewArtistUI(username);
-            }
-            else if (input == "3")
-            {
-                ViewVenuesUI(username);
-            }
-            else if (input == "4")
-            {
-                ViewEventsUI(username);
-            }
-            else if (input == "5")
-            {
-                ViewOrganizersUI(username);
-            }
-            else if (input == "6")
-            {
-                ViewCustomersUI(username);
-            }
-            else if (input == "7")
-            {
-                BookingsUI.ViewBookingsUI(username, Role.Admin);
-                
-            }
-            else if(input == "8")
-            {
-                AuthManager<User>.Logout();
-            }
-            else
-            {
-                Console.WriteLine();
-                Console.WriteLine("Invalid input!");
-                Console.WriteLine();
-            }
+                    case (int)AdminUIOptions.ViewArtists:
+                        ViewArtistUI(username);
+                        break;
+
+                    case (int)AdminUIOptions.ViewVenues:
+                        ViewVenuesUI(username);
+                        break;
+
+                    case (int)AdminUIOptions.ViewEvents:
+                        ViewEventsUI(username);
+                        break;
+
+                    case (int)AdminUIOptions.ViewOrganizers:
+                        ViewOrganizersUI(username);
+                        break;
+
+                    case (int)AdminUIOptions.ViewCustomers:
+                        ViewCustomersUI(username);
+                        break;
+
+                    case (int)AdminUIOptions.ViewBookings:
+                        BookingsUI.ViewBookingsUI(username, Role.Admin);
+                        break;
+
+                    case (int)AdminUIOptions.LogOut:
+                        AuthManager<User>.AuthObject.Logout();
+                        break;
+
+                    default:
+                        Console.WriteLine();
+                        Console.WriteLine("Invalid input!");
+                        Console.WriteLine();
+                        continue;
+                }
+                break;
+            }   
         }
 
        
@@ -100,37 +121,35 @@ namespace Project.UILayer
             Console.WriteLine("2. Cancel an Event");
             Console.WriteLine("0. Back");
             Console.WriteLine();
-
-
-
             while (true)
             {
                
                 Console.Write("Enter any one: ");
 
-                var input = Console.ReadLine();
-                if (input == "1")
+                int input = Convert.ToInt32(Console.ReadLine());
+                switch (input)
                 {
-                    EventUI.CreateEventUI(username, Role.Admin);
-                    ADMINUI(username);
-                    break;
+                    case (int)AdminFuncOptions.AddNew:
+                        EventUI.CreateEventUI(username, Role.Admin);
+                        ADMINUI(username);
+                        break;
+
+                    case (int)AdminFuncOptions.Cancel:
+                        EventUI.CancelEventUI(username, Role.Admin);
+                        ADMINUI(username);
+                        break;
+
+                    case (int)AdminFuncOptions.Exit:
+                        Console.WriteLine();
+                        ADMINUI(username);
+                        break;
+
+                    default:
+                        Console.WriteLine("Invalid Input!!");
+                        Console.WriteLine();
+                        continue;
                 }
-                else if (input == "2")
-                {
-                    EventUI.CancelEventUI(username, Role.Admin);
-                    ADMINUI(username);
-                    break;
-                }
-                else if (input == "0")
-                {
-                    Console.WriteLine();
-                    ADMINUI(username);
-                    break;
-                }
-                else
-                {
-                    Console.WriteLine("Invalid input!!");
-                }
+                break;
             }
             
         }
@@ -150,18 +169,33 @@ namespace Project.UILayer
             Console.WriteLine("1. Add new Organizer");
             Console.WriteLine("0. Back");
             Console.WriteLine();
-            Console.Write("Enter any one: ");
+            while (true)
+            {
+                Console.Write("Enter any one: ");
+                int input = Convert.ToInt32(Console.ReadLine());
 
-            var input = Console.ReadLine();
-            if (input == "1")
-            {
-                RegistrationUI.AddNewUserUI(Role.Organizer);
+                switch (input)
+                {
+                    case (int)AdminFuncOptions.AddNew:
+                        RegistrationUI.AddNewUserUI(Role.Organizer);
+                        break;
+
+                    case (int)AdminFuncOptions.Exit:
+                        Console.WriteLine();
+                        ADMINUI(username);
+                        break;
+
+                    default:
+                        Console.WriteLine();
+                        Console.WriteLine("Invalid input!!");
+                        continue;
+                }
+                break;
             }
-            else
-            {
-                Console.WriteLine();
-                ADMINUI(username);
-            }
+            
+
+           
+          
         }
 
 
@@ -179,18 +213,30 @@ namespace Project.UILayer
             Console.WriteLine("1. Add new Artist");
             Console.WriteLine("0. Back");
             Console.WriteLine();
-            Console.Write("Enter any one: ");
+            while (true)
+            {
+                Console.Write("Enter any one: ");
+                int input = Convert.ToInt32(Console.ReadLine());
 
-            var input = Console.ReadLine();
-            if (input == "1")
-            {
-                AddNewArtistUI(username);
+                switch (input)
+                {
+                    case (int)AdminFuncOptions.AddNew:
+                        AddNewArtistUI(username);
+                        break;
+
+                    case (int)AdminFuncOptions.Exit:
+                        Console.WriteLine();
+                        ADMINUI(username);
+                        break;
+
+                    default:
+                        Console.WriteLine();
+                        Console.WriteLine("Invalid input!!");
+                        continue;
+                }
+                break;
             }
-            else
-            {
-                Console.WriteLine();
-                ADMINUI(username);
-            }
+
         }
 
         //************************************************* VIEW CUSTOMERS UI ************************************************
@@ -205,18 +251,30 @@ namespace Project.UILayer
             Console.WriteLine("1. Add new Customer");
             Console.WriteLine("0. Back");
             Console.WriteLine();
-            Console.Write("Enter any one: ");
+            while (true)
+            {
+                Console.Write("Enter any one: ");
+                int input = Convert.ToInt32(Console.ReadLine());
 
-            var input = Console.ReadLine();
-            if(input == "1")
-            {
-                RegistrationUI.AddNewUserUI(Role.Customer);
+                switch (input)
+                {
+                    case (int)AdminFuncOptions.AddNew:
+                        RegistrationUI.AddNewUserUI(Role.Customer);
+                        break;
+
+                    case (int)AdminFuncOptions.Exit:
+                        Console.WriteLine();
+                        ADMINUI(username);
+                        break;
+
+                    default:
+                        Console.WriteLine();
+                        Console.WriteLine("Invalid input!!");
+                        continue;
+                }
+                break;
             }
-            else
-            {
-                Console.WriteLine();
-                ADMINUI(username);
-            }
+           
         }
 
 
@@ -233,18 +291,30 @@ namespace Project.UILayer
             Console.WriteLine("1. Add new Venue");
             Console.WriteLine("0. Back");
             Console.WriteLine();
-            Console.Write("Enter any one: ");
+            while (true)
+            {
+                Console.Write("Enter any one: ");
+                int input = Convert.ToInt32(Console.ReadLine());
 
-            var input = Console.ReadLine();
-            if (input == "1")
-            {
-                AddNewVenueUI(username);
+                switch (input)
+                {
+                    case (int)AdminFuncOptions.AddNew:
+                        AddNewVenueUI(username);
+                        break;
+
+                    case (int)AdminFuncOptions.Exit:
+                        Console.WriteLine();
+                        ADMINUI(username);
+                        break;
+
+                    default:
+                        Console.WriteLine();
+                        Console.WriteLine("Invalid input!!");
+                        continue;
+                }
+                break;
             }
-            else
-            {
-                Console.WriteLine();
-                ADMINUI(username);
-            }
+           
         }
 
         //************************************************* VIEW ADMINS UI ************************************************
@@ -260,17 +330,28 @@ namespace Project.UILayer
             Console.WriteLine("1. Add new admin");
             Console.WriteLine("0. Back");
             Console.WriteLine();
-            Console.Write("Enter any one: ");
+            while (true)
+            {
+                Console.Write("Enter any one: ");
+                int input = Convert.ToInt32(Console.ReadLine());
 
-            var input = Console.ReadLine();
-            if (input == "1")
-            {
-               RegistrationUI.AddNewUserUI(Role.Admin);
-            }
-            else
-            {
-                Console.WriteLine();
-                ADMINUI(username);
+                switch (input)
+                {
+                    case (int)AdminFuncOptions.AddNew:
+                        RegistrationUI.AddNewUserUI(Role.Admin);
+                        break;
+
+                    case (int)AdminFuncOptions.Exit:
+                        Console.WriteLine();
+                        ADMINUI(username);
+                        break;
+
+                    default:
+                        Console.WriteLine();
+                        Console.WriteLine("Invalid input!!");
+                        continue;
+                }
+                break;
             }
         }
         //ADD NEW ARTIST
@@ -280,6 +361,7 @@ namespace Project.UILayer
             var name = Console.ReadLine();
             Console.WriteLine("Enter date and time (yyyy-MM-ddTHH:mm): ");
             string userInput = Console.ReadLine();
+
             DateTime dt = DateTime.ParseExact(userInput, "yyyy-MM-ddTHH:mm", CultureInfo.InvariantCulture);
             var artist = new Artist(name, dt);
             Console.ForegroundColor = ConsoleColor.DarkMagenta;

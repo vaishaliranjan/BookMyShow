@@ -40,27 +40,34 @@ namespace Project.UILayer
 
             Console.Write("Enter any one: ");
             int input = Convert.ToInt32(Console.ReadLine());
-            switch (input)
+            while (true)
             {
-                case (int)OrganizerUIOptions.CreateEvent :
-                    EventUI.CreateEventUI(username, Role.Organizer);
-                    break;
+                switch (input)
+                {
+                    case (int)OrganizerUIOptions.CreateEvent:
+                        EventUI.CreateEventUI(username, Role.Organizer);
+                        break;
 
-                case (int)OrganizerUIOptions.ViewPreviousEvents:
-                    ViewPreviousEventsUI(username, Role.Organizer);
-                    break;
+                    case (int)OrganizerUIOptions.ViewPreviousEvents:
+                        ViewPreviousEventsUI(username, Role.Organizer);
+                        break;
 
-                case (int)OrganizerUIOptions.CancelEvent:
-                    EventUI.CancelEventUI(username, Role.Organizer);
-                    break;
+                    case (int)OrganizerUIOptions.CancelEvent:
+                        EventUI.CancelEventUI(username, Role.Organizer);
+                        break;
 
-                case (int)OrganizerUIOptions.LogOut:
-                    AuthManager<User>.Logout();
-                    break;
+                    case (int)OrganizerUIOptions.LogOut:
+                        AuthManager<User>.AuthObject.Logout();
+                        break;
 
-                default:
-                    break;
+                    default:
+                        Console.WriteLine();
+                        Console.WriteLine("Invalid Input!!!");
+                        continue; ;
+                }
+                break;
             }
+            
 
         }
 

@@ -10,7 +10,7 @@ namespace Project.BusinessLayer
     {
         public static void ViewAdmins()
         {
-            var users = DatabaseManager.ReadUsers();
+            var users = DatabaseManager.DbObject.ReadUsers();
             var admins = users.FindAll(u => u.role == Role.Admin);
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("-------------------------------------------------------------");

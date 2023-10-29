@@ -10,15 +10,14 @@ namespace Project.BusinessLayer
     {
         public static Customer GetCustomer(string username)
         {
-            var customers = DatabaseManager.ReadCustomer();
-
+            var customers = DatabaseManager.DbObject.ReadCustomer();
             Customer customer = customers.Single(u => u.Username == username);
             return customer;
         }
 
         public static void ViewCustomers()
         {
-            var users= DatabaseManager.ReadUsers();
+            var users= DatabaseManager.DbObject.ReadUsers();
             var customers = users.FindAll(u => u.role == Role.Customer);
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("-------------------------------------------------------------");

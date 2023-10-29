@@ -11,8 +11,17 @@ namespace Project.UILayer
 {
     internal class CustomerUI
     {
+        enum CustomerUIOptions
+        {
+            Exit = 0,
+            ViewEvents = 1,
+            ViewPreviousBookings = 2,
+            LogOut = 3,
+            BookTicket = 4
+        }
         public static void CUSTOMERUI(string username)
         {
+
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("*************************************************************");
             Console.WriteLine("*                                                           *");
@@ -30,49 +39,57 @@ namespace Project.UILayer
             Console.ResetColor();
             Console.WriteLine();
             Console.WriteLine();
-
-            Console.Write("Enter any one: ");
-            var input = Console.ReadLine();
-            if (input == "1")
+            while (true)
             {
-                Event.ViewEvents(username, Role.Customer);
+                Console.Write("Enter any one: ");
+                int input = Convert.ToInt32(Console.ReadLine());
 
-                Console.WriteLine();
-                
-                while (true)
+                switch (input)
                 {
-                    Console.WriteLine("1. Book Ticket ");
-                    Console.WriteLine("0. Exit ");
-                    Console.Write("Enter any one: ");
-                    string ip= Console.ReadLine();
-                    if (ip == "0")
-                    {
-                        CustomerUI.CUSTOMERUI(username);
+                    case (int)CustomerUIOptions.ViewEvents:
+                        Event.ViewEvents(username, Role.Customer);
+                        Console.WriteLine();
+                        Console.WriteLine("4. Book Ticket ");
+                        Console.WriteLine("0. Exit ");
+                        while (true)
+                        {
+                            Console.Write("Enter any one: ");
+                            int ip = Convert.ToInt32(Console.ReadLine());
+                            switch (ip)
+                            {
+                                case (int)CustomerUIOptions.BookTicket:
+                                    BookingsUI.BookTicketsUI(username, Role.Customer);
+                                    break;
+
+                                case (int)CustomerUIOptions.Exit:
+                                    CustomerUI.CUSTOMERUI(username);
+                                    break;
+
+                                default:
+                                    Console.WriteLine();
+                                    Console.WriteLine("Invalid input!");
+                                    Console.WriteLine();
+                                    continue;
+                            }
+                            break;
+                        }
                         break;
-                    }
-                    else if(ip == "1")
-                    {
-                       BookingsUI.BookTicketsUI(username, Role.Customer);
+
+                    case (int)CustomerUIOptions.ViewPreviousBookings:
+                        BookingsUI.ViewBookingsUI(username, Role.Customer);
                         break;
-                    }
-                    Console.WriteLine();
-                    Console.WriteLine("Invalid input!");
-                    Console.WriteLine();
+
+                    case (int)CustomerUIOptions.LogOut:
+                        AuthManager<User>.AuthObject.Logout();
+                        break;
+
+                    default:
+                        Console.WriteLine();
+                        Console.WriteLine("Invalid input!!");
+                        continue;
                 }
+                break;
             }
-            else if (input == "2")
-            {
-                BookingsUI.ViewBookingsUI(username, Role.Customer);
-            }
-            else
-            {
-                AuthManager<User>.Logout();
-            }
-
-            
         }
-
-
-        
     }
 }

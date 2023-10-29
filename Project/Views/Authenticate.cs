@@ -40,7 +40,7 @@ namespace Project.UILayer
                     {
                         Console.WriteLine("Password cant be blank!");
                     }
-                    string userRole = AuthManager<User>.Login(username, password);
+                    string userRole = AuthManager<User>.AuthObject.Login(username, password);
                     Console.ResetColor();
                     if (userRole=="Admin")
                     {

@@ -5,16 +5,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Project.BusinessLayer
 {
-    public static class AuthManager<T> where T: User, new()
+    public class AuthManager<T> where T : User, new()
     {
-        public static int userIDInc = 16;
-        public static string Login(string un, string pw)
+        private static AuthManager<T> _authManagerObject;
+        private AuthManager(){}
+
+        public static AuthManager<T> AuthObject
         {
-            List<User> allUsers = DatabaseManager.ReadUsers();
+            get
+            {
+                if(_authManagerObject == null)
+                {
+                    _authManagerObject = new AuthManager<T>();
+                }
+                return _authManagerObject;
+            }
+        }
+        public static int userIDInc = 16;
+        public string Login(string un, string pw)
+        {
+            List<User> allUsers = DatabaseManager.DbObject.ReadUsers();
             foreach (User user in allUsers)
             {
                 if(user.Username == un && user.Password== pw)
@@ -32,8 +47,8 @@ namespace Project.BusinessLayer
 
         }
       
-            public static bool Register(string name, string username, string email, string password, Role roleInput)
-            {
+         public  bool Register(string name, string username, string email, string password, Role roleInput)
+         {
             if (ValidateUser(username))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -46,31 +61,43 @@ namespace Project.BusinessLayer
 
             else
             {
-
-                var newUser = new T
+                if (IsValidEmail(email))
                 {
-                    UserId = userIDInc,
-                    Name = name,
-                    Username = username,
-                    Email = email,
-                    Password = password,
-                    role = (Role)roleInput,
-                };
-                userIDInc++;
+                    var newUser = new T
+                    {
+                        UserId = userIDInc,
+                        Name = name,
+                        Username = username,
+                        Email = email,
+                        Password = password,
+                        role = (Role)roleInput,
+                    };
+                    userIDInc++;
 
-                DatabaseManager.AddUser(newUser);
-                return true;
+                    DatabaseManager.DbObject.AddUser(newUser);
+                    return true;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("-------------------------------------------------------------");
+                    Console.WriteLine("-                    Enter valid email!                     -");
+                    Console.WriteLine("-------------------------------------------------------------");
+                    Console.ResetColor();
+                    return false;
+                }
+                
             }
             }
         
-        public static void Logout()
+        public void Logout()
         {
             HomePage.HomePageFunction();
         }
 
-        public static bool ValidateUser(string uname)
+        public bool ValidateUser(string uname)
         {
-            var users = DatabaseManager.ReadUsers();
+            var users = DatabaseManager.DbObject.ReadUsers();
             foreach (User user in users)
             {
                 if (user.Username == uname)
@@ -79,6 +106,12 @@ namespace Project.BusinessLayer
                 }
             }
             return false;
+        }
+        public bool IsValidEmail(string email)
+        {
+            string regex = @"^[^@\s]+@[^@\s]+\.(com|net|org|gov)$";
+            bool res = Regex.IsMatch(email, regex, RegexOptions.IgnoreCase);
+            return res;
         }
     }
 }

@@ -29,15 +29,16 @@ namespace Project.Controller
         } 
         public static void BookEvent(Booking booking)
         {
-            DatabaseManager.AddBookingToDB(booking);
+            DatabaseManager.DbObject.AddBookingToDB(booking);
             Event.DecrementTicket(booking.bookedEvent, booking.numOfTickets);
             
+
         }
 
         public static void ViewBookings(string username, Role role)
         {
 
-            var bookings = DatabaseManager.ReadBookings();
+            var bookings = DatabaseManager.DbObject.ReadBookings();
             if(role== Role.Admin)
             {
                 showBookings(bookings);
