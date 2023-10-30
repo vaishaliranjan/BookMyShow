@@ -26,7 +26,7 @@ namespace Project.BusinessLayer
                 return _authManagerObject;
             }
         }
-        public static int userIDInc = 16;
+        public static int userIDInc = 28;
         public string Login(string un, string pw)
         {
             List<User> allUsers = DatabaseManager.DbObject.ReadUsers();

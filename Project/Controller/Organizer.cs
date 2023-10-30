@@ -79,10 +79,11 @@ namespace Project.BusinessLayer
         public static Artist SelectArtist(int id)
         {
             List<Artist> artists = null;
+            artists = DatabaseManager.DbObject.ReadArtists();
             Artist choosenArtist = null;
             if (artists != null)
             {
-                artists = DatabaseManager.DbObject.ReadArtists();
+                
                 try
                 {
                     choosenArtist = artists.Single(a => a.artistId == id);

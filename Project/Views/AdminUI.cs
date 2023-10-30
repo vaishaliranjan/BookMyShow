@@ -421,13 +421,13 @@ namespace Project.UILayer
             Console.WriteLine("Enter Name:");
             var name = Console.ReadLine();
 
-        enterDate: Console.WriteLine("Enter date and time (yyyy-MM-ddTHH:mm): ");
+        enterDate: Console.WriteLine("Enter date and time (yyyy-MM-ddTHH:mm): eg(2023-11-31T04:15");
             string userInput = null;
             DateTime dt;
             try
             {
                 userInput = Console.ReadLine();
-                dt = DateTime.ParseExact(userInput, "yyyy-MM-ddTHH:mm", CultureInfo.InvariantCulture);
+                dt = DateTime.ParseExact(userInput, "yyyy-MM-ddTHH:mm", CultureInfo.CurrentCulture);
             }
             catch (Exception ex)
             {

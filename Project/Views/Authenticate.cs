@@ -25,7 +25,7 @@ namespace Project.UILayer
                 Console.WriteLine("-                                                           -");
                 Console.WriteLine("-------------------------------------------------------------");
                 Console.Write("Enter username: ");
-                string username = Console.ReadLine();
+                string username = Console.ReadLine()!;
                 if (username == null)
                 {
                     Console.WriteLine("Username can't be blank!");

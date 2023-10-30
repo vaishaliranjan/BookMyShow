@@ -52,7 +52,7 @@ namespace Project.UILayer
                 {
                     input = Convert.ToInt32(Console.ReadLine());
                 }
-                catch(Exception ex)
+                catch
                 {
                     Console.WriteLine("You can only enter a numerical value!");
                     goto homePageLabel;

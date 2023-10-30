@@ -11,7 +11,7 @@ namespace Project.UI
 {
     public static class RegistrationUI
     {
-        // ADD NEW USER
+        // ADD NEW USER-
         public static void AddNewUserUI(Role roleInput)
         {
             Console.ForegroundColor = ConsoleColor.DarkMagenta;

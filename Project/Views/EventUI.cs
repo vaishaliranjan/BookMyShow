@@ -10,7 +10,7 @@ namespace Project.Views
 {
     internal class EventUI
     {
-        public static int eventIDInc = 105;
+        public static int eventIDInc = 108;
         public static void CreateEventUI(string username, Role role)
         {
             Console.WriteLine();
@@ -22,7 +22,13 @@ namespace Project.Views
             try
             {
                 artistId = Convert.ToInt32(Console.ReadLine());
+
                 choosenArtist = Organizer.SelectArtist(artistId);
+                if (choosenArtist == null)
+                {
+                    Console.WriteLine("No such artist!");
+                    goto selectArtistId;
+                }
             }
             catch
             {
@@ -41,7 +47,12 @@ namespace Project.Views
             try
             {
                 venueId = Convert.ToInt32(Console.ReadLine());
+               
                 choosenVenue= Organizer.SelectVenue(venueId);
+                if (choosenVenue == null)
+                {
+                    goto selectVenueId;
+                }
             }
             catch(Exception ex)
             {
@@ -93,11 +104,16 @@ namespace Project.Views
             }
             else if(role ==Role.Admin)
             {
-                Console.WriteLine("Select an organizer: ");
+                selectOrganizer: Console.WriteLine("Select an organizer: ");
                 Organizer.ViewOrganizers();
                 Console.Write("Enter organizer username: ");
                 string uname =Console.ReadLine();          
                 organizerOfEvent = Organizer.GetOrganizer(uname);
+                if (organizerOfEvent == null)
+                {
+                    Console.WriteLine("No such organizer!!");
+                    goto selectOrganizer;
+                }
 
             }
             var newEvent = new Event()
