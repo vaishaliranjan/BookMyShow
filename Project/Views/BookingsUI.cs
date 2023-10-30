@@ -36,9 +36,17 @@ namespace Project.Views
                 while (true)
                 {
 
-                    Console.Write("Enter any one: ");
-
-                    int input = Convert.ToInt32(Console.ReadLine());
+                viewBookingsAdmin: Console.WriteLine("Choose any number: ");
+                    int input;
+                    try
+                    {
+                        input = Convert.ToInt32(Console.ReadLine());
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("You can only enter a numerical value!");
+                        goto viewBookingsAdmin;
+                    }
                     switch (input)
                     {
                         case (int)BookingsOptions.AddNewBooking:
@@ -66,7 +74,17 @@ namespace Project.Views
                 while (true)
                 {
 
-                    int input = Convert.ToInt32(Console.ReadLine());
+                viewBookingsCustomer: Console.WriteLine("Choose any number: ");
+                    int input;
+                    try
+                    {
+                        input = Convert.ToInt32(Console.ReadLine());
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("You can only enter a numerical value!");
+                        goto viewBookingsCustomer;
+                    }
                     switch (input)
                     {
                        
@@ -89,9 +107,25 @@ namespace Project.Views
         public static void BookTicketsUI(string username, Role role)
         {
             Console.WriteLine();
-            Console.WriteLine("Enter Event Id: ");
-            int eventId = Convert.ToInt32(Console.ReadLine());
+            Event.ViewEvents(username, role);
+        bookTickets: Console.WriteLine("Enter Event Id: ");
+            int eventId;
+            try
+            {
+                eventId = Convert.ToInt32(Console.ReadLine());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("You can only enter a numerical value!");
+                goto bookTickets;
+            }
             Event e = Event.GetEvent(eventId);
+            if (e == null)
+            {
+                Console.WriteLine("Re enter event id!!!!!");
+                Console.WriteLine();
+                goto bookTickets;
+            }
             Customer c;
             if (role == Role.Customer)
             {
@@ -99,14 +133,40 @@ namespace Project.Views
             }
             else
             {
-                Console.WriteLine("Select one customer: ");
+               selectCustomer: Console.WriteLine("Select one customer: ");
                 Customer.ViewCustomers();
-                Console.Write("Enter customer username: ");
-                string uname = Console.ReadLine();
+
+                customerUsername: Console.Write("Enter customer username: ");
+                string uname = null;
+                try
+                {
+                    uname = Console.ReadLine()!;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("You can only enter string!");
+                    goto customerUsername;
+                }
+                
                 c = Customer.GetCustomer(uname);
+                if (c == null)
+                {
+                    Console.WriteLine("Customer doesnt exist!");
+                    goto selectCustomer;
+                }
             }
-            Console.WriteLine("Enter number of tickets required: ");
-            int numOfTickets = Convert.ToInt32(Console.ReadLine());
+           
+        numofTickets: Console.WriteLine("Enter number of tickets required: ");
+            int numOfTickets;
+            try
+            {
+                numOfTickets = Convert.ToInt32(Console.ReadLine());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("You can only enter a numerical value!");
+                goto numofTickets;
+            }
             float totalprice = numOfTickets * e.Price;
             Booking b = new Booking(e, c, numOfTickets, totalprice);
 

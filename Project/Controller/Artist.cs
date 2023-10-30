@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Project.Controller;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,24 +30,34 @@ namespace Project.BusinessLayer
 
         public static void ViewArtists()
         {
-            var artists = DatabaseManager.DbObject.ReadArtists();
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("-------------------------------------------------------------");
-            Console.WriteLine("-                                                           -");
-            Console.WriteLine("-                                                           -");
-            Console.WriteLine("-                           ARTISTS                         -");
-            Console.WriteLine("-                                                           -");
-            Console.WriteLine("-                                                           -");
-            Console.WriteLine("-------------------------------------------------------------");
+            List<Artist> artists = null;
             
-            foreach (var artist in artists)
+                artists = DatabaseManager.DbObject.ReadArtists();
+            if (artists != null)
             {
-                Console.WriteLine("Artist Id: "+ artist.artistId);
-                Console.WriteLine("Artist Name: "+ artist.Name);
-                Console.WriteLine("Artist Time: "+ artist.timing);
-                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("-------------------------------------------------------------");
+                Console.WriteLine("-                                                           -");
+                Console.WriteLine("-                                                           -");
+                Console.WriteLine("-                           ARTISTS                         -");
+                Console.WriteLine("-                                                           -");
+                Console.WriteLine("-                                                           -");
+                Console.WriteLine("-------------------------------------------------------------");
+
+                foreach (var artist in artists)
+                {
+                    Console.WriteLine("Artist Id: " + artist.artistId);
+                    Console.WriteLine("Artist Name: " + artist.Name);
+                    Console.WriteLine("Artist Time: " + artist.timing);
+                    Console.WriteLine();
+                }
+                Console.ResetColor();
             }
-            Console.ResetColor();
+            else
+            {
+                Error.NotFound("artists");
+            }
+            
         }
     }
 }

@@ -58,8 +58,17 @@ namespace Project.UILayer
             Console.WriteLine();
             while (true)
             {
-                Console.Write("Enter any one: ");
-                int input = Convert.ToInt32(Console.ReadLine());
+            adminLabel: Console.WriteLine("Choose any number: ");
+                int input;
+                try
+                {
+                    input = Convert.ToInt32(Console.ReadLine());
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("You can only enter a numerical value!");
+                    goto adminLabel;
+                }
                 switch (input)
                 {
                     case (int)AdminUIOptions.ViewAdmins:
@@ -123,10 +132,18 @@ namespace Project.UILayer
             Console.WriteLine();
             while (true)
             {
-               
-                Console.Write("Enter any one: ");
 
-                int input = Convert.ToInt32(Console.ReadLine());
+            viewEventslabel: Console.WriteLine("Choose any number: ");
+                int input;
+                try
+                {
+                    input = Convert.ToInt32(Console.ReadLine());
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("You can only enter a numerical value!");
+                    goto viewEventslabel;
+                }
                 switch (input)
                 {
                     case (int)AdminFuncOptions.AddNew:
@@ -171,9 +188,17 @@ namespace Project.UILayer
             Console.WriteLine();
             while (true)
             {
-                Console.Write("Enter any one: ");
-                int input = Convert.ToInt32(Console.ReadLine());
-
+            viewOrganizersLabel: Console.WriteLine("Choose any number: ");
+                int input;
+                try
+                {
+                    input = Convert.ToInt32(Console.ReadLine());
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("You can only enter a numerical value!");
+                    goto viewOrganizersLabel;
+                }
                 switch (input)
                 {
                     case (int)AdminFuncOptions.AddNew:
@@ -215,8 +240,17 @@ namespace Project.UILayer
             Console.WriteLine();
             while (true)
             {
-                Console.Write("Enter any one: ");
-                int input = Convert.ToInt32(Console.ReadLine());
+            viewArtistLabel: Console.WriteLine("Choose any number: ");
+                int input;
+                try
+                {
+                    input = Convert.ToInt32(Console.ReadLine());
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("You can only enter a numerical value!");
+                    goto viewArtistLabel;
+                }
 
                 switch (input)
                 {
@@ -253,8 +287,17 @@ namespace Project.UILayer
             Console.WriteLine();
             while (true)
             {
-                Console.Write("Enter any one: ");
-                int input = Convert.ToInt32(Console.ReadLine());
+            viewCustomersLabel: Console.WriteLine("Choose any number: ");
+                int input;
+                try
+                {
+                    input = Convert.ToInt32(Console.ReadLine());
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("You can only enter a numerical value!");
+                    goto viewCustomersLabel;
+                }
 
                 switch (input)
                 {
@@ -293,8 +336,17 @@ namespace Project.UILayer
             Console.WriteLine();
             while (true)
             {
-                Console.Write("Enter any one: ");
-                int input = Convert.ToInt32(Console.ReadLine());
+            viewVenuesLabel: Console.WriteLine("Choose any number: ");
+                int input;
+                try
+                {
+                    input = Convert.ToInt32(Console.ReadLine());
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("You can only enter a numerical value!");
+                    goto viewVenuesLabel;
+                }
 
                 switch (input)
                 {
@@ -332,8 +384,17 @@ namespace Project.UILayer
             Console.WriteLine();
             while (true)
             {
-                Console.Write("Enter any one: ");
-                int input = Convert.ToInt32(Console.ReadLine());
+            viewAdminsLabel: Console.WriteLine("Choose any number: ");
+                int input;
+                try
+                {
+                    input = Convert.ToInt32(Console.ReadLine());
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("You can only enter a numerical value!");
+                    goto viewAdminsLabel;
+                }
 
                 switch (input)
                 {
@@ -359,10 +420,21 @@ namespace Project.UILayer
         {
             Console.WriteLine("Enter Name:");
             var name = Console.ReadLine();
-            Console.WriteLine("Enter date and time (yyyy-MM-ddTHH:mm): ");
-            string userInput = Console.ReadLine();
 
-            DateTime dt = DateTime.ParseExact(userInput, "yyyy-MM-ddTHH:mm", CultureInfo.InvariantCulture);
+        enterDate: Console.WriteLine("Enter date and time (yyyy-MM-ddTHH:mm): ");
+            string userInput = null;
+            DateTime dt;
+            try
+            {
+                userInput = Console.ReadLine();
+                dt = DateTime.ParseExact(userInput, "yyyy-MM-ddTHH:mm", CultureInfo.InvariantCulture);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Enter the date in correct format!");
+                goto enterDate;
+            }
+            
             var artist = new Artist(name, dt);
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
             Console.WriteLine();

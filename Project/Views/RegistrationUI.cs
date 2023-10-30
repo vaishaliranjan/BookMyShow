@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Project.UI
@@ -15,14 +16,69 @@ namespace Project.UI
         {
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
             Console.WriteLine();
-            Console.Write("Enter Name: ");
-            var name = Console.ReadLine();
-            Console.Write("Enter Username: ");
-            var username = Console.ReadLine();
-            Console.Write("Enter Email: ");
-            var email = Console.ReadLine();
-            Console.Write("Enter Password: ");
-            var password = Console.ReadLine();
+            string name = null;
+            while (true)
+            {
+                Console.Write("Enter Name: ");
+                name = Console.ReadLine();
+                if (String.IsNullOrEmpty(name))
+                {
+                    Console.WriteLine("Name cant be empty..");
+                    continue;
+                }
+                bool result= isValidName(name);
+                if(result)
+                {
+                    break;
+                }
+                Console.WriteLine("Name can only include characters and should have minimum 5 characters");
+            }
+            string username = null;
+            while (true)
+            {
+                Console.Write("Enter username: ");
+                username = Console.ReadLine();
+                if (String.IsNullOrEmpty(username))
+                {
+                    Console.WriteLine("username cant be empty ..");
+                    continue;
+                }
+                bool result = isValidName(username);
+                if (result)
+                {
+                    break;
+                }
+                Console.WriteLine("username can only include characters and should have minimum 5 characters");
+            }
+            string email = null;
+            while (true)
+            {
+                Console.Write("Enter Email: ");
+                email = Console.ReadLine();
+                if (String.IsNullOrEmpty(email))
+                {
+                    Console.WriteLine("Email cant be empty..");
+                    continue;
+                }
+                bool result = isValidEmail(email);
+                if (result)
+                {
+                    break;
+                }
+                Console.WriteLine("Enter a valid email address..");
+            }
+            string password = null;
+            while (true)
+            {
+                Console.Write("Enter Password: ");
+                password = Console.ReadLine();
+                if (string.IsNullOrEmpty(password))
+                {
+                    Console.WriteLine("Password cant be empty!");
+                    continue;
+                }
+                break;
+            }
             Console.ResetColor();
             var role = roleInput;
             bool flag = false;
@@ -63,6 +119,19 @@ namespace Project.UI
             {
                 RegistrationUI.AddNewUserUI(roleInput);
             }
+        }
+
+        public static bool isValidEmail(string email)
+        {
+            string regex = @"^[^@\s]+@[^@\s]+\.(com|net|org|gov)$";
+            bool res = Regex.IsMatch(email, regex, RegexOptions.IgnoreCase);
+            return res;
+        }
+        public static bool isValidName(string name)
+        {
+            string regex = @"[a-z]{5}";
+            bool res = Regex.IsMatch(name, regex, RegexOptions.IgnoreCase);
+            return res;
         }
     }
 }

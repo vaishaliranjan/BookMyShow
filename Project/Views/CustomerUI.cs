@@ -41,8 +41,17 @@ namespace Project.UILayer
             Console.WriteLine();
             while (true)
             {
-                Console.Write("Enter any one: ");
-                int input = Convert.ToInt32(Console.ReadLine());
+            customerLabel: Console.WriteLine("Choose any number: ");
+                int input;
+                try
+                {
+                    input = Convert.ToInt32(Console.ReadLine());
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("You can only enter a numerical value!");
+                    goto customerLabel;
+                }
 
                 switch (input)
                 {
@@ -53,8 +62,17 @@ namespace Project.UILayer
                         Console.WriteLine("0. Exit ");
                         while (true)
                         {
-                            Console.Write("Enter any one: ");
-                            int ip = Convert.ToInt32(Console.ReadLine());
+                        viewEvents: Console.WriteLine("Choose any number: ");
+                            int ip;
+                            try
+                            {
+                                ip = Convert.ToInt32(Console.ReadLine());
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine("You can only enter a numerical value!");
+                                goto viewEvents;
+                            }
                             switch (ip)
                             {
                                 case (int)CustomerUIOptions.BookTicket:

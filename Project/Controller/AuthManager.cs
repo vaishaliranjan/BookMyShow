@@ -61,8 +61,7 @@ namespace Project.BusinessLayer
 
             else
             {
-                if (IsValidEmail(email))
-                {
+               
                     var newUser = new T
                     {
                         UserId = userIDInc,
@@ -76,16 +75,8 @@ namespace Project.BusinessLayer
 
                     DatabaseManager.DbObject.AddUser(newUser);
                     return true;
-                }
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("-------------------------------------------------------------");
-                    Console.WriteLine("-                    Enter valid email!                     -");
-                    Console.WriteLine("-------------------------------------------------------------");
-                    Console.ResetColor();
-                    return false;
-                }
+                
+               
                 
             }
             }
@@ -107,11 +98,6 @@ namespace Project.BusinessLayer
             }
             return false;
         }
-        public bool IsValidEmail(string email)
-        {
-            string regex = @"^[^@\s]+@[^@\s]+\.(com|net|org|gov)$";
-            bool res = Regex.IsMatch(email, regex, RegexOptions.IgnoreCase);
-            return res;
-        }
+       
     }
 }

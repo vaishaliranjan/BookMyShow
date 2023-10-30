@@ -38,8 +38,17 @@ namespace Project.UILayer
             Console.WriteLine();
             Console.WriteLine();
 
-            Console.Write("Enter any one: ");
-            int input = Convert.ToInt32(Console.ReadLine());
+        organizers: Console.WriteLine("Choose any number: ");
+            int input;
+            try
+            {
+                input = Convert.ToInt32(Console.ReadLine());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("You can only enter a numerical value!");
+                goto organizers;
+            }
             while (true)
             {
                 switch (input)

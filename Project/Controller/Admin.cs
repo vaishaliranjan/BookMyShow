@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Project.Controller;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,29 +11,39 @@ namespace Project.BusinessLayer
     {
         public static void ViewAdmins()
         {
-            var users = DatabaseManager.DbObject.ReadUsers();
-            var admins = users.FindAll(u => u.role == Role.Admin);
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("-------------------------------------------------------------");
-            Console.WriteLine("-                                                           -");
-            Console.WriteLine("-                                                           -");
-            Console.WriteLine("-                         ADMINS                            -");
-            Console.WriteLine("-                                                           -");
-            Console.WriteLine("-                                                           -");
-            Console.WriteLine("-------------------------------------------------------------");
-
-            foreach (var admin in admins)
+            List<User> users = null;
+            users = DatabaseManager.DbObject.ReadUsers();
+            if (users != null)
             {
+                var admins = users.FindAll(u => u.role == Role.Admin);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("-------------------------------------------------------------");
+                Console.WriteLine("-                                                           -");
+                Console.WriteLine("-                                                           -");
+                Console.WriteLine("-                         ADMINS                            -");
+                Console.WriteLine("-                                                           -");
+                Console.WriteLine("-                                                           -");
+                Console.WriteLine("-------------------------------------------------------------");
 
-                Console.WriteLine();
-                Console.WriteLine("Id: " + admin.UserId);
-                Console.WriteLine("Name: " + admin.Name);
-                Console.WriteLine("Username: " + admin.Username);
-                Console.WriteLine("Email: " + admin.Email);
-                Console.WriteLine();
+                foreach (var admin in admins)
+                {
 
+                    Console.WriteLine();
+                    Console.WriteLine("Id: " + admin.UserId);
+                    Console.WriteLine("Name: " + admin.Name);
+                    Console.WriteLine("Username: " + admin.Username);
+                    Console.WriteLine("Email: " + admin.Email);
+                    Console.WriteLine();
+
+                }
+                Console.ResetColor();
             }
-            Console.ResetColor();
+            else
+            {
+                Error.NotFound("admins");
+            }
+            
+            
         }
     }
 }

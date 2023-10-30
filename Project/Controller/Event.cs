@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Project.Controller;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,47 +25,76 @@ namespace Project.BusinessLayer
         }
         public static Event GetEvent(int  eventId)
         {
-            var events = DatabaseManager.DbObject.ReadEvents();
-
-            Event e = events.Single(e => e.Id == eventId);
-            return e;
+            List<Event> events = null;
+            Event e = null;
+            events = DatabaseManager.DbObject.ReadEvents();
+            if (events != null)
+            {
+                try
+                {
+                    e = events.Single(e => e.Id == eventId);
+                    return e;
+                }
+                catch(Exception ex)
+                {
+                    Error.NotFound("event");
+                    return e;
+                }
+               
+            }
+            else
+            {
+                Error.NotFound("events");
+                return e;
+            }
         }
         public static void ViewEvents(string username, Role r)
         {
-            List<Event> events = DatabaseManager.DbObject.ReadEvents();
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("-------------------------------------------------------------");
-            Console.WriteLine("-                                                           -");
-            Console.WriteLine("-                                                           -");
-            Console.WriteLine("-                            EVENTS                         -");
-            Console.WriteLine("-                                                           -");
-            Console.WriteLine("-                                                           -");
-            Console.WriteLine("-------------------------------------------------------------");
-            if (r == Role.Admin || r== Role.Customer)
+            List<Event> events = null;
+             events = DatabaseManager.DbObject.ReadEvents();
+            if (events != null)
             {
-                ShowEvents(events);
-            }
-            else if (r == Role.Organizer){
-                var organizerEvents = events.FindAll(e => e.organizer.Username == username);
-                ShowEvents(organizerEvents);
 
-            }
-            void ShowEvents(List<Event> events)
-            {
-                foreach (Event e in events)
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("-------------------------------------------------------------");
+                Console.WriteLine("-                                                           -");
+                Console.WriteLine("-                                                           -");
+                Console.WriteLine("-                            EVENTS                         -");
+                Console.WriteLine("-                                                           -");
+                Console.WriteLine("-                                                           -");
+                Console.WriteLine("-------------------------------------------------------------");
+                if (r == Role.Admin || r == Role.Customer)
                 {
-                    Console.WriteLine();
-                    Console.WriteLine("Event Id: " + e.Id);
-                    Console.WriteLine("Name: " + e.Name);
-                    Console.WriteLine("Timing: " + e.artist.timing);
-                    Console.WriteLine("Artist: " + e.artist.Name);
-                    Console.WriteLine("Venue: " + e.venue.Place);
-                    Console.WriteLine("Number of tickets left: " + e.NumOfTicket);
-                    Console.WriteLine("Price per ticket: " + e.Price);
-                    Console.WriteLine();
+                    ShowEvents(events);
                 }
+                else if (r == Role.Organizer)
+                {
+                    var organizerEvents = events.FindAll(e => e.organizer.Username == username);
+                    ShowEvents(organizerEvents);
+
+                }
+                void ShowEvents(List<Event> events)
+                {
+                    foreach (Event e in events)
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("Event Id: " + e.Id);
+                        Console.WriteLine("Name: " + e.Name);
+                        Console.WriteLine("Timing: " + e.artist.timing);
+                        Console.WriteLine("Artist: " + e.artist.Name);
+                        Console.WriteLine("Venue: " + e.venue.Place);
+                        Console.WriteLine("Number of tickets left: " + e.NumOfTicket);
+                        Console.WriteLine("Price per ticket: " + e.Price);
+                        Console.WriteLine();
+                    }
+                }
+                Console.ResetColor();
             }
-            Console.ResetColor();
+            else
+            {
+                Error.NotFound("events");
+            }
         }
         public static void AddEvent(Event newEvent)
         {

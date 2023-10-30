@@ -16,26 +16,76 @@ namespace Project.Views
             Console.WriteLine();
             Console.WriteLine("Select Artist: ");
             Artist.ViewArtists();
-            Console.Write("Enter ArtistId: ");
-            int artistId = Convert.ToInt32(Console.ReadLine());
-            Artist choosenArtist = Organizer.SelectArtist(artistId);
+            Artist choosenArtist = null;
+        selectArtistId: Console.Write("Enter ArtistId: ");
+            int artistId;
+            try
+            {
+                artistId = Convert.ToInt32(Console.ReadLine());
+                choosenArtist = Organizer.SelectArtist(artistId);
+            }
+            catch
+            {
+                Console.WriteLine("You can entr only numerical value");
+                goto selectArtistId;
+            }
+
+
 
             Console.WriteLine();
             Console.WriteLine("Select Venue: ");
             Venue.ViewVenues();
-            Console.Write("Enter VenueId: ");
-            int venueId = Convert.ToInt32(Console.ReadLine());
-            Venue choosenVenue = Organizer.SelectVenue(venueId);
+            selectVenueId:  Console.Write("Enter VenueId: ");
+            Venue choosenVenue = null;
+            int venueId;
+            try
+            {
+                venueId = Convert.ToInt32(Console.ReadLine());
+                choosenVenue= Organizer.SelectVenue(venueId);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("You can entr only numerical value");
+                goto selectVenueId;
+            }
+            string eventName = null;
+            while (true)
+            {
+                Console.Write("Enter name of the event: ");
+                eventName = Console.ReadLine();
+                if(String.IsNullOrEmpty(eventName))
+                {
+                    Console.WriteLine("Event name can't be blanked!!");
+                    continue;
+                }
+                break;
+            }
+            int tickets;
+            numberOfTickets:  try
+            {
+                Console.Write("Enter number of tickets: ");
+                tickets = Convert.ToInt32(Console.ReadLine());
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Number of tickets can only be integer!");
+                goto numberOfTickets;
+            }
+            int price;
+            pricePerTicket: try
+            {
+                Console.Write("Enter price per ticket: ");
+                price= Convert.ToInt32(Console.ReadLine());
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Price can only be integer!");
+                goto pricePerTicket;
+            }
+             
 
-
-            Console.Write("Enter name of the event: ");
-            string eventName = Console.ReadLine();
-
-            Console.Write("Enter number of tickets: ");
-            int tickets = Convert.ToInt32(Console.ReadLine());
-
-            Console.Write("Enter price per ticket: ");
-            int price = Convert.ToInt32(Console.ReadLine());
+            
+            
             Organizer organizerOfEvent= new Organizer();
             if (role == Role.Organizer)
             {
@@ -84,8 +134,18 @@ namespace Project.Views
             {
                 Event.ViewEvents(username, role);
             }
-            Console.Write("Select EventId: ");
-            int deleteEventId = Convert.ToInt32(Console.ReadLine());
+        selectEventId: Console.Write("Select EventId: ");
+            int deleteEventId;
+            try
+            {
+                deleteEventId = Convert.ToInt32(Console.ReadLine());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("You can only enter a numerical value!");
+                goto selectEventId;
+            }
+            
             Event.DeleteEvent(deleteEventId);
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine();

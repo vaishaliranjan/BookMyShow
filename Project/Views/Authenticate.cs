@@ -39,6 +39,7 @@ namespace Project.UILayer
                     if(password == null)
                     {
                         Console.WriteLine("Password cant be blank!");
+                        continue;
                     }
                     string userRole = AuthManager<User>.AuthObject.Login(username, password);
                     Console.ResetColor();
@@ -65,11 +66,11 @@ namespace Project.UILayer
                         Console.WriteLine("Wrong credentials");
                         continue;
                     }
-                   
-
+                    
+                    
                 }
-                
 
+               
             }
         }
 }

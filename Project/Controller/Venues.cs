@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,23 +23,29 @@ namespace Project.BusinessLayer
         }
         public static void ViewVenues()
         {
-            List<Venue> venues = DatabaseManager.DbObject.ReadVenues();
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("-------------------------------------------------------------");
-            Console.WriteLine("-                                                           -");
-            Console.WriteLine("-                                                           -");
-            Console.WriteLine("-                            VENUES                         -");
-            Console.WriteLine("-                                                           -");
-            Console.WriteLine("-                                                           -");
-            Console.WriteLine("-------------------------------------------------------------");
-            
-            foreach (Venue venue in venues)
+            List<Venue> venues = null;
+
+            venues= DatabaseManager.DbObject.ReadVenues();
+            if (venues != null)
             {
-                Console.WriteLine("VenueID: " + venue.venueId);
-                Console.WriteLine("Location: "+venue.Place);
-                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("-------------------------------------------------------------");
+                Console.WriteLine("-                                                           -");
+                Console.WriteLine("-                                                           -");
+                Console.WriteLine("-                            VENUES                         -");
+                Console.WriteLine("-                                                           -");
+                Console.WriteLine("-                                                           -");
+                Console.WriteLine("-------------------------------------------------------------");
+
+                foreach (Venue venue in venues)
+                {
+                    Console.WriteLine("VenueID: " + venue.venueId);
+                    Console.WriteLine("Location: " + venue.Place);
+                    Console.WriteLine();
+                }
+                Console.ResetColor();
             }
-            Console.ResetColor();
+            Console.WriteLine("venues");
         }
     }
 }

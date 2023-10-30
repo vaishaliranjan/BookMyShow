@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace Project
 {
     //Singleton class-> DBManager
-    public class DatabaseManager
+    public sealed class DatabaseManager
     {
         private static DatabaseManager _dbObject;
         private DatabaseManager() { }
@@ -36,115 +36,206 @@ namespace Project
 
         private static string _bookings_path = @"C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Bookings.json";
 
+        private string _errorMsg = "An unexpected error occurred while reading the DB!";
         
         public  List<User> ReadUsers()
         {
-            var allUsers= File.ReadAllText(_user_path);
-            List<User> users = JsonConvert.DeserializeObject<List<User>>(allUsers);
+            List<User> users=null;
+            try
+            {
+                var allUsers = File.ReadAllText(_user_path);
+               users = JsonConvert.DeserializeObject<List<User>>(allUsers)!;
 
-            return users;
+                return users;
+            }
+            catch (Exception ex)
+            {
+                Error.Invalid(_errorMsg);
+                return users;
+            }
+            
         }
         public  List<Organizer> ReadOrganizer()
         {
-            var allUsers = File.ReadAllText(_user_path);
-            List<Organizer> users = JsonConvert.DeserializeObject<List<Organizer>>(allUsers);
-            var organizers = users.FindAll(o=> o.role == Role.Organizer);
+            List<Organizer> organizers = null;
+            try
+            {
+                var allUsers = File.ReadAllText(_user_path);
+                List<Organizer> users = JsonConvert.DeserializeObject<List<Organizer>>(allUsers)!;
+                organizers = users.FindAll(o => o.role == Role.Organizer);
 
-            return organizers;
+                return organizers;
+            }
+            catch (Exception)
+            {
+                Error.Invalid(_errorMsg);
+                return organizers;
+            }
         }
         public  List<Customer> ReadCustomer()
         {
-            var allUsers = File.ReadAllText(_user_path);
-            List<Customer> users = JsonConvert.DeserializeObject<List<Customer>>(allUsers);
-            var customers = users.FindAll(c => c.role == Role.Customer);
+            List<Customer> customers = null;
+            try
+            {
+                var allUsers = File.ReadAllText(_user_path);
+                List<Customer> users = JsonConvert.DeserializeObject<List<Customer>>(allUsers);
+                customers = users.FindAll(c => c.role == Role.Customer);
 
-            return customers;
+                return customers;
+            }
+            catch (Exception)
+            {
+                Error.Invalid (_errorMsg);
+                return customers;
+            }
+           
         }
         public  List<Booking> ReadBookings()
         {
-            var allBookings = File.ReadAllText(_bookings_path);
-            List<Booking> bookings = JsonConvert.DeserializeObject<List<Booking>>(allBookings);
-            
-
-            return bookings;
+            List<Booking> bookings = null;
+            try
+            {
+                var allBookings = File.ReadAllText(_bookings_path);
+                bookings = JsonConvert.DeserializeObject<List<Booking>>(allBookings)!;
+                return bookings;
+            }
+            catch(Exception) 
+            {
+                Error.Invalid(_errorMsg) ;
+                return bookings;
+            }
         }
         public  List<Artist> ReadArtists()
         {
-            var allArtists = File.ReadAllText(_artist_path);
-            var settings = new JsonSerializerSettings
+            List<Artist> artists = null;
+            try
             {
-                DateFormatString = "yyyy-MM-ddTHH:mm",
-                DateTimeZoneHandling = DateTimeZoneHandling.Utc
-            };
-            List<Artist> artists = JsonConvert.DeserializeObject<List<Artist>>(allArtists, settings);
+                var allArtists = File.ReadAllText(_artist_path);
+                var settings = new JsonSerializerSettings
+                {
+                    DateFormatString = "yyyy-MM-ddTHH:mm",
+                    DateTimeZoneHandling = DateTimeZoneHandling.Utc
+                };
+                artists = JsonConvert.DeserializeObject<List<Artist>>(allArtists, settings)!;
 
-            return artists;
+                return artists;
+            }
+            catch( Exception )
+            {
+                Error.Invalid(_errorMsg) ;
+                return artists;
+            }
         }
         public  List<Venue> ReadVenues()
         {
-            var allVenue = File.ReadAllText(_venues_path);
-           
-            List<Venue> venues = JsonConvert.DeserializeObject<List<Venue>>(allVenue);
-
-            return venues;
+            List<Venue> venues= null;
+            try
+            {
+                var allVenue = File.ReadAllText(_venues_path);
+                venues = JsonConvert.DeserializeObject<List<Venue>>(allVenue)!;
+                return venues;
+            }
+            catch (Exception)
+            {
+                Error.Invalid(_errorMsg) ;
+                return venues;
+            }
+            
         }
         public  List<Event> ReadEvents()
         {
-            var allEvents = File.ReadAllText(_events_path);
-
-            List<Event> events = JsonConvert.DeserializeObject<List<Event>>(allEvents);
-
-            return events;
+            List<Event> events = null;
+            try
+            {
+                var allEvents = File.ReadAllText(_events_path);
+                events = JsonConvert.DeserializeObject<List<Event>>(allEvents);
+                return events;
+            }
+            catch(Exception)
+            {
+                Error.Invalid(_errorMsg) ;
+                return events;
+            }
         }
         public  void AddUser(User newUser)
         {
             List<User> allUsers = ReadUsers();
             allUsers.Add(newUser);
-
-            var usersJSON = JsonConvert.SerializeObject(allUsers);
-            File.WriteAllText(_user_path, usersJSON);
+            try
+            {
+                var usersJSON = JsonConvert.SerializeObject(allUsers);
+                File.WriteAllText(_user_path, usersJSON);
+            }
+            catch (Exception)
+            {
+                Error.Invalid(_errorMsg) ;
+            }
+           
         }
         public void AddArtist(Artist newArtist)
         {
             
             var artistDetails = ReadArtists();
             artistDetails.Add(newArtist);
-
-            var artistJSON = JsonConvert.SerializeObject(artistDetails);
-            File.WriteAllText(_artist_path, artistJSON);
-            Console.WriteLine();
-            Console.WriteLine("Artist added successfully");
-            Console.WriteLine();
+            try
+            {
+                var artistJSON = JsonConvert.SerializeObject(artistDetails);
+                File.WriteAllText(_artist_path, artistJSON);
+                Console.WriteLine();
+                Console.WriteLine("Artist added successfully");
+                Console.WriteLine();
+            }
+            catch(Exception)
+            {
+                Error.Invalid(_errorMsg) ;
+            }            
         }
         public  void AddVenue(Venue venue)
         {
 
             var venueDetails = ReadVenues();
             venueDetails.Add(venue);
-
-            var venueJSON = JsonConvert.SerializeObject(venueDetails);
-            File.WriteAllText(_venues_path, venueJSON);
-            Console.WriteLine();
-            Console.WriteLine("Venue added successfully");
-            Console.WriteLine();
+            try
+            {
+                var venueJSON = JsonConvert.SerializeObject(venueDetails);
+                File.WriteAllText(_venues_path, venueJSON);
+                Console.WriteLine();
+                Console.WriteLine("Venue added successfully");
+                Console.WriteLine();
+            }
+            catch (Exception)
+            {
+                Error.Invalid(_errorMsg) ;
+            }
         }
         public  void AddEventToDB(Event e)
         {
             var events = ReadEvents();
             events.Add(e);
-            var eventsJSON = JsonConvert.SerializeObject(events);
-            File.WriteAllText(_events_path, eventsJSON);
-            
+            try
+            {
+                var eventsJSON = JsonConvert.SerializeObject(events);
+                File.WriteAllText(_events_path, eventsJSON);
+            }
+            catch (Exception)
+            {
+                Error.Invalid(_errorMsg) ;
+            }          
 
         }
         public  void AddBookingToDB(Booking b)
         {
             var bookings = ReadBookings();
             bookings.Add(b);
-            var bookingsJSON = JsonConvert.SerializeObject(bookings);
-            File.WriteAllText(_bookings_path, bookingsJSON);
-
-
+            try
+            {
+                var bookingsJSON = JsonConvert.SerializeObject(bookings);
+                File.WriteAllText(_bookings_path, bookingsJSON);
+            }
+            catch (Exception)
+            {
+                Error.Invalid(_errorMsg) ;
+            }
         }
         public  void RemoveArtist(Artist deleteArtist)
         {
@@ -154,9 +245,16 @@ namespace Project
                 if (artist.artistId.Equals(deleteArtist.artistId))
                 {
                     artistDetails.Remove(artist);
-                    var artistJSON = JsonConvert.SerializeObject(artistDetails);
-                    File.WriteAllText(_artist_path, artistJSON);
-                    break;
+                    try
+                    {
+                        var artistJSON = JsonConvert.SerializeObject(artistDetails);
+                        File.WriteAllText(_artist_path, artistJSON);
+                        break;
+                    }
+                    catch (Exception)
+                    {
+                        Error.Invalid(_errorMsg) ;
+                    }
                 }
             }
         }
@@ -168,9 +266,16 @@ namespace Project
                 if (venue.venueId.Equals(deleteVenue.venueId))
                 {
                     venueDetails.Remove(venue);
-                    var venueJSON = JsonConvert.SerializeObject(venueDetails);
-                    File.WriteAllText(_venues_path, venueJSON);
-                    break;
+                    try
+                    {
+                        var venueJSON = JsonConvert.SerializeObject(venueDetails);
+                        File.WriteAllText(_venues_path, venueJSON);
+                        break;
+                    }
+                    catch (Exception)
+                    {
+                        Error.Invalid(_errorMsg) ;
+                    }
                 }
             }
         }
@@ -182,9 +287,16 @@ namespace Project
                 if (e.Id==id)
                 {
                     events.Remove(e);
-                    var eventsJSON = JsonConvert.SerializeObject(events);
-                    File.WriteAllText(_events_path, eventsJSON);
-                    break;
+                    try
+                    {
+                        var eventsJSON = JsonConvert.SerializeObject(events);
+                        File.WriteAllText(_events_path, eventsJSON);
+                        break;
+                    }
+                    catch (Exception)
+                    {
+                        Error.Invalid(_errorMsg) ;
+                    }
                 }
             }
         }
@@ -203,8 +315,16 @@ namespace Project
                 }
             }
             events.Add(e);
-            var eventsJSON = JsonConvert.SerializeObject(events);
-            File.WriteAllText(_events_path, eventsJSON);
+            try
+            {
+                var eventsJSON = JsonConvert.SerializeObject(events);
+                File.WriteAllText(_events_path, eventsJSON);
+            }
+            catch (Exception)
+            {
+                Error.Invalid(_errorMsg);
+            }
+            
         }
     }
 

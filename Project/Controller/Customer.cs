@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Project.Controller;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,36 +11,71 @@ namespace Project.BusinessLayer
     {
         public static Customer GetCustomer(string username)
         {
-            var customers = DatabaseManager.DbObject.ReadCustomer();
-            Customer customer = customers.Single(u => u.Username == username);
-            return customer;
+            List<Customer> customers = null;
+            customers = DatabaseManager.DbObject.ReadCustomer();
+            if (customers != null)
+            {
+                Customer customer = null;
+                try
+                {
+                    customer = customers.Single(u => u.Username == username);
+                    return customer;
+                }
+                catch (Exception ex)
+                {
+                    return customer;
+                }
+            }
+            else
+            {
+                Error.NotFound("customers");
+                return null;
+            }
         }
 
         public static void ViewCustomers()
         {
-            var users= DatabaseManager.DbObject.ReadUsers();
-            var customers = users.FindAll(u => u.role == Role.Customer);
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("-------------------------------------------------------------");
-            Console.WriteLine("-                                                           -");
-            Console.WriteLine("-                                                           -");
-            Console.WriteLine("-                         CUSTOMERS                         -");
-            Console.WriteLine("-                                                           -");
-            Console.WriteLine("-                                                           -");
-            Console.WriteLine("-------------------------------------------------------------");
-            
-            foreach (var customer in customers)
+            List<User> users = null;
+            users= DatabaseManager.DbObject.ReadUsers();
+            if (users != null)
             {
+                List<User> customers = null;
+                try
+                {
 
-                Console.WriteLine();
-                Console.WriteLine("Id: "+ customer.UserId);
-                Console.WriteLine("Name: " + customer.Name);
-                Console.WriteLine("Username: " + customer.Username);
-                Console.WriteLine("Email: " + customer.Email);
-                Console.WriteLine();
 
+                    customers = users.FindAll(u => u.role == Role.Customer);
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("-------------------------------------------------------------");
+                    Console.WriteLine("-                                                           -");
+                    Console.WriteLine("-                                                           -");
+                    Console.WriteLine("-                         CUSTOMERS                         -");
+                    Console.WriteLine("-                                                           -");
+                    Console.WriteLine("-                                                           -");
+                    Console.WriteLine("-------------------------------------------------------------");
+
+                    foreach (var customer in customers)
+                    {
+
+                        Console.WriteLine();
+                        Console.WriteLine("Id: " + customer.UserId);
+                        Console.WriteLine("Name: " + customer.Name);
+                        Console.WriteLine("Username: " + customer.Username);
+                        Console.WriteLine("Email: " + customer.Email);
+                        Console.WriteLine();
+
+                    }
+                    Console.ResetColor();
+                }
+                catch(Exception ex)
+                {
+                    Error.NotFound("customers");
+                }
             }
-            Console.ResetColor();
+            else
+            {
+                Error.NotFound("users");
+            }
         }
     }
 }
