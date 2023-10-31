@@ -1,77 +1,42 @@
 ﻿using Project.BusinessLayer;
 using Project.Views;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Project.Enum;
 
 namespace Project.UILayer
 {
     internal class OrganizerUI
     {
-        enum OrganizerUIOptions
-        {
-            CreateEvent=1,
-            ViewPreviousEvents = 2,
-            CancelEvent =3,
-            LogOut =4
-        }
+        
         public static void ORGANIZERUI(string username)
         {
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("*************************************************************");
-            Console.WriteLine("*                                                           *");
-            Console.WriteLine("*                                                           *");
-            Console.WriteLine("*                     ORGANIZERPAGE                         *");
-            Console.WriteLine("*                                                           *");
-            Console.WriteLine("*                                                           *");
-            Console.WriteLine("*************************************************************");
-
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine("1. Create an event");
-            Console.WriteLine("2. View previously created events");
-            Console.WriteLine("3. Cancel an event");
-            Console.WriteLine("4. Logout");
-            Console.ResetColor();
-            Console.WriteLine();
-            Console.WriteLine();
-
-        organizers: Console.WriteLine("Choose any number: ");
-            int input;
-            try
-            {
-                input = Convert.ToInt32(Console.ReadLine());
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("You can only enter a numerical value!");
-                goto organizers;
-            }
+            Message.OrganizerPage();
+            OrganizerUIOptions input;
+            Console.Write("Choose any number: ");
+            input = (OrganizerUIOptions)InputValidation.IntegerValidation();
+           
             while (true)
             {
                 switch (input)
                 {
-                    case (int)OrganizerUIOptions.CreateEvent:
+                    case OrganizerUIOptions.CreateEvent:
                         EventUI.CreateEventUI(username, Role.Organizer);
                         break;
 
-                    case (int)OrganizerUIOptions.ViewPreviousEvents:
+                    case OrganizerUIOptions.ViewPreviousEvents:
                         ViewPreviousEventsUI(username, Role.Organizer);
                         break;
 
-                    case (int)OrganizerUIOptions.CancelEvent:
+                    case OrganizerUIOptions.CancelEvent:
                         EventUI.CancelEventUI(username, Role.Organizer);
                         break;
 
-                    case (int)OrganizerUIOptions.LogOut:
+                    case OrganizerUIOptions.LogOut:
                         AuthManager<User>.AuthObject.Logout();
                         break;
 
                     default:
-                        Console.WriteLine();
-                        Console.WriteLine("Invalid Input!!!");
+                        Message.InvalidInput();
                         continue; ;
                 }
                 break;
@@ -85,17 +50,26 @@ namespace Project.UILayer
         public static void ViewPreviousEventsUI(string username, Role role) 
         {
             Event.ViewEvents(username, role);
+            Console.Write("Choose any number: ");
             while (true)
             {
-                Console.WriteLine();
-                Console.Write("Press 0 to exit: ");
-                var ip = Convert.ToInt32(Console.ReadLine());
-                if (ip == 0)
+                Message.OrganizerViewEvents();
+                OrganizerUIOptions ip;
+                while (true)
                 {
-                    OrganizerUI.ORGANIZERUI(username);
-                    break;
+                    ip = (OrganizerUIOptions)(InputValidation.IntegerValidation());
+                    switch (ip)
+                    {
+                        case OrganizerUIOptions.Back:
+                            OrganizerUI.ORGANIZERUI(username);
+                            break;
+
+                        default:
+                            Message.InvalidInput();
+                            continue;
+                    }
                 }
-                Console.WriteLine("Invalid Input!!!");
+                            
             }
             
         }

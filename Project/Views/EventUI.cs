@@ -1,10 +1,6 @@
 ﻿using Project.BusinessLayer;
 using Project.UILayer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 
 namespace Project.Views
 {
@@ -18,23 +14,15 @@ namespace Project.Views
             Artist.ViewArtists();
             Artist choosenArtist = null;
         selectArtistId: Console.Write("Enter ArtistId: ");
-            int artistId;
-            try
-            {
-                artistId = Convert.ToInt32(Console.ReadLine());
-
+            int artistId = InputValidation.IntegerValidation();
+         
                 choosenArtist = Organizer.SelectArtist(artistId);
                 if (choosenArtist == null)
                 {
                     Console.WriteLine("No such artist!");
                     goto selectArtistId;
                 }
-            }
-            catch
-            {
-                Console.WriteLine("You can entr only numerical value");
-                goto selectArtistId;
-            }
+           
 
 
 
@@ -43,27 +31,20 @@ namespace Project.Views
             Venue.ViewVenues();
             selectVenueId:  Console.Write("Enter VenueId: ");
             Venue choosenVenue = null;
-            int venueId;
-            try
-            {
-                venueId = Convert.ToInt32(Console.ReadLine());
+            int venueId= InputValidation.IntegerValidation();
+           
                
                 choosenVenue= Organizer.SelectVenue(venueId);
                 if (choosenVenue == null)
                 {
                     goto selectVenueId;
                 }
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine("You can entr only numerical value");
-                goto selectVenueId;
-            }
+           
             string eventName = null;
             while (true)
             {
                 Console.Write("Enter name of the event: ");
-                eventName = Console.ReadLine();
+                eventName = InputValidation.NullValidation();
                 if(String.IsNullOrEmpty(eventName))
                 {
                     Console.WriteLine("Event name can't be blanked!!");
@@ -71,31 +52,10 @@ namespace Project.Views
                 }
                 break;
             }
-            int tickets;
-            numberOfTickets:  try
-            {
-                Console.Write("Enter number of tickets: ");
-                tickets = Convert.ToInt32(Console.ReadLine());
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine("Number of tickets can only be integer!");
-                goto numberOfTickets;
-            }
-            int price;
-            pricePerTicket: try
-            {
-                Console.Write("Enter price per ticket: ");
-                price= Convert.ToInt32(Console.ReadLine());
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine("Price can only be integer!");
-                goto pricePerTicket;
-            }
-             
-
-            
+            Console.Write("Enter number of tickets: ");
+            int tickets = InputValidation.IntegerValidation();
+            Console.Write("Enter price per ticket: ");
+            int price= InputValidation.IntegerValidation();
             
             Organizer organizerOfEvent= new Organizer();
             if (role == Role.Organizer)
@@ -107,7 +67,7 @@ namespace Project.Views
                 selectOrganizer: Console.WriteLine("Select an organizer: ");
                 Organizer.ViewOrganizers();
                 Console.Write("Enter organizer username: ");
-                string uname =Console.ReadLine();          
+                string uname = InputValidation.NullValidation();   
                 organizerOfEvent = Organizer.GetOrganizer(uname);
                 if (organizerOfEvent == null)
                 {
@@ -116,6 +76,7 @@ namespace Project.Views
                 }
 
             }
+            int initialTick = tickets;
             var newEvent = new Event()
             {
                 Id= eventIDInc,
@@ -124,6 +85,7 @@ namespace Project.Views
                 artist = choosenArtist,
                 venue= choosenVenue,
                 NumOfTicket=tickets,
+                initialTickets=initialTick,
                 Price=price
 
             };
@@ -150,32 +112,42 @@ namespace Project.Views
             {
                 Event.ViewEvents(username, role);
             }
-        selectEventId: Console.Write("Select EventId: ");
-            int deleteEventId;
-            try
+            Console.Write("Select EventId: ");
+            int deleteEventId = InputValidation.IntegerValidation();
+            if (Event.DeleteEvent(deleteEventId))
             {
-                deleteEventId = Convert.ToInt32(Console.ReadLine());
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("You can only enter a numerical value!");
-                goto selectEventId;
-            }
-            
-            Event.DeleteEvent(deleteEventId);
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine();
-            Console.WriteLine("-------------------------------------------------------------");
-            Console.WriteLine("-                Event Deleted Successfully!                -");
-            Console.WriteLine("-------------------------------------------------------------");
-            Console.ResetColor();
-            if(role == Role.Admin)
-            {
-                AdminUI.ADMINUI(username);
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine();
+                Console.WriteLine("-------------------------------------------------------------");
+                Console.WriteLine("-                Event Deleted Successfully!                -");
+                Console.WriteLine("-------------------------------------------------------------");
+                Console.ResetColor();
+                if (role == Role.Admin)
+                {
+                    AdminUI.ADMINUI(username);
+                }
+                else
+                {
+                    OrganizerUI.ORGANIZERUI(username);
+                }
             }
             else
             {
-                OrganizerUI.ORGANIZERUI(username);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine();
+                Console.WriteLine("-------------------------------------------------------------");
+                Console.WriteLine("-                 Tickets already booked!                   -");
+                Console.WriteLine("-                 Event can't be deleted!                   -");
+                Console.WriteLine("-------------------------------------------------------------");
+                Console.ResetColor();
+                if (role == Role.Admin)
+                {
+                    Event.ViewEvents(username, Role.Admin);
+                }
+                else
+                {
+                    Event.ViewEvents(username, Role.Organizer);
+                }
             }
             
 

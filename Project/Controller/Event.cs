@@ -1,9 +1,5 @@
 ﻿using Project.Controller;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Project.BusinessLayer
 {
@@ -14,6 +10,7 @@ namespace Project.BusinessLayer
         public Organizer organizer;
         public Artist artist;
         public Venue venue;
+        public int initialTickets;
         public int NumOfTicket;
         public float Price;
        
@@ -100,9 +97,22 @@ namespace Project.BusinessLayer
         {
             DatabaseManager.DbObject.AddEventToDB(newEvent);
         }
-        public static void DeleteEvent(int deleteEventId)
+        public static bool DeleteEvent(int deleteEventId)
         {
-            DatabaseManager.DbObject.RemoveEvent(deleteEventId);
+            var events = DatabaseManager.DbObject.ReadEvents();
+            foreach (Event e in events)
+            {
+                if(e.Id== deleteEventId)
+                {
+                    if (e.NumOfTicket == e.initialTickets)
+                    {
+                        DatabaseManager.DbObject.RemoveEvent(e);
+                        return true;
+                    }
+                }
+            }
+            
+            return false;
         }
     }
 }

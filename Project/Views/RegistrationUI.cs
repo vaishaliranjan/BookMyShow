@@ -1,11 +1,6 @@
 ﻿using Project.BusinessLayer;
 using Project.UILayer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+using Project.Views;
 
 namespace Project.UI
 {
@@ -20,13 +15,8 @@ namespace Project.UI
             while (true)
             {
                 Console.Write("Enter Name: ");
-                name = Console.ReadLine();
-                if (String.IsNullOrEmpty(name))
-                {
-                    Console.WriteLine("Name cant be empty..");
-                    continue;
-                }
-                bool result= isValidName(name);
+                name = InputValidation.NullValidation();
+                bool result=RegexValidation.isValidName(name);
                 if(result)
                 {
                     break;
@@ -37,13 +27,9 @@ namespace Project.UI
             while (true)
             {
                 Console.Write("Enter username: ");
-                username = Console.ReadLine();
-                if (String.IsNullOrEmpty(username))
-                {
-                    Console.WriteLine("username cant be empty ..");
-                    continue;
-                }
-                bool result = isValidName(username);
+                username = InputValidation.NullValidation();
+
+                bool result =RegexValidation.isValidName(username);
                 if (result)
                 {
                     break;
@@ -54,31 +40,17 @@ namespace Project.UI
             while (true)
             {
                 Console.Write("Enter Email: ");
-                email = Console.ReadLine();
-                if (String.IsNullOrEmpty(email))
-                {
-                    Console.WriteLine("Email cant be empty..");
-                    continue;
-                }
-                bool result = isValidEmail(email);
+                email = InputValidation.NullValidation();
+                bool result =RegexValidation.isValidEmail(email);
                 if (result)
                 {
                     break;
                 }
                 Console.WriteLine("Enter a valid email address..");
             }
-            string password = null;
-            while (true)
-            {
-                Console.Write("Enter Password: ");
-                password = Console.ReadLine();
-                if (string.IsNullOrEmpty(password))
-                {
-                    Console.WriteLine("Password cant be empty!");
-                    continue;
-                }
-                break;
-            }
+            Console.Write("Enter Password: ");
+            string password = InputValidation.NullValidation();
+           
             Console.ResetColor();
             var role = roleInput;
             bool flag = false;
@@ -119,19 +91,6 @@ namespace Project.UI
             {
                 RegistrationUI.AddNewUserUI(roleInput);
             }
-        }
-
-        public static bool isValidEmail(string email)
-        {
-            string regex = @"^[^@\s]+@[^@\s]+\.(com|net|org|gov)$";
-            bool res = Regex.IsMatch(email, regex, RegexOptions.IgnoreCase);
-            return res;
-        }
-        public static bool isValidName(string name)
-        {
-            string regex = @"[a-z]{5}";
-            bool res = Regex.IsMatch(name, regex, RegexOptions.IgnoreCase);
-            return res;
         }
     }
 }

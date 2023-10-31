@@ -1,13 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Project.BusinessLayer;
 using Project.Controller;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Project
 {
@@ -279,14 +273,14 @@ namespace Project
                 }
             }
         }
-        public  void RemoveEvent(int id)
+        public  void RemoveEvent(Event e)
         {
             var events = ReadEvents();
-            foreach (var e in events)
+            foreach (var eve in events)
             {
-                if (e.Id==id)
+                if (eve.Id==e.Id)
                 {
-                    events.Remove(e);
+                    events.Remove(eve);
                     try
                     {
                         var eventsJSON = JsonConvert.SerializeObject(events);
