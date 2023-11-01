@@ -1,5 +1,5 @@
 ﻿using Project.Controller;
-
+using Project.Database;
 
 namespace Project.BusinessLayer
 {
@@ -7,8 +7,7 @@ namespace Project.BusinessLayer
     {
         public static Customer GetCustomer(string username)
         {
-            List<Customer> customers = null;
-            customers = DatabaseManager.DbObject.ReadCustomer();
+            List<Customer> customers = CustomerDbHandler.CustomerDbInstance.listOfCustomers;
             if (customers != null)
             {
                 Customer customer = null;
@@ -31,16 +30,10 @@ namespace Project.BusinessLayer
 
         public static void ViewCustomers()
         {
-            List<User> users = null;
-            users= DatabaseManager.DbObject.ReadUsers();
-            if (users != null)
+            List<Customer> customers = CustomerDbHandler.CustomerDbInstance.listOfCustomers;
+            if (customers != null)
             {
-                List<User> customers = null;
-                try
-                {
 
-
-                    customers = users.FindAll(u => u.role == Role.Customer);
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("-------------------------------------------------------------");
                     Console.WriteLine("-                                                           -");
@@ -62,16 +55,14 @@ namespace Project.BusinessLayer
 
                     }
                     Console.ResetColor();
-                }
-                catch(Exception ex)
-                {
-                    Error.NotFound("customers");
-                }
+              
             }
             else
             {
                 Error.NotFound("users");
             }
         }
+
+       
     }
 }

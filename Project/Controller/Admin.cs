@@ -1,5 +1,5 @@
 ﻿using Project.Controller;
-
+using Project.Database;
 
 namespace Project.BusinessLayer
 {
@@ -7,11 +7,9 @@ namespace Project.BusinessLayer
     {
         public static void ViewAdmins()
         {
-            List<User> users = null;
-            users = DatabaseManager.DbObject.ReadUsers();
-            if (users != null)
+            List<Admin> admins = AdminDbHandler.AdminDbInstance.listOfAdmins;
+            if (admins != null)
             {
-                var admins = users.FindAll(u => u.role == Role.Admin);
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("-------------------------------------------------------------");
                 Console.WriteLine("-                                                           -");

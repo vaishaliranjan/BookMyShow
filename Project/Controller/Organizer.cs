@@ -1,21 +1,13 @@
 ﻿using Project.Controller;
-
+using Project.Database;
 
 namespace Project.BusinessLayer
 {
     public class Organizer:User
     {
-
         public static void ViewOrganizers()
         {
-            List<User> users = null;
-            List<User> organizers = null;
-             users = DatabaseManager.DbObject.ReadUsers();
-            if (users != null)
-            {
-                try
-                {
-                    organizers = users.FindAll(u => u.role == Role.Organizer);
+            
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("-------------------------------------------------------------");
                     Console.WriteLine("-                                                           -");
@@ -25,7 +17,7 @@ namespace Project.BusinessLayer
                     Console.WriteLine("-                                                           -");
                     Console.WriteLine("-------------------------------------------------------------");
 
-                    foreach (var organizer in organizers)
+                    foreach (var organizer in OrganizerDbHandler.OrganizerDbInstance.listOfOrganizer)
                     {
 
                         Console.WriteLine();
@@ -37,34 +29,15 @@ namespace Project.BusinessLayer
 
                     }
                     Console.ResetColor();
-                }
-                catch (Exception ex)
-                {
-                    Error.NotFound("organizers");
-                }
-            }
-            else
-            {
-                Error.NotFound("users");
-            }
+            
         }
         public static Organizer GetOrganizer(string username)
         {
-            List<Organizer> organizers = null;
             Organizer organizer = null;
-            organizers = DatabaseManager.DbObject.ReadOrganizer();
-            if (organizers != null)
+            organizer =OrganizerDbHandler.OrganizerDbInstance.listOfOrganizer.Single(u => u.Username == username);
+            if (organizer != null)
             {
-                try
-                {
-                    organizer = organizers.Single(u => u.Username == username);
-                    return organizer;
-                }
-                catch(Exception ex)
-                {
-                    Error.NotFound("organizer");
-                    return organizer;
-                }
+                return organizer;
             }
             else
             {
@@ -74,16 +47,12 @@ namespace Project.BusinessLayer
         }
         public static Artist SelectArtist(int id)
         {
-            List<Artist> artists = null;
-            artists = DatabaseManager.DbObject.ReadArtists();
+            
             Artist choosenArtist = null;
-            if (artists != null)
-            {
-                
                 try
                 {
-                    choosenArtist = artists.Single(a => a.artistId == id);
-                    DatabaseManager.DbObject.RemoveArtist(choosenArtist);
+                    choosenArtist = ArtistDbHandler.ArtistDbInstance.listOfArtists.Single(a => a.artistId == id);
+                    ArtistDbHandler.ArtistDbInstance.RemoveArtist(choosenArtist);
                     return choosenArtist;
                 }
                 catch(Exception ex)
@@ -91,41 +60,28 @@ namespace Project.BusinessLayer
                     Error.NotFound("artist");
                     return choosenArtist;
                 }
-                
-            }
-            else
-            {
-                Error.NotFound("artists");
-                return choosenArtist;
-            }
 
         }
 
         public static Venue SelectVenue(int id)
         {
-            List<Venue> venues = null;
+            
             Venue choosenVenue = null;
-            venues = DatabaseManager.DbObject.ReadVenues();
-            if (venues != null)
-            {
+            
                 try
                 {
-                    choosenVenue = venues.Single(a => a.venueId == id);
-                    DatabaseManager.DbObject.RemoveVenue(choosenVenue);
+                    choosenVenue = VenueDbHandler.VenueDbInstance.listOfVenues.Single(a => a.venueId == id);
+                    VenueDbHandler.VenueDbInstance.RemoveVenue(choosenVenue);
                     return choosenVenue;
+
                 }
                 catch (Exception ex)
                 {
                     Error.NotFound("venue");
                     return choosenVenue;
                 }
-                
-            }
-            else
-            {
-                Error.NotFound("venues");
-                return choosenVenue;
-            }
+
+            
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Project.BusinessLayer;
-
+using Project.Database;
 
 namespace Project.Controller
 {
@@ -23,20 +23,15 @@ namespace Project.Controller
         } 
         public static void BookEvent(Booking booking)
         {
-            DatabaseManager.DbObject.AddBookingToDB(booking);
+            BookingDbHandler.BookingDbInstance.AddEntry(booking);
             Event.DecrementTicket(booking.bookedEvent, booking.numOfTickets);
-            
-
         }
 
         public static void ViewBookings(string username, Role role)
         {
-            List<Booking> bookings = null;
-             bookings = DatabaseManager.DbObject.ReadBookings();
+            List<Booking> bookings = BookingDbHandler.BookingDbInstance.listOfBookings;
             if (bookings != null)
             {
-
-
                 if (role == Role.Admin)
                 {
                     showBookings(bookings);
@@ -76,7 +71,7 @@ namespace Project.Controller
             }
             else
             {
-                Error.NotFound("bookins");
+                Error.NotFound("bookings");
             }
         }
 

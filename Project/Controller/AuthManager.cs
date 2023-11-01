@@ -1,4 +1,5 @@
 ﻿
+using Project.Database;
 using Project.UILayer;
 
 
@@ -21,19 +22,25 @@ namespace Project.BusinessLayer
             }
         }
         public static int userIDInc = 28;
-        public string Login(string un, string pw)
+        public User Login(string username, string password)
         {
-            List<User> allUsers = DatabaseManager.DbObject.ReadUsers();
+            List<User> allUsers = UserDbHandler.UserDbInstance.listOfUsers;
             foreach (User user in allUsers)
             {
-                if(user.Username == un && user.Password== pw)
+                if(user.Username == username && user.Password== password)
                 {
-                    Console.WriteLine("");
-                    Console.WriteLine("Please wait...");
-                    Console.WriteLine();
-                    //Thread.Sleep(3000);
-
-                    return user.role.ToString();
+                    if (user.role == Role.Admin)
+                    {
+                        return (Admin)user;
+                    }
+                    else if (user.role == Role.Organizer)
+                    {
+                        return (Organizer)user;
+                    }
+                    else if (user.role == Role.Customer)
+                    {
+                        return (Customer)user;
+                    }
                 }
                 
             }
@@ -55,7 +62,6 @@ namespace Project.BusinessLayer
 
             else
             {
-               
                     var newUser = new T
                     {
                         UserId = userIDInc,
@@ -67,13 +73,11 @@ namespace Project.BusinessLayer
                     };
                     userIDInc++;
 
-                    DatabaseManager.DbObject.AddUser(newUser);
+                    UserDbHandler.UserDbInstance.AddEntry(newUser);
                     return true;
                 
-               
-                
             }
-            }
+         }
         
         public void Logout()
         {
@@ -82,7 +86,7 @@ namespace Project.BusinessLayer
 
         public bool ValidateUser(string uname)
         {
-            var users = DatabaseManager.DbObject.ReadUsers();
+            var users = UserDbHandler.UserDbInstance.listOfUsers;
             foreach (User user in users)
             {
                 if (user.Username == uname)

@@ -4,6 +4,11 @@ namespace Project.Controller
 {
     internal class Error
     {
+        public static void UnexpectedError()
+        {
+            Console.WriteLine();
+            Console.WriteLine("An unexpected error occurred!");
+        }
         public static void Invalid(string message)
         {
             Console.ForegroundColor = ConsoleColor.Green;

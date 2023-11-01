@@ -1,5 +1,5 @@
 ﻿using Project.Controller;
-
+using Project.Database;
 
 namespace Project.BusinessLayer
 {
@@ -16,15 +16,15 @@ namespace Project.BusinessLayer
        
         public static void DecrementTicket(Event bookedEvent, int numOfTickets)
         {
-            
-            DatabaseManager.DbObject.DecTicketToDB(bookedEvent.Id, numOfTickets);
+            EventDbHandler.EventDbInstance.DecTicketToDB(bookedEvent, numOfTickets);
+           
 
         }
         public static Event GetEvent(int  eventId)
         {
-            List<Event> events = null;
+            List<Event> events = EventDbHandler.EventDbInstance.listOfEvents;
             Event e = null;
-            events = DatabaseManager.DbObject.ReadEvents();
+           
             if (events != null)
             {
                 try
@@ -47,8 +47,7 @@ namespace Project.BusinessLayer
         }
         public static void ViewEvents(string username, Role r)
         {
-            List<Event> events = null;
-             events = DatabaseManager.DbObject.ReadEvents();
+            List<Event> events = EventDbHandler.EventDbInstance.listOfEvents;
             if (events != null)
             {
 
@@ -95,23 +94,22 @@ namespace Project.BusinessLayer
         }
         public static void AddEvent(Event newEvent)
         {
-            DatabaseManager.DbObject.AddEventToDB(newEvent);
+            EventDbHandler.EventDbInstance.AddEntry(newEvent);
         }
         public static bool DeleteEvent(int deleteEventId)
         {
-            var events = DatabaseManager.DbObject.ReadEvents();
+            var events = EventDbHandler.EventDbInstance.listOfEvents;
             foreach (Event e in events)
             {
                 if(e.Id== deleteEventId)
                 {
                     if (e.NumOfTicket == e.initialTickets)
                     {
-                        DatabaseManager.DbObject.RemoveEvent(e);
+                        EventDbHandler.EventDbInstance.RemoveEvent(e);
                         return true;
                     }
                 }
             }
-            
             return false;
         }
     }

@@ -1,5 +1,5 @@
 ﻿using Project.Controller;
-
+using Project.Database;
 
 namespace Project.BusinessLayer
 {
@@ -19,16 +19,14 @@ namespace Project.BusinessLayer
             id++;
             
         }
-        public static void AddNewArtist(Artist artist)
-        {
-            DatabaseManager.DbObject.AddArtist(artist);
+        public static bool AddNewArtist(Artist artist)
+        {     
+            return ArtistDbHandler.ArtistDbInstance.AddEntry(artist);
         }
 
         public static void ViewArtists()
         {
-            List<Artist> artists = null;
-            
-                artists = DatabaseManager.DbObject.ReadArtists();
+            List<Artist> artists = ArtistDbHandler.ArtistDbInstance.listOfArtists;
             if (artists != null)
             {
                 Console.ForegroundColor = ConsoleColor.Green;

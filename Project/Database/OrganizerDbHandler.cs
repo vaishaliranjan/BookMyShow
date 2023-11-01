@@ -1,0 +1,62 @@
+﻿using Newtonsoft.Json;
+using Project.BusinessLayer;
+using Project.Controller;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Project.Database
+{
+    internal class OrganizerDbHandler: DbHandler
+    {
+        private static OrganizerDbHandler organizerDbInstance;
+        private static string _user_path;
+        public List<Organizer> listOfOrganizer { get; set; }
+        public static OrganizerDbHandler OrganizerDbInstance
+        {
+            get
+            {
+                if (organizerDbInstance == null)
+                {
+                    organizerDbInstance = new OrganizerDbHandler();
+                }
+                return organizerDbInstance;
+            }
+        }
+
+        private OrganizerDbHandler()
+        {
+            listOfOrganizer = new List<Organizer>();
+            //List<User> listOfUsers = UserDbHandler.UserDbInstance.listOfUsers;
+            //listOfCustomers= listOfUsers.FindAll(u=> u.role == Role.Customer);
+
+            _user_path = @"C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Users.json";
+
+            try
+            {
+                string userFileContent = File.ReadAllText(_user_path);
+                List<Organizer> listOfUsers = JsonConvert.DeserializeObject<List<Organizer>>(userFileContent)!;
+                listOfOrganizer = listOfUsers.FindAll(u => u.role == Role.Organizer);
+            }
+            catch
+            {
+                Error.UnexpectedError();
+            }
+        }
+        public override bool AddEntry(object obj)
+        {
+            if (obj is Organizer)
+            {
+                listOfOrganizer.Add((Organizer)obj);
+                if (UpdateEntry<Organizer>(_user_path, listOfOrganizer))
+                {
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        }
+    }
+}

@@ -1,5 +1,7 @@
 ﻿
 
+using Project.Database;
+
 namespace Project.BusinessLayer
 {
     public class Venue
@@ -14,15 +16,11 @@ namespace Project.BusinessLayer
         }
         public static void AddNewVenue(Venue venue)
         {
-            DatabaseManager.DbObject.AddVenue(venue);
+            VenueDbHandler.VenueDbInstance.RemoveVenue(venue);
         }
         public static void ViewVenues()
         {
-            List<Venue> venues = null;
-
-            venues= DatabaseManager.DbObject.ReadVenues();
-            if (venues != null)
-            {
+            
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("-------------------------------------------------------------");
                 Console.WriteLine("-                                                           -");
@@ -32,15 +30,14 @@ namespace Project.BusinessLayer
                 Console.WriteLine("-                                                           -");
                 Console.WriteLine("-------------------------------------------------------------");
 
-                foreach (Venue venue in venues)
+                foreach (Venue venue in VenueDbHandler.VenueDbInstance.listOfVenues)
                 {
                     Console.WriteLine("VenueID: " + venue.venueId);
                     Console.WriteLine("Location: " + venue.Place);
                     Console.WriteLine();
                 }
                 Console.ResetColor();
-            }
-            Console.WriteLine("venues");
+           
         }
     }
 }
