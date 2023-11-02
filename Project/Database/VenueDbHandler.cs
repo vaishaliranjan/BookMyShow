@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
-using Project.BusinessLayer;
 using Project.Controller;
+using Project.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Project.Database
 {
-    internal class VenueDbHandler: DbHandler
+    internal class VenueDbHandler: DbHandler<Venue>
     {
         private static VenueDbHandler venueDbInstance;
         private static string _venues_path;
@@ -40,32 +40,23 @@ namespace Project.Database
                 Error.UnexpectedError();
             }
         }
-        public override bool AddEntry(object obj)
+        public bool AddVenue(Venue venue)
         {
-            if (obj is Venue)
-            {
-                listOfVenues.Add((Venue)obj);
-                if (UpdateEntry<Venue>(_venues_path, listOfVenues))
-                {
-                    return true;
-                }
-                return false;
-            }
+            if (AddEntry(venue, listOfVenues, _venues_path))
+                return true;
             return false;
         }
         public bool RemoveVenue(Venue deleteVenue)
         {
-            
-            foreach (var venue in listOfVenues)
+            var venue= listOfVenues.Single(v=> v.venueId==deleteVenue.venueId);
+            if(venue != null)
             {
-                if (venue.venueId.Equals(deleteVenue.venueId))
-                {
-                    listOfVenues.Remove(venue);
-                    UpdateEntry<Venue>(_venues_path, listOfVenues);
-                    return true;
-                }
+                listOfVenues.Remove(venue);
+                UpdateEntry(_venues_path, listOfVenues);
+                return true;
             }
             return false;
         }
+       
     }
 }

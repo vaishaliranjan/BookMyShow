@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
-using Project.BusinessLayer;
 using Project.Controller;
+using Project.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Project.Database
 {
-    internal class UserDbHandler : DbHandler
+    internal class UserDbHandler : DbHandler<User>
     {
         private static UserDbHandler userDbInstance;
         private static string _user_path;
@@ -40,22 +40,14 @@ namespace Project.Database
                 Error.UnexpectedError();
             }
     }
-       
-        public override bool AddEntry(Object obj)
-        {
-            if (obj is User)
-            {
-                listOfUsers.Add((User)obj);
-                if (UpdateEntry<User>(_user_path, listOfUsers))
-                {
-                    return true;
-                }
-                return false;
-            }
-            return false;
 
+        public bool AddUser(User user)
+        {
+            if (AddEntry(user, listOfUsers, _user_path))
+                return true;
+            return false;
         }
 
-       
+
     }
 }

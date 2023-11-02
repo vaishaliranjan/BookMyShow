@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
-using Project.BusinessLayer;
 using Project.Controller;
+using Project.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Project.Database
 {
-    internal class AdminDbHandler: DbHandler
+    internal class AdminDbHandler: DbHandler<Admin>
     {
         private static AdminDbHandler adminDbInstance;
         private static string _user_path;
@@ -45,18 +45,12 @@ namespace Project.Database
                 Error.UnexpectedError();
             }
         }
-        public override bool AddEntry(object obj)
+        public bool AddAdmin(Admin admin)
         {
-            if (obj is Admin)
-            {
-                listOfAdmins.Add((Admin)obj);
-                if (UpdateEntry<Admin>(_user_path, listOfAdmins))
-                {
-                    return true;
-                }
-                return false;
-            }
+            if(AddEntry(admin,listOfAdmins, _user_path))
+                return true;
             return false;
         }
+        
     }
 }

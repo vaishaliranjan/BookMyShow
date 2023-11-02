@@ -1,8 +1,7 @@
-﻿using Project.BusinessLayer;
-using Project.Controller;
-using Project.UILayer;
+﻿using Project.UILayer;
 using Project.Enum;
-
+using Project.Models;
+using Project.Controller;
 
 namespace Project.Views
 {
@@ -11,7 +10,7 @@ namespace Project.Views
         
         public static void ViewBookingsUI(string username, Role role)
         {
-            Booking.ViewBookings(username, role);
+            BookingController.ViewBookings(username, role);
             if (role == Role.Admin)
             {
                 Console.WriteLine("1. Add new booking");
@@ -73,10 +72,10 @@ namespace Project.Views
         public static void BookTicketsUI(string username, Role role)
         {
             Console.WriteLine();
-            Event.ViewEvents(username, role);
+            EventContoller.ViewEvents(username, role);
             bookTickets:  Console.WriteLine("Enter Event Id: ");
             int eventId= InputValidation.IntegerValidation();
-            Event e = Event.GetEvent(eventId);
+            Event e = EventContoller.GetEvent(eventId);
             if (e == null)
             {
                 Console.WriteLine("Re enter event id!!!!!");
@@ -91,16 +90,16 @@ namespace Project.Views
             Customer c;
             if (role == Role.Customer)
             {
-                c = Customer.GetCustomer(username);
+                c = CustomerController.GetCustomer(username);
             }
             else
             {
                selectCustomer: Console.WriteLine("Select one customer: ");
-                Customer.ViewCustomers();
+                CustomerController.ViewCustomers();
                 Console.Write("Enter customer username: ");
                 string uname = InputValidation.NullValidation();
                 
-                c = Customer.GetCustomer(uname);
+                c = CustomerController.GetCustomer(uname);
                 if (c == null)
                 {
                     Console.WriteLine("Customer doesnt exist!");
@@ -117,7 +116,7 @@ namespace Project.Views
                 }
             float totalprice = numOfTickets * e.Price;
             Booking b = new Booking(e, c, numOfTickets, totalprice);
-            Booking.BookEvent(b);
+            BookingController.BookEvent(b);
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("-------------------------------------------------------------");
             Console.WriteLine("-               Tickets Booked Successfully!                -");

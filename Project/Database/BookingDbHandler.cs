@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Project.BusinessLayer;
 using Project.Controller;
+using Project.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace Project.Database
 {
-    internal class BookingDbHandler:DbHandler
+    internal class BookingDbHandler:DbHandler<Booking>
     {
-        private static BookingDbHandler bookingDbInstance;
-        private static string _bookings_path;
+        private static BookingDbHandler? bookingDbInstance;
+        private static string? _bookings_path;
         public List<Booking> listOfBookings { get; set; }
         public static BookingDbHandler BookingDbInstance
         {
@@ -41,17 +42,10 @@ namespace Project.Database
                 Error.UnexpectedError();
             }
         }
-        public override bool AddEntry(object obj)
+        public bool AddBooking(Booking booking)
         {
-            if (obj is Booking)
-            {
-                listOfBookings.Add((Booking)obj);
-                if (UpdateEntry<Booking>(_bookings_path, listOfBookings))
-                {
-                    return true;
-                }
-                return false;
-            }
+            if (AddEntry(booking, listOfBookings, _bookings_path))
+                return true;
             return false;
         }
     }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Project.Controller;
+using Project.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,10 +8,16 @@ using System.Threading.Tasks;
 
 namespace Project.Database
 {
-    internal abstract class DbHandler
+    internal abstract class DbHandler<T> where T : class
     {
-        public abstract bool AddEntry(Object obj);
-        public bool UpdateEntry<T>(string path, List<T> list)
+        public bool AddEntry(T obj,List<T> list, string path)
+        {
+            list.Add(obj);
+            if(UpdateEntry(path,list)) 
+                return true;
+            return false;
+        }
+        public bool UpdateEntry(string path, List<T> list)
         {
             try
             {
@@ -22,6 +30,6 @@ namespace Project.Database
             }
             return true;
         }
-       
+        
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
-using Project.BusinessLayer;
 using Project.Controller;
+using Project.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace Project.Database
 {
-    internal class ArtistDbHandler: DbHandler
+    internal class ArtistDbHandler: DbHandler<Artist>
     {
-        private static ArtistDbHandler artistDbInstance;
-        private static string _artist_path;
+        private static ArtistDbHandler? artistDbInstance;
+        private static string? _artist_path;
         public List<Artist> listOfArtists { get; set; }
         public static ArtistDbHandler ArtistDbInstance
         {
@@ -41,31 +41,21 @@ namespace Project.Database
                 Error.UnexpectedError();
             }
         }
-        public override bool AddEntry(object obj)
+        public bool AddArtist(Artist artist)
         {
-            if (obj is Artist)
-            {
-                listOfArtists.Add((Artist)obj);
-                if (UpdateEntry<Artist>(_artist_path, listOfArtists))
-                {
-                    return true;
-                }
-                return false;
-            }
+            if (AddEntry(artist, listOfArtists, _artist_path))
+                return true;
             return false;
         }
 
         public bool RemoveArtist(Artist deleteArtist)
-        { 
-            foreach (var artist in listOfArtists)
+        {
+            var artist = listOfArtists.Single(a => a.artistId == deleteArtist.artistId);
+            if (artist != null)
             {
-                if (artist.artistId.Equals(deleteArtist.artistId))
-                {
-                    listOfArtists.Remove(artist);
-                    UpdateEntry<Artist>(_artist_path, listOfArtists);
-                    return true;
-                }
-               
+                listOfArtists.Remove(artist);
+                UpdateEntry(_artist_path, listOfArtists);
+                return true;
             }
             return false;
         }

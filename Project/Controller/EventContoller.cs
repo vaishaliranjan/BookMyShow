@@ -1,30 +1,26 @@
-﻿using Project.Controller;
-using Project.Database;
+﻿using Project.Database;
+using Project.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Project.BusinessLayer
+namespace Project.Controller
 {
-    public class Event
+    internal class EventContoller
     {
-        public int Id;
-        public string Name;
-        public Organizer organizer;
-        public Artist artist;
-        public Venue venue;
-        public int initialTickets;
-        public int NumOfTicket;
-        public float Price;
-       
         public static void DecrementTicket(Event bookedEvent, int numOfTickets)
         {
             EventDbHandler.EventDbInstance.DecTicketToDB(bookedEvent, numOfTickets);
-           
+
 
         }
-        public static Event GetEvent(int  eventId)
+        public static Event GetEvent(int eventId)
         {
             List<Event> events = EventDbHandler.EventDbInstance.listOfEvents;
             Event e = null;
-           
+
             if (events != null)
             {
                 try
@@ -32,12 +28,12 @@ namespace Project.BusinessLayer
                     e = events.Single(e => e.Id == eventId);
                     return e;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Error.NotFound("event");
                     return e;
                 }
-               
+
             }
             else
             {
@@ -101,7 +97,7 @@ namespace Project.BusinessLayer
             var events = EventDbHandler.EventDbInstance.listOfEvents;
             foreach (Event e in events)
             {
-                if(e.Id== deleteEventId)
+                if (e.Id == deleteEventId)
                 {
                     if (e.NumOfTicket == e.initialTickets)
                     {

@@ -1,4 +1,5 @@
 ﻿using Project.BusinessLayer;
+using Project.Models;
 using Project.Views;
 
 
@@ -10,24 +11,23 @@ namespace Project.UILayer
         {
             while (true)
             {
-                Role roleOfUser;
-                Console.Write("Enter username: ");
+                Console.Write(Message.enterUsername);
                 string username = InputValidation.NullValidation();
-                Console.Write("Enter password: ");
+                Console.Write(Message.enterPassword);
                 string password = Helper.HideCharacter();
-                string userRole = AuthManager<User>.AuthObject.Login(username, password);
+                User user = AuthManager<User>.AuthObject.Login(username, password);
                 Console.ResetColor();
-                    if (userRole=="Admin")
+                    if (user.role==Role.Admin)
                     {
-                        AdminUI.ADMINUI(username);
+                        AdminUI.ADMINUI((Admin)user);
                         break;  
                     }
-                    else if (userRole == "Customer")
+                    else if (user.role == Role.Customer)
                     {
                         CustomerUI.CUSTOMERUI(username);
                         break;
                     }
-                    else if (userRole == "Organizer")
+                    else if (user.role == Role.Organizer)
                     {
                         OrganizerUI.ORGANIZERUI(username);
                         break;

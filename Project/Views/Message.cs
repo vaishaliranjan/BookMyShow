@@ -9,6 +9,10 @@ namespace Project.Views
 {
     internal class Message
     {
+        public static string ChooseNum = "Choose any number: ";
+        public static string enterUsername = "Enter username: ";
+        public static string enterPassword = "Enter password: ";
+        public static string enterName = "Enter Name:";
         public static void InvalidInput()
         {
             Console.WriteLine("You can only enter a numeric value!!");

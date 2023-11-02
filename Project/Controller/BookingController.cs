@@ -1,30 +1,19 @@
-﻿using Project.BusinessLayer;
-using Project.Database;
+﻿using Project.Database;
+using Project.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Project.Controller
 {
-    public class Booking
+    internal class BookingController
     {
-        public int bookingId;
-        public Event bookedEvent;
-        public Customer customer;
-        public int numOfTickets;
-        public float totalPrice;
-        public static int bookingIdInc = 5;
-        
-        public Booking(Event e, Customer c, int numofTickets, float price)
-        {
-            this.bookingId = bookingIdInc;
-            bookingIdInc++;
-            this.bookedEvent = e;
-            this.customer = c;
-            this.numOfTickets = numofTickets;
-            this.totalPrice = price;
-        } 
         public static void BookEvent(Booking booking)
         {
             BookingDbHandler.BookingDbInstance.AddEntry(booking);
-            Event.DecrementTicket(booking.bookedEvent, booking.numOfTickets);
+           EventContoller .DecrementTicket(booking.bookedEvent, booking.numOfTickets);
         }
 
         public static void ViewBookings(string username, Role role)
@@ -74,6 +63,5 @@ namespace Project.Controller
                 Error.NotFound("bookings");
             }
         }
-
     }
 }

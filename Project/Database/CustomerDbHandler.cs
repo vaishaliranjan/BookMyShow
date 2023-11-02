@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
-using Project.BusinessLayer;
 using Project.Controller;
+using Project.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace Project.Database
 {
-    internal class CustomerDbHandler : DbHandler
+    internal class CustomerDbHandler : DbHandler<Customer>
     {
-        private static CustomerDbHandler customerDbInstance;
-        private static string _user_path;
+        private static CustomerDbHandler? customerDbInstance;
+        private static string? _user_path;
         public List<Customer> listOfCustomers { get; set; }
         public static CustomerDbHandler CustomerDbInstance
         {
@@ -29,9 +29,6 @@ namespace Project.Database
         private CustomerDbHandler()
         {
             listOfCustomers = new List<Customer>();
-            //List<User> listOfUsers = UserDbHandler.UserDbInstance.listOfUsers;
-            //listOfCustomers= listOfUsers.FindAll(u=> u.role == Role.Customer);
-
             _user_path = @"C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Users.json";
 
             try
@@ -45,17 +42,10 @@ namespace Project.Database
                 Error.UnexpectedError();
             }
         }
-        public override bool AddEntry(object obj)
+        public bool AddCustomer(Customer customer)
         {
-            if (obj is Customer)
-            {
-                listOfCustomers.Add((Customer)obj);
-                if (UpdateEntry<Customer>(_user_path, listOfCustomers))
-                {
-                    return true;
-                }
-                return false;
-            }
+            if (AddEntry(customer, listOfCustomers, _user_path))
+                return true;
             return false;
         }
     }

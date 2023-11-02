@@ -2,6 +2,8 @@
 using Project.Views;
 using System;
 using Project.Enum;
+using Project.Models;
+using Project.Controller;
 
 namespace Project.UILayer
 {
@@ -49,7 +51,7 @@ namespace Project.UILayer
 
         public static void ViewPreviousEventsUI(string username, Role role) 
         {
-            Event.ViewEvents(username, role);
+            EventContoller.ViewEvents(username, role);
             Console.Write("Choose any number: ");
             while (true)
             {

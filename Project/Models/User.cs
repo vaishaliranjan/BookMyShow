@@ -1,6 +1,4 @@
-﻿
-
-namespace Project.BusinessLayer
+﻿namespace Project.Models
 {
     public enum Role
     {
@@ -18,5 +16,5 @@ namespace Project.BusinessLayer
         public string Password;
 
     }
-    
+
 }

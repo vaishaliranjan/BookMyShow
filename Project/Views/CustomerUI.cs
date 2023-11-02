@@ -1,5 +1,7 @@
 ﻿using Project.BusinessLayer;
+using Project.Controller;
 using Project.Enum;
+using Project.Models;
 using Project.Views;
 
 
@@ -39,7 +41,7 @@ namespace Project.UILayer
         }
         public static void CustomerViewEventsUI(string username)
         {
-            Event.ViewEvents(username, Role.Customer);
+            EventContoller.ViewEvents(username, Role.Customer);
             Console.Write("Choose any number: ");
             Message.CustomerViewEvents();
             while (true)

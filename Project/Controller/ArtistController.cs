@@ -1,30 +1,21 @@
-﻿using Project.Controller;
-using Project.Database;
+﻿using Project.Database;
+using Project.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Project.BusinessLayer
+namespace Project.Controller
 {
-    public class Artist
+    internal class ArtistController
     {
-        public int artistId;
-        public string Name;
-        public DateTime timing;
-       
-        public static int id = 6;
-
-        public Artist(string name, DateTime timing)
-        {
-            this.Name = name;
-            this.timing = timing;
-            this.artistId = id;
-            id++;
-            
-        }
         public static bool AddNewArtist(Artist artist)
-        {     
-            return ArtistDbHandler.ArtistDbInstance.AddEntry(artist);
+        {
+            return ArtistDbHandler.ArtistDbInstance.AddArtist(artist);
         }
 
-        public static void ViewArtists()
+        public void ViewArtists()
         {
             List<Artist> artists = ArtistDbHandler.ArtistDbInstance.listOfArtists;
             if (artists != null)
@@ -51,7 +42,7 @@ namespace Project.BusinessLayer
             {
                 Error.NotFound("artists");
             }
-            
+
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Project.BusinessLayer;
+﻿using Project.Controller;
+using Project.Models;
 using Project.UILayer;
 using System.Runtime.CompilerServices;
 
@@ -11,30 +12,26 @@ namespace Project.Views
         {
             Console.WriteLine();
             Console.WriteLine("Select Artist: ");
-            Artist.ViewArtists();
+            ArtistController.ViewArtists();
             Artist choosenArtist = null;
         selectArtistId: Console.Write("Enter ArtistId: ");
             int artistId = InputValidation.IntegerValidation();
          
-                choosenArtist = Organizer.SelectArtist(artistId);
+                choosenArtist = OrganizerController.SelectArtist(artistId);
                 if (choosenArtist == null)
                 {
                     Console.WriteLine("No such artist!");
                     goto selectArtistId;
                 }
-           
-
-
-
             Console.WriteLine();
             Console.WriteLine("Select Venue: ");
-            Venue.ViewVenues();
+            VenueController.ViewVenues();
             selectVenueId:  Console.Write("Enter VenueId: ");
             Venue choosenVenue = null;
             int venueId= InputValidation.IntegerValidation();
            
                
-                choosenVenue= Organizer.SelectVenue(venueId);
+                choosenVenue= OrganizerController.SelectVenue(venueId);
                 if (choosenVenue == null)
                 {
                     goto selectVenueId;
@@ -60,15 +57,15 @@ namespace Project.Views
             Organizer organizerOfEvent= new Organizer();
             if (role == Role.Organizer)
             {
-                organizerOfEvent = Organizer.GetOrganizer(username);
+                organizerOfEvent = OrganizerController.GetOrganizer(username);
             }
             else if(role ==Role.Admin)
             {
                 selectOrganizer: Console.WriteLine("Select an organizer: ");
-                Organizer.ViewOrganizers();
+                OrganizerController.ViewOrganizers();
                 Console.Write("Enter organizer username: ");
                 string uname = InputValidation.NullValidation();   
-                organizerOfEvent = Organizer.GetOrganizer(uname);
+                organizerOfEvent = OrganizerController.GetOrganizer(uname);
                 if (organizerOfEvent == null)
                 {
                     Console.WriteLine("No such organizer!!");
@@ -89,7 +86,7 @@ namespace Project.Views
                 Price=price
 
             };
-            Event.AddEvent(newEvent);
+            EventContoller.AddEvent(newEvent);
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("-------------------------------------------------------------");
             Console.WriteLine("-                  Event Added Successfully!                -");
@@ -110,11 +107,11 @@ namespace Project.Views
         {
             if(role== Role.Organizer)
             {
-                Event.ViewEvents(username, role);
+                EventContoller.ViewEvents(username, role);
             }
             Console.Write("Select EventId: ");
             int deleteEventId = InputValidation.IntegerValidation();
-            if (Event.DeleteEvent(deleteEventId))
+            if (EventContoller.DeleteEvent(deleteEventId))
             {
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine();
@@ -142,11 +139,11 @@ namespace Project.Views
                 Console.ResetColor();
                 if (role == Role.Admin)
                 {
-                    Event.ViewEvents(username, Role.Admin);
+                    EventContoller.ViewEvents(username, Role.Admin);
                 }
                 else
                 {
-                    Event.ViewEvents(username, Role.Organizer);
+                    EventContoller.ViewEvents(username, Role.Organizer);
                 }
             }
             

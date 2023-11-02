@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
-using Project.BusinessLayer;
 using Project.Controller;
+using Project.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace Project.Database
 {
-    internal class EventDbHandler: DbHandler
+    internal class EventDbHandler: DbHandler<Event>
     {
-        private static EventDbHandler eventDbInstance;
-        private static string _events_path;
+        private static EventDbHandler? eventDbInstance;
+        private static string? _events_path;
         public List<Event> listOfEvents { get; set; }
         public static EventDbHandler EventDbInstance
         {
@@ -41,39 +41,44 @@ namespace Project.Database
                 Error.UnexpectedError();
             }
         }
-        public override bool AddEntry(object obj)
+        public bool AddEvent(Event newEvent)
         {
-            if (obj is Event)
-            {
-                listOfEvents.Add((Event)obj);
-                if (UpdateEntry<Event>(_events_path, listOfEvents))
-                {
-                    return true;
-                }
-                return false;
-            }
+            if (AddEntry(newEvent, listOfEvents, _events_path))
+                return true;
             return false;
         }
 
-        public void RemoveEvent(Event e)
+        public bool RemoveEvent(Event removeEvent)
         {
-           
-            foreach (var eve in listOfEvents)
+            Event eve = null;
+            try
             {
-                if (eve.Id == e.Id)
-                {
+                eve = listOfEvents.Single(e => e.Id == removeEvent.Id);
+                if (eve != null) {
                     listOfEvents.Remove(eve);
-                    UpdateEntry<Event>(_events_path, listOfEvents);
+                    UpdateEntry(_events_path, listOfEvents);
+                    return true;
+                }
+                else
+                {
+                    Error.NotFound("event");
+                    return false;
                 }
             }
+            catch
+            {
+                Error.UnexpectedError();
+                return false;
+            }
+            
         }
-        public void DecTicketToDB(Event events, int numOfTickets)
+        public void DecTicketToDB(Event bookedEvent, int numOfTickets)
         {
-        
-            Event e = new Event();
+
+            Event e = null;
             foreach (var eve in listOfEvents)
             {
-                if (eve.Id == events.Id)
+                if (eve.Id == bookedEvent.Id)
                 {
                     e = eve;
                     e.NumOfTicket = e.NumOfTicket - numOfTickets;
@@ -82,7 +87,7 @@ namespace Project.Database
                 }
             }
             listOfEvents.Add(e);
-            UpdateEntry<Event>(_events_path,listOfEvents);
+            UpdateEntry(_events_path,listOfEvents);
 
         }
     }

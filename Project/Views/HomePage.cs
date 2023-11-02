@@ -1,8 +1,7 @@
-﻿
-using Project.BusinessLayer;
-using Project.UI;
+﻿using Project.UI;
 using Project.Enum;
 using Project.Views;
+using Project.Models;
 
 namespace Project.UILayer
 {
@@ -12,12 +11,11 @@ namespace Project.UILayer
         static void Main(string[] args)
         {
             HomePageFunction();
-
         }
         public static void HomePageFunction()
         {
             Message.HomePage();
-            Console.Write("Choose any number: ");
+            Console.Write(Message.ChooseNum);
             while (true)
             {
             HomePageOptions input;

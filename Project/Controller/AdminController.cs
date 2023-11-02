@@ -1,15 +1,19 @@
-﻿using Project.Controller;
-using Project.Database;
+﻿using Project.Database;
+using Project.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Project.BusinessLayer
+namespace Project.Controller
 {
-    public class Admin: User
+    internal class AdminController
     {
-        public static void ViewAdmins()
+
+        public List<Admin> ViewAdmins()
         {
-            List<Admin> admins = AdminDbHandler.AdminDbInstance.listOfAdmins;
-            if (admins != null)
-            {
+           
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("-------------------------------------------------------------");
                 Console.WriteLine("-                                                           -");
@@ -19,7 +23,7 @@ namespace Project.BusinessLayer
                 Console.WriteLine("-                                                           -");
                 Console.WriteLine("-------------------------------------------------------------");
 
-                foreach (var admin in admins)
+                foreach (var admin in AdminDbHandler.AdminDbInstance.listOfAdmins)
                 {
 
                     Console.WriteLine();
@@ -31,13 +35,10 @@ namespace Project.BusinessLayer
 
                 }
                 Console.ResetColor();
-            }
-            else
-            {
-                Error.NotFound("admins");
-            }
-            
-            
+            return AdminDbHandler.AdminDbInstance.listOfAdmins; 
         }
+            
+
+        
     }
 }

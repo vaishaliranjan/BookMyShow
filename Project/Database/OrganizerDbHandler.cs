@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
-using Project.BusinessLayer;
 using Project.Controller;
+using Project.Models;
+using Project.UILayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Project.Database
 {
-    internal class OrganizerDbHandler: DbHandler
+    internal class OrganizerDbHandler: DbHandler<Organizer>
     {
         private static OrganizerDbHandler organizerDbInstance;
         private static string _user_path;
@@ -45,17 +46,10 @@ namespace Project.Database
                 Error.UnexpectedError();
             }
         }
-        public override bool AddEntry(object obj)
+        public bool AddOrganizer(Organizer organizer)
         {
-            if (obj is Organizer)
-            {
-                listOfOrganizer.Add((Organizer)obj);
-                if (UpdateEntry<Organizer>(_user_path, listOfOrganizer))
-                {
-                    return true;
-                }
-                return false;
-            }
+            if (AddEntry(organizer, listOfOrganizer, _user_path))
+                return true;
             return false;
         }
     }
