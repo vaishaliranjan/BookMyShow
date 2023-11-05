@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Project.Controller
 {
-    internal class CustomerController
+    public class CustomerController
     {
-        public static Customer GetCustomer(string username)
+        public Customer GetCustomer(string username)
         {
             List<Customer> customers = CustomerDbHandler.CustomerDbInstance.listOfCustomers;
             if (customers != null)
@@ -33,39 +33,10 @@ namespace Project.Controller
             }
         }
 
-        public static void ViewCustomers()
+        public List<Customer> ViewCustomers()
         {
-            List<Customer> customers = CustomerDbHandler.CustomerDbInstance.listOfCustomers;
-            if (customers != null)
-            {
-
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("-------------------------------------------------------------");
-                Console.WriteLine("-                                                           -");
-                Console.WriteLine("-                                                           -");
-                Console.WriteLine("-                         CUSTOMERS                         -");
-                Console.WriteLine("-                                                           -");
-                Console.WriteLine("-                                                           -");
-                Console.WriteLine("-------------------------------------------------------------");
-
-                foreach (var customer in customers)
-                {
-
-                    Console.WriteLine();
-                    Console.WriteLine("Id: " + customer.UserId);
-                    Console.WriteLine("Name: " + customer.Name);
-                    Console.WriteLine("Username: " + customer.Username);
-                    Console.WriteLine("Email: " + customer.Email);
-                    Console.WriteLine();
-
-                }
-                Console.ResetColor();
-
-            }
-            else
-            {
-                Error.NotFound("users");
-            }
+            return  CustomerDbHandler.CustomerDbInstance.listOfCustomers;
+            
         }
     }
 }

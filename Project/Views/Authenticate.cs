@@ -1,7 +1,8 @@
 ﻿using Project.BusinessLayer;
+using Project.Helper;
 using Project.Models;
 using Project.Views;
-
+using Project.Objects;
 
 namespace Project.UILayer
 {
@@ -14,29 +15,58 @@ namespace Project.UILayer
                 Console.Write(Message.enterUsername);
                 string username = InputValidation.NullValidation();
                 Console.Write(Message.enterPassword);
-                string password = Helper.HideCharacter();
+                string password =HelperClass.HideCharacter();
                 User user = AuthManager<User>.AuthObject.Login(username, password);
                 Console.ResetColor();
-                    if (user.role==Role.Admin)
+                if (user != null)
+                {
+                    if (user.role == Role.Admin)
                     {
-                        AdminUI.ADMINUI((Admin)user);
-                        break;  
+                        Admin newAdmin = new Admin() { UserId = user.UserId,
+                        Name = user.Name,
+                        Username = user.Username,
+                        Email = user.Email,
+                        role = user.role,
+                        Password = user.Password
+                    };
+                        
+                        AdminUI.ADMINUI(new AdminObjects(newAdmin));
+                        break;
                     }
                     else if (user.role == Role.Customer)
                     {
-                        CustomerUI.CUSTOMERUI(username);
+                        Customer newCustomer = new Customer()
+                        {
+                            UserId = user.UserId,
+                            Name = user.Name,
+                            Username = user.Username,
+                            Email = user.Email,
+                            role = user.role,
+                            Password = user.Password
+                        };
+                        CustomerUI.CUSTOMERUI(new CustomerObjects(newCustomer));
                         break;
                     }
                     else if (user.role == Role.Organizer)
                     {
-                        OrganizerUI.ORGANIZERUI(username);
+                        Organizer newOrganizer = new Organizer()
+                        {
+                            UserId = user.UserId,
+                            Name = user.Name,
+                            Username = user.Username,
+                            Email = user.Email,
+                            role = user.role,
+                            Password = user.Password
+                        };
+                        OrganizerUI.ORGANIZERUI(new OrganizerObjects(newOrganizer));
                         break;
                     }
-                    else
-                    {
-                        Console.WriteLine("Wrong credentials");
-                        continue;
-                    }   
+                }
+                else
+                {
+                    Console.WriteLine(Message.wrongCredentials);
+                    continue;
+                }   
                 }
             }
         }

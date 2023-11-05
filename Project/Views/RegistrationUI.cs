@@ -1,33 +1,34 @@
 ﻿using Project.BusinessLayer;
-using Project.Models;
-using Project.UILayer;
 using Project.Views;
+using Project.Models;
+using Project.Objects;
+using Project.UILayer;
 
 namespace Project.UI
 {
     public static class RegistrationUI
     {
-        // ADD NEW USER-
-        public static void AddNewUserUI(Role roleInput)
+       
+        public static void AddNewUserUI(Role roleInput, AdminObjects admin=null)
         {
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
             Console.WriteLine();
-            string name = null;
+            string name;
             while (true)
             {
-                Console.Write("Enter Name: ");
+                Console.Write(Message.enterName);
                 name = InputValidation.NullValidation();
                 bool result=RegexValidation.isValidName(name);
                 if(result)
                 {
                     break;
                 }
-                Console.WriteLine("Name can only include characters and should have minimum 5 characters");
+                Console.WriteLine(Message.onlyCharacters);
             }
             string username = null;
             while (true)
             {
-                Console.Write("Enter username: ");
+                Console.Write(Message.enterUsername);
                 username = InputValidation.NullValidation();
 
                 bool result =RegexValidation.isValidName(username);
@@ -35,53 +36,48 @@ namespace Project.UI
                 {
                     break;
                 }
-                Console.WriteLine("username can only include characters and should have minimum 5 characters");
+                Console.WriteLine(Message.onlyCharacters);
             }
             string email = null;
             while (true)
             {
-                Console.Write("Enter Email: ");
+                Console.Write(Message.enterEmail);
                 email = InputValidation.NullValidation();
                 bool result =RegexValidation.isValidEmail(email);
                 if (result)
                 {
                     break;
                 }
-                Console.WriteLine("Enter a valid email address..");
+                Console.WriteLine(Message.entervalidEmail);
             }
-            Console.Write("Enter Password: ");
+            Console.Write(Message.enterPassword);
             string password = InputValidation.NullValidation();
            
             Console.ResetColor();
             var role = roleInput;
-            bool flag = false;
+            User user = null ;
+            
             if (role == Role.Admin)
             {
-                flag =AuthManager<Admin>.AuthObject.Register(name, username, email, password, Role.Admin);
+                user=AuthManager<Admin>.AuthObject.Register(name, username, email, password, Role.Admin);
+                 
             }
 
             else if (role == Role.Customer)
             {
-                flag = AuthManager<Customer>.AuthObject.Register(name, username, email, password, Role.Customer);
+                 user= AuthManager<Customer>.AuthObject.Register(name, username, email, password, Role.Customer);
             }
             else if (role == Role.Organizer)
             {
-                flag = AuthManager<Organizer>.AuthObject.Register(name, username, email, password, Role.Organizer);
+                user = AuthManager<Organizer>.AuthObject.Register(name, username, email, password, Role.Organizer);
             }
-            if (flag)
+            if (user !=null)
             {
-                Console.ForegroundColor = ConsoleColor.DarkMagenta;
-                Console.WriteLine("-------------------------------------------------------------");
-                Console.WriteLine("-                                                           -");
-                Console.WriteLine("-                                                           -");
-                Console.WriteLine("-                 USER ADDED SUCCESSFULLY                   -");
-                Console.WriteLine("-                                                           -");
-                Console.WriteLine("-                                                           -");
-                Console.WriteLine("-------------------------------------------------------------");
-                Console.ResetColor();
+                Message.UserAdded();
+                
                 if (role == Role.Admin)
                 {
-                    AdminUI.ADMINUI(username);
+                    AdminUI.ADMINUI(admin);
                 }
                 else
                 {
@@ -90,8 +86,10 @@ namespace Project.UI
             }
             else
             {
-                RegistrationUI.AddNewUserUI(roleInput);
+                Message.UserExists();
+                
             }
+           
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
-using Project.Controller;
 using Project.Models;
+using Project.Controller;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,8 +29,7 @@ namespace Project.Database
         private AdminDbHandler()
         {
             listOfAdmins = new List<Admin>();
-            //List<User> listOfUsers = UserDbHandler.UserDbInstance.listOfUsers;
-            //listOfCustomers= listOfUsers.FindAll(u=> u.role == Role.Customer);
+            
 
             _user_path = @"C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Users.json";
 

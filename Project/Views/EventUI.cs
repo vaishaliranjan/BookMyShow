@@ -1,82 +1,98 @@
 ﻿using Project.Controller;
+using Project.Enum;
 using Project.Models;
 using Project.UILayer;
-using System.Runtime.CompilerServices;
+
 
 namespace Project.Views
 {
     internal class EventUI
     {
-        public static int eventIDInc = 108;
-        public static void CreateEventUI(string username, Role role)
+        public static int eventIdInc = Event.eventIDInc;
+        static void ShowEvents(List<Event> events)
         {
+            foreach (Event e in events)
+            {
+                Console.WriteLine();
+                Console.WriteLine("Event Id: " + e.Id);
+                Console.WriteLine("Name: " + e.Name);
+                Console.WriteLine("Timing: " + e.artist.timing);
+                Console.WriteLine("Artist: " + e.artist.Name);
+                Console.WriteLine("Venue: " + e.venue.Place);
+                Console.WriteLine("Number of tickets left: " + e.NumOfTicket);
+                Console.WriteLine("Price per ticket: " + e.Price);
+                Console.WriteLine();
+            }
+        }
+        public static void ViewEventsUI(Role role, string username = null ) 
+        {
+            EventContoller eventContoller = new EventContoller();
+            var events=eventContoller.ViewEvents();
+            if(events != null)
+            {
+                Message.ViewEvents();
+                if ( role == Role.Admin || role == Role.Customer)
+                {
+                    ShowEvents(events);
+                    return;
+                    
+                }
+                else if (role == Role.Organizer)
+                {
+                    var organizerEvents = events.FindAll(e => e.organizer.Username == username);
+                    ShowEvents(organizerEvents);
+                    return;
+                }
+            }
+            
+           
+
+
+        }
+        
+        public static void CreateEventUI(Role role, Organizer organizerOfEvent) 
+        {
+            ArtistController artistController= new ArtistController();
+            VenueController venueController = new VenueController();
+            EventContoller eventContoller = new EventContoller();
             Console.WriteLine();
-            Console.WriteLine("Select Artist: ");
-            ArtistController.ViewArtists();
+            Console.WriteLine(Message.selectArtist);
+            ArtistUI.ViewArtistsUI(artistController);
             Artist choosenArtist = null;
-        selectArtistId: Console.Write("Enter ArtistId: ");
+        selectArtistId: Console.Write(Message.artistId);
             int artistId = InputValidation.IntegerValidation();
          
-                choosenArtist = OrganizerController.SelectArtist(artistId);
+                choosenArtist = artistController.SelectArtist(artistId);
                 if (choosenArtist == null)
                 {
-                    Console.WriteLine("No such artist!");
+                    Console.WriteLine(Message.doesntExist);
                     goto selectArtistId;
                 }
             Console.WriteLine();
-            Console.WriteLine("Select Venue: ");
-            VenueController.ViewVenues();
-            selectVenueId:  Console.Write("Enter VenueId: ");
+            Console.WriteLine(Message.selectVenue);
+            VenueUI.ViewVenuesUI(venueController);
+            selectVenueId:  Console.Write(Message.venueId);
             Venue choosenVenue = null;
             int venueId= InputValidation.IntegerValidation();
            
                
-                choosenVenue= OrganizerController.SelectVenue(venueId);
+                choosenVenue=venueController.SelectVenue(venueId);
                 if (choosenVenue == null)
                 {
                     goto selectVenueId;
                 }
-           
-            string eventName = null;
-            while (true)
-            {
-                Console.Write("Enter name of the event: ");
-                eventName = InputValidation.NullValidation();
-                if(String.IsNullOrEmpty(eventName))
-                {
-                    Console.WriteLine("Event name can't be blanked!!");
-                    continue;
-                }
-                break;
-            }
-            Console.Write("Enter number of tickets: ");
-            int tickets = InputValidation.IntegerValidation();
-            Console.Write("Enter price per ticket: ");
-            int price= InputValidation.IntegerValidation();
-            
-            Organizer organizerOfEvent= new Organizer();
-            if (role == Role.Organizer)
-            {
-                organizerOfEvent = OrganizerController.GetOrganizer(username);
-            }
-            else if(role ==Role.Admin)
-            {
-                selectOrganizer: Console.WriteLine("Select an organizer: ");
-                OrganizerController.ViewOrganizers();
-                Console.Write("Enter organizer username: ");
-                string uname = InputValidation.NullValidation();   
-                organizerOfEvent = OrganizerController.GetOrganizer(uname);
-                if (organizerOfEvent == null)
-                {
-                    Console.WriteLine("No such organizer!!");
-                    goto selectOrganizer;
-                }
 
-            }
+            string eventName;
+            Console.Write(Message.eventName);
+            eventName = InputValidation.NullValidation();
+            Console.Write(Message.numOfTickets);
+            int tickets = InputValidation.IntegerValidation();
+            Console.Write(Message.pricePerTicket);
+            int price= InputValidation.IntegerValidation();
             int initialTick = tickets;
             var newEvent = new Event()
             {
-                Id= eventIDInc,
+                Id= ++eventIdInc,
                 Name= eventName,
                 organizer = organizerOfEvent,
                 artist = choosenArtist,
@@ -86,65 +102,32 @@ namespace Project.Views
                 Price=price
 
             };
-            EventContoller.AddEvent(newEvent);
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("-------------------------------------------------------------");
-            Console.WriteLine("-                  Event Added Successfully!                -");
-            Console.WriteLine("-------------------------------------------------------------");
-            Console.ResetColor();
-            if (role == Role.Admin)
+            if (eventContoller.AddEvent(newEvent))
             {
-                AdminUI.ADMINUI(username);
+                Message.EventAdded();
             }
             else
             {
-                OrganizerUI.ORGANIZERUI(username);
+                Console.WriteLine(Message.errorOccurred); 
             }
+           
 
         }
 
-        public static void CancelEventUI(string username, Role role)
+        public static void CancelEventUI()
         {
-            if(role== Role.Organizer)
-            {
-                EventContoller.ViewEvents(username, role);
-            }
-            Console.Write("Select EventId: ");
+            EventContoller eventContoller = new EventContoller();
+            Console.Write(Message.eventId);
             int deleteEventId = InputValidation.IntegerValidation();
-            if (EventContoller.DeleteEvent(deleteEventId))
+            if (eventContoller.DeleteEvent(deleteEventId))
             {
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine();
-                Console.WriteLine("-------------------------------------------------------------");
-                Console.WriteLine("-                Event Deleted Successfully!                -");
-                Console.WriteLine("-------------------------------------------------------------");
-                Console.ResetColor();
-                if (role == Role.Admin)
-                {
-                    AdminUI.ADMINUI(username);
-                }
-                else
-                {
-                    OrganizerUI.ORGANIZERUI(username);
-                }
+                Message.EventDeleted();
+              
             }
             else
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine();
-                Console.WriteLine("-------------------------------------------------------------");
-                Console.WriteLine("-                 Tickets already booked!                   -");
-                Console.WriteLine("-                 Event can't be deleted!                   -");
-                Console.WriteLine("-------------------------------------------------------------");
-                Console.ResetColor();
-                if (role == Role.Admin)
-                {
-                    EventContoller.ViewEvents(username, Role.Admin);
-                }
-                else
-                {
-                    EventContoller.ViewEvents(username, Role.Organizer);
-                }
+                Message.CantCancelEvent();
+                
             }
             
 

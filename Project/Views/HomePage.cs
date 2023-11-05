@@ -1,7 +1,7 @@
 ﻿using Project.UI;
 using Project.Enum;
-using Project.Views;
 using Project.Models;
+using Project.Views;
 
 namespace Project.UILayer
 {

@@ -10,7 +10,6 @@ namespace Project.BusinessLayer
     {
         private static AuthManager<T> _authManagerObject;
         private AuthManager(){}
-
         public static AuthManager<T> AuthObject
         {
             get
@@ -22,7 +21,7 @@ namespace Project.BusinessLayer
                 return _authManagerObject;
             }
         }
-        public static int userIDInc = 28;
+        public static int userIDInc = UserDbHandler.UserDbInstance.listOfUsers[-1].UserId;
         public User Login(string username, string password)
         {
             List<User> allUsers = UserDbHandler.UserDbInstance.listOfUsers;
@@ -30,56 +29,37 @@ namespace Project.BusinessLayer
             {
                 if(user.Username == username && user.Password== password)
                 {
-                    if (user.role == Role.Admin)
-                    {
-                        return (Admin)user;
-                    }
-                    else if (user.role == Role.Organizer)
-                    {
-                        return (Organizer)user;
-                    }
-                    else if (user.role == Role.Customer)
-                    {
-                        return (Customer)user;
-                    }
+                    return user;
                 }
-                
             }
             return null;
-
         }
-      
-         public  bool Register(string name, string username, string email, string password, Role roleInput)
+         public  User Register(string name, string username, string email, string password, Role roleInput)
          {
             if (ValidateUser(username))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("-------------------------------------------------------------");
-                Console.WriteLine("-                  USER ALREADY EXISTS!                     -");
-                Console.WriteLine("-------------------------------------------------------------");
-                Console.ResetColor();
-                return false;
+                return null;
             }
 
             else
             {
                     var newUser = new T
                     {
-                        UserId = userIDInc,
+                        UserId = ++userIDInc,
                         Name = name,
                         Username = username,
                         Email = email,
                         Password = password,
                         role = (Role)roleInput,
                     };
-                    userIDInc++;
+                    
 
-                    UserDbHandler.UserDbInstance.AddEntry(newUser);
-                    return true;
+                    UserDbHandler.UserDbInstance.AddUser(newUser);
+                    return newUser;
                 
             }
          }
-        
         public void Logout()
         {
             HomePage.HomePageFunction();
@@ -97,6 +77,5 @@ namespace Project.BusinessLayer
             }
             return false;
         }
-       
     }
 }

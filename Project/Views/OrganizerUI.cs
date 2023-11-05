@@ -3,18 +3,18 @@ using Project.Views;
 using System;
 using Project.Enum;
 using Project.Models;
-using Project.Controller;
+
 
 namespace Project.UILayer
 {
     internal class OrganizerUI
     {
         
-        public static void ORGANIZERUI(string username)
+        public static void ORGANIZERUI(OrganizerObjects organizer)
         {
             Message.OrganizerPage();
             OrganizerUIOptions input;
-            Console.Write("Choose any number: ");
+            Console.Write(Message.ChooseNum);
             input = (OrganizerUIOptions)InputValidation.IntegerValidation();
            
             while (true)
@@ -22,15 +22,15 @@ namespace Project.UILayer
                 switch (input)
                 {
                     case OrganizerUIOptions.CreateEvent:
-                        EventUI.CreateEventUI(username, Role.Organizer);
+                        CreateEvent(organizer);
                         break;
 
                     case OrganizerUIOptions.ViewPreviousEvents:
-                        ViewPreviousEventsUI(username, Role.Organizer);
+                        ViewPreviousEventsUI(organizer);
                         break;
 
                     case OrganizerUIOptions.CancelEvent:
-                        EventUI.CancelEventUI(username, Role.Organizer);
+                        CancelEvent(organizer);
                         break;
 
                     case OrganizerUIOptions.LogOut:
@@ -46,16 +46,26 @@ namespace Project.UILayer
             
 
         }
-
-        
-
-        public static void ViewPreviousEventsUI(string username, Role role) 
+         static void CancelEvent(OrganizerObjects organizer)
         {
-            EventContoller.ViewEvents(username, role);
-            Console.Write("Choose any number: ");
+            EventUI.ViewEventsUI(Role.Organizer, organizer.realOrganizerObject.Username);
+            EventUI.CancelEventUI();
+            OrganizerUI.ORGANIZERUI(organizer);
+        }
+
+         static void CreateEvent(OrganizerObjects organizer)
+        {
+            EventUI.CreateEventUI(Role.Organizer, organizer.realOrganizerObject);
+            OrganizerUI.ORGANIZERUI(organizer);
+
+        }
+        public static void ViewPreviousEventsUI(OrganizerObjects organizer) 
+        {
+            Message.ViewEvents();
+            EventUI.ViewEventsUI(Role.Organizer, organizer.realOrganizerObject.Username);
+            Message.PressToExit();
             while (true)
             {
-                Message.OrganizerViewEvents();
                 OrganizerUIOptions ip;
                 while (true)
                 {
@@ -63,7 +73,7 @@ namespace Project.UILayer
                     switch (ip)
                     {
                         case OrganizerUIOptions.Back:
-                            OrganizerUI.ORGANIZERUI(username);
+                            OrganizerUI.ORGANIZERUI(organizer);
                             break;
 
                         default:

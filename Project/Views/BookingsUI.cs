@@ -7,129 +7,77 @@ namespace Project.Views
 {
     public class BookingsUI
     {
-        
-        public static void ViewBookingsUI(string username, Role role)
+        public static void ShowBookings(List<Booking> bookings)
         {
-            BookingController.ViewBookings(username, role);
-            if (role == Role.Admin)
+            Message.ViewBookings();
+
+            foreach (var booking in bookings)
             {
-                Console.WriteLine("1. Add new booking");
-                Console.WriteLine("0. Back");
                 Console.WriteLine();
-                BookingsOptions input;
-                Console.Write("Choose any number: ");
-                while (true)
-                {
-                    input = (BookingsOptions)InputValidation.IntegerValidation();
-                    switch (input)
-                    {
-                        case BookingsOptions.AddNewBooking:
-                            BookTicketsUI(username, role);
-                            break;
-
-                        case BookingsOptions.Exit:
-                            Console.WriteLine();
-                            AdminUI.ADMINUI(username);
-                            break;
-
-                        default:
-                            Message.InvalidInput();
-                            continue;
-                    }
-
-                    break;
-                }
+                Console.WriteLine("Customer Name: " + booking.customer.Name);
+                Console.WriteLine("Event Name: " + booking.bookedEvent.Name);
+                Console.WriteLine("Artist: " + booking.bookedEvent.artist.Name);
+                Console.WriteLine("Venue: " + booking.bookedEvent.venue.Place);
+                Console.WriteLine("Date: " + booking.bookedEvent.artist.timing);
+                Console.WriteLine("Number of Tickets: " + booking.numOfTickets);
+                Console.WriteLine("Price: " + booking.totalPrice);
+                Console.WriteLine();
 
             }
-            else
+            Console.ResetColor();
+        }
+        public static void ViewBookingsUI(Role role,string username,BookingController bookingController ) 
+        {
+            var bookings = bookingController.ViewBookings();
+            if (bookings != null)
             {
-                Console.WriteLine("0. Back");
-                Console.Write("Choose any number: ");
-                while (true)
+                if (role == Role.Admin)
                 {
-
-                BookingsOptions input;
-                input = (BookingsOptions)InputValidation.IntegerValidation();
-                   
-                    switch (input)
-                    {
-                       
-                        case BookingsOptions.Exit:
-                            Console.WriteLine();
-                            CustomerUI.CUSTOMERUI(username);
-                            break;
-                          
-
-                        default:
-                            Message.InvalidInput();
-                            continue;
-                    }
-                    break;
+                    ShowBookings(bookings);
+                    return;
                 }
-
+                else
+                {
+                    var customerBooking = bookings.FindAll(b => b.customer.Username == username);
+                    ShowBookings(customerBooking);
+                    return;
+                }
             }
         }
-        public static void BookTicketsUI(string username, Role role)
+        public static void BookTicketsUI(Customer customer) 
         {
-            Console.WriteLine();
-            EventContoller.ViewEvents(username, role);
-            bookTickets:  Console.WriteLine("Enter Event Id: ");
-            int eventId= InputValidation.IntegerValidation();
-            Event e = EventContoller.GetEvent(eventId);
-            if (e == null)
+            BookingController bookingController = new BookingController();
+            EventContoller eventContoller = new EventContoller();
+            EventUI.ViewEventsUI(Role.Customer);
+            Event eventBooked;
+            int eventId;
+            bookTickets:  Console.Write(Message.eventId);
+            eventId= InputValidation.IntegerValidation();
+            eventBooked = EventContoller.GetEvent(eventId);
+            if (eventBooked == null)
             {
-                Console.WriteLine("Re enter event id!!!!!");
+                Console.WriteLine(Message.doesntExist);
                 Console.WriteLine();
                 goto bookTickets;
             }
-            if(e.NumOfTicket == 0)
+            if(eventBooked.NumOfTicket == 0)
             {
-                Console.WriteLine("No Tickets Available!");
+                Console.WriteLine(Message.noTickets);
                 goto bookTickets;
             }
-            Customer c;
-            if (role == Role.Customer)
-            {
-                c = CustomerController.GetCustomer(username);
-            }
-            else
-            {
-               selectCustomer: Console.WriteLine("Select one customer: ");
-                CustomerController.ViewCustomers();
-                Console.Write("Enter customer username: ");
-                string uname = InputValidation.NullValidation();
-                
-                c = CustomerController.GetCustomer(uname);
-                if (c == null)
-                {
-                    Console.WriteLine("Customer doesnt exist!");
-                    goto selectCustomer;
-                }
-            }
 
-        numofTickets: Console.WriteLine("Enter number of tickets required: ");
+        numofTickets: Console.Write(Message.numOfTickets);
             int numOfTickets = InputValidation.IntegerValidation();
-                if(numOfTickets < 0 || e.NumOfTicket<numOfTickets)
+                if(numOfTickets < 0 || eventBooked.NumOfTicket<numOfTickets)
                 {
-                    Console.WriteLine("Tickets must be greater than 0 and less than num of tickets available.");
+                    Console.WriteLine(Message.notValidTickets);
                     goto numofTickets;
                 }
-            float totalprice = numOfTickets * e.Price;
-            Booking b = new Booking(e, c, numOfTickets, totalprice);
-            BookingController.BookEvent(b);
-            Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.WriteLine("-------------------------------------------------------------");
-            Console.WriteLine("-               Tickets Booked Successfully!                -");
-            Console.WriteLine("-------------------------------------------------------------");
-            Console.ResetColor();
-            if (role == Role.Customer)
-            {
-                CustomerUI.CUSTOMERUI(username);
-            }
-            else
-            {
-                AdminUI.ADMINUI(username);
-            }
+            float totalprice = numOfTickets * eventBooked.Price;
+            Booking booking = new Booking(eventBooked, customer, numOfTickets, totalprice);
+            bookingController.BookEvent(booking);
+            Message.TicketsBooked();
+            
         }
     }
 }

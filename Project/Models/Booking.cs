@@ -10,12 +10,12 @@ namespace Project.Models
         public Customer customer;
         public int numOfTickets;
         public float totalPrice;
-        public static int bookingIdInc = 5;
+        public static int bookingIdInc = BookingDbHandler.BookingDbInstance.listOfBookings[-1].bookingId;
 
         public Booking(Event e, Customer c, int numofTickets, float price)
         {
-            bookingId = bookingIdInc;
-            bookingIdInc++;
+            
+            bookingId = ++bookingIdInc;
             bookedEvent = e;
             customer = c;
             numOfTickets = numofTickets;

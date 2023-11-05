@@ -11,8 +11,8 @@ namespace Project.Views
 
         static RegexValidation()
         {
-            _emailRegex= @"^[^@\s]+@[^@\s]+\.(com|net|org|gov)$";
-            _nameRegex= @"[a-z]{3}";
+            _emailRegex = @"^[^@\s]+@[^@\s]+\.(com|net|org|gov)$";
+            _nameRegex = @"[a-z]";
         }
         public static bool isValidEmail(string email)
         {

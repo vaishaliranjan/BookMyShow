@@ -1,8 +1,8 @@
 ﻿using Project.BusinessLayer;
-using Project.Controller;
 using Project.Enum;
+using Project.Helper;
 using Project.Models;
-using Project.UI;
+using Project.Objects;
 using Project.Views;
 
 
@@ -10,13 +10,12 @@ namespace Project.UILayer
 {
     internal class AdminUI
     {
-        
-        
-        public static void ADMINUI(Admin admin)
+        public static void ADMINUI(AdminObjects admin)
         {
+
             Message.AdminPage();
             AdminOptions input;
-            Console.Write(Message.ChooseNum);
+            Console.Write(Message.ChooseNum);   
             while (true)
             {
                 input = (AdminOptions)InputValidation.IntegerValidation();
@@ -38,7 +37,7 @@ namespace Project.UILayer
                     case AdminOptions.ViewEvents:
                         AdminOptionsUI.ViewEventsUI(admin);
                         break;
-
+                        
                     case AdminOptions.ViewOrganizers:
                        AdminOptionsUI.ViewOrganizersUI(admin);
                         break;
@@ -48,7 +47,8 @@ namespace Project.UILayer
                         break;
 
                     case AdminOptions.ViewBookings:
-                        BookingsUI.ViewBookingsUI(admin, Role.Admin);
+                        AdminOptionsUI.ViewBookingsUI(admin);
+                        
                         break;
 
                     case AdminOptions.LogOut:

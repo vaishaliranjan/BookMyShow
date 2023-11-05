@@ -21,14 +21,14 @@ namespace Project.Views
             catch
             {
                 Message.InvalidInput();
-                goto label; 
+                goto label;
             }
         }
 
         public static string NullValidation()
         {
         label: Console.WriteLine();
-            string input= Console.ReadLine();
+            string input = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(input))
             {
                 Message.OnlyString();

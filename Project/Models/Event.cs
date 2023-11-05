@@ -13,7 +13,7 @@ namespace Project.Models
         public int initialTickets;
         public int NumOfTicket;
         public float Price;
+        public static int eventIDInc = EventDbHandler.EventDbInstance.listOfEvents[-1].Id;
 
-       
     }
 }

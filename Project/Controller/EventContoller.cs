@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Project.Controller
 {
-    internal class EventContoller
+    public class EventContoller
     {
         public static void DecrementTicket(Event bookedEvent, int numOfTickets)
         {
@@ -41,58 +41,16 @@ namespace Project.Controller
                 return e;
             }
         }
-        public static void ViewEvents(string username, Role r)
+        public List<Event> ViewEvents()
         {
             List<Event> events = EventDbHandler.EventDbInstance.listOfEvents;
-            if (events != null)
-            {
-
-
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("-------------------------------------------------------------");
-                Console.WriteLine("-                                                           -");
-                Console.WriteLine("-                                                           -");
-                Console.WriteLine("-                            EVENTS                         -");
-                Console.WriteLine("-                                                           -");
-                Console.WriteLine("-                                                           -");
-                Console.WriteLine("-------------------------------------------------------------");
-                if (r == Role.Admin || r == Role.Customer)
-                {
-                    ShowEvents(events);
-                }
-                else if (r == Role.Organizer)
-                {
-                    var organizerEvents = events.FindAll(e => e.organizer.Username == username);
-                    ShowEvents(organizerEvents);
-
-                }
-                void ShowEvents(List<Event> events)
-                {
-                    foreach (Event e in events)
-                    {
-                        Console.WriteLine();
-                        Console.WriteLine("Event Id: " + e.Id);
-                        Console.WriteLine("Name: " + e.Name);
-                        Console.WriteLine("Timing: " + e.artist.timing);
-                        Console.WriteLine("Artist: " + e.artist.Name);
-                        Console.WriteLine("Venue: " + e.venue.Place);
-                        Console.WriteLine("Number of tickets left: " + e.NumOfTicket);
-                        Console.WriteLine("Price per ticket: " + e.Price);
-                        Console.WriteLine();
-                    }
-                }
-                Console.ResetColor();
-            }
-            else
-            {
-                Error.NotFound("events");
-            }
+            return events;
         }
-        public static void AddEvent(Event newEvent)
+        public bool AddEvent(Event newEvent)
         {
-            EventDbHandler.EventDbInstance.AddEntry(newEvent);
+            return EventDbHandler.EventDbInstance.AddEvent(newEvent);
         }
-        public static bool DeleteEvent(int deleteEventId)
+        public bool DeleteEvent(int deleteEventId)
         {
             var events = EventDbHandler.EventDbInstance.listOfEvents;
             foreach (Event e in events)

@@ -2,6 +2,7 @@
 using Project.Controller;
 using Project.Enum;
 using Project.Models;
+using Project.Objects;
 using Project.Views;
 
 
@@ -10,10 +11,11 @@ namespace Project.UILayer
     internal class CustomerUI
     {
 
-        public static void CUSTOMERUI(string username)
+        public static void CUSTOMERUI(CustomerObjects customer)
         {
-            Console.Write("Choose any number: ");
             Message.CustomerPage();
+            Console.Write(Message.ChooseNum);
+            
             while (true)
             {
                 CustomerOptions input;                
@@ -21,11 +23,12 @@ namespace Project.UILayer
                 switch (input)
                 {
                     case CustomerOptions.ViewEvents:
-                       CustomerViewEventsUI(username); 
+                        CustomerViewEventsUI(customer); 
                         break;
 
                     case CustomerOptions.ViewPreviousBookings:
-                        BookingsUI.ViewBookingsUI(username, Role.Customer);
+                        CustomerViewBookingsUI(customer);
+                        
                         break;
 
                     case CustomerOptions.LogOut:
@@ -39,11 +42,41 @@ namespace Project.UILayer
                 break;
             }
         }
-        public static void CustomerViewEventsUI(string username)
+        public static void CustomerViewBookingsUI(CustomerObjects customer)
         {
-            EventContoller.ViewEvents(username, Role.Customer);
-            Console.Write("Choose any number: ");
+            BookingsUI.ViewBookingsUI(Role.Customer, customer.realCustomerObject.Username,customer.bookingController);
+            Message.PressToExit();
+            Console.Write(Message.ChooseNum);
+            while (true)
+            {
+
+                BookingsOptions input;
+                input = (BookingsOptions)InputValidation.IntegerValidation();
+
+                switch (input)
+                {
+
+                    case BookingsOptions.Exit:
+                        Console.WriteLine();
+                        CustomerUI.CUSTOMERUI(customer);
+                        break;
+
+
+                    default:
+                        Message.InvalidInput();
+                        continue;
+                }
+                break;
+            }
+
+        }
+        //to be removed
+        public static void CustomerViewEventsUI(CustomerObjects customer)
+        {
+            EventUI.ViewEventsUI(Role.Customer);
             Message.CustomerViewEvents();
+            Console.Write(Message.ChooseNum);
+            
             while (true)
             {
 
@@ -52,11 +85,12 @@ namespace Project.UILayer
                 switch (ip)
                 {
                     case CustomerUIOpitonsViewEvents.BookTicket:
-                        BookingsUI.BookTicketsUI(username, Role.Customer);
+                        BookTicket(customer);
+                        CustomerUI.CUSTOMERUI(customer);
                         break;
 
                     case CustomerUIOpitonsViewEvents.Exit:
-                        CustomerUI.CUSTOMERUI(username);
+                        CustomerUI.CUSTOMERUI(customer);
                         break;
 
                     default:
@@ -66,6 +100,13 @@ namespace Project.UILayer
                 break;
             }
            
+        }
+
+        static void BookTicket(CustomerObjects customer)
+        {
+            BookingsUI.BookTicketsUI(customer.realCustomerObject);
+            
+
         }
     }
 }

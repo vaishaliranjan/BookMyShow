@@ -8,35 +8,15 @@ using System.Threading.Tasks;
 
 namespace Project.Controller
 {
-    internal class OrganizerController
+    public class OrganizerController
     {
-        public static void ViewOrganizers()
+        public List<Organizer> ViewOrganizers()
         {
 
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("-------------------------------------------------------------");
-            Console.WriteLine("-                                                           -");
-            Console.WriteLine("-                                                           -");
-            Console.WriteLine("-                        ORGANIZERS                         -");
-            Console.WriteLine("-                                                           -");
-            Console.WriteLine("-                                                           -");
-            Console.WriteLine("-------------------------------------------------------------");
-
-            foreach (var organizer in OrganizerDbHandler.OrganizerDbInstance.listOfOrganizer)
-            {
-
-                Console.WriteLine();
-                Console.WriteLine("Id: " + organizer.UserId);
-                Console.WriteLine("Name: " + organizer.Name);
-                Console.WriteLine("Username: " + organizer.Username);
-                Console.WriteLine("Email: " + organizer.Email);
-                Console.WriteLine();
-
-            }
-            Console.ResetColor();
+            return OrganizerDbHandler.OrganizerDbInstance.listOfOrganizer;
 
         }
-        public static Organizer GetOrganizer(string username)
+        public Organizer GetOrganizer(string username)
         {
             Organizer organizer = null;
             organizer = OrganizerDbHandler.OrganizerDbInstance.listOfOrganizer.Single(u => u.Username == username);
@@ -50,43 +30,8 @@ namespace Project.Controller
                 return organizer;
             }
         }
-        public static Artist SelectArtist(int id)
-        {
+        
 
-            Artist choosenArtist = null;
-            try
-            {
-                choosenArtist = ArtistDbHandler.ArtistDbInstance.listOfArtists.Single(a => a.artistId == id);
-                ArtistDbHandler.ArtistDbInstance.RemoveArtist(choosenArtist);
-                return choosenArtist;
-            }
-            catch (Exception ex)
-            {
-                Error.NotFound("artist");
-                return choosenArtist;
-            }
-
-        }
-
-        public static Venue SelectVenue(int id)
-        {
-
-            Venue choosenVenue = null;
-
-            try
-            {
-                choosenVenue = VenueDbHandler.VenueDbInstance.listOfVenues.Single(a => a.venueId == id);
-                VenueDbHandler.VenueDbInstance.RemoveVenue(choosenVenue);
-                return choosenVenue;
-
-            }
-            catch (Exception ex)
-            {
-                Error.NotFound("venue");
-                return choosenVenue;
-            }
-
-
-        }
+        
     }
 }

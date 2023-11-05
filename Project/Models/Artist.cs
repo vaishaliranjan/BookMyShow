@@ -9,14 +9,15 @@ namespace Project.Models
         public string Name;
         public DateTime timing;
 
-        public static int id = 6;
+        public static int id = ArtistDbHandler.ArtistDbInstance.listOfArtists[-1].artistId;
 
         public Artist(string name, DateTime timing)
         {
+            
             Name = name;
             this.timing = timing;
-            artistId = id;
-            id++;
+            artistId = ++id;
+
 
         }
         
