@@ -8,7 +8,7 @@ namespace Project.UI
 {
     public static class RegistrationUI
     {
-       
+        public static int userIdInc = User.userIdInc;
         public static void AddNewUserUI(Role roleInput, AdminObjects admin=null)
         {
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
@@ -18,33 +18,39 @@ namespace Project.UI
             {
                 Console.Write(Message.enterName);
                 name = InputValidation.NullValidation();
-                bool result=RegexValidation.isValidName(name);
-                if(result)
+                bool ans=RegexValidation.isValidName(name);
+                if(ans)
                 {
                     break;
                 }
                 Console.WriteLine(Message.onlyCharacters);
             }
-            string username = null;
-            while (true)
+        username: string username = null;
+        while (true)
             {
                 Console.Write(Message.enterUsername);
                 username = InputValidation.NullValidation();
 
-                bool result =RegexValidation.isValidName(username);
-                if (result)
+                bool r =RegexValidation.isValidName(username);
+                if (r)
                 {
                     break;
                 }
                 Console.WriteLine(Message.onlyCharacters);
+            }
+            bool res= AuthManager.AuthObject.ValidateUser(username);
+            if (!res)
+            {
+                Console.WriteLine(Message.userExists); 
+                goto username;
             }
             string email = null;
             while (true)
             {
                 Console.Write(Message.enterEmail);
                 email = InputValidation.NullValidation();
-                bool result =RegexValidation.isValidEmail(email);
-                if (result)
+                bool answer =RegexValidation.isValidEmail(email);
+                if (answer)
                 {
                     break;
                 }
@@ -55,39 +61,37 @@ namespace Project.UI
            
             Console.ResetColor();
             var role = roleInput;
-            User user = null ;
-            
+            bool result = false;
+            int idOfUser = ++RegistrationUI.userIdInc;
             if (role == Role.Admin)
             {
-                user=AuthManager<Admin>.AuthObject.Register(name, username, email, password, Role.Admin);
-                 
+                Admin a = new Admin(idOfUser, name, username, email, password, Role.Admin);
+                AuthManager.AuthObject.Register(a, Role.Admin);
+                 result = true;
             }
 
             else if (role == Role.Customer)
             {
-                 user= AuthManager<Customer>.AuthObject.Register(name, username, email, password, Role.Customer);
+                Customer c = new Customer(idOfUser,name, username, email, password, Role.Customer);
+                AuthManager.AuthObject.Register(c, Role.Customer);
+                result = true;
             }
             else if (role == Role.Organizer)
             {
-                user = AuthManager<Organizer>.AuthObject.Register(name, username, email, password, Role.Organizer);
+                Organizer o = new Organizer(idOfUser,name, username, email, password, Role.Organizer);
+                AuthManager.AuthObject.Register(o, Role.Organizer);
+                result = true;
             }
-            if (user !=null)
+            if (result)
             {
                 Message.UserAdded();
                 
-                if (role == Role.Admin)
-                {
-                    AdminUI.ADMINUI(admin);
-                }
-                else
-                {
-                    Authenticate.LoginUI();
-                }
+               
             }
             else
             {
-                Message.UserExists();
-                
+                Console.WriteLine(Message.errorOccurred);
+
             }
            
         }

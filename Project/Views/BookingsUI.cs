@@ -1,5 +1,4 @@
-﻿using Project.UILayer;
-using Project.Enum;
+﻿
 using Project.Models;
 using Project.Controller;
 
@@ -7,6 +6,7 @@ namespace Project.Views
 {
     public class BookingsUI
     {
+        public static int bookingId = Booking.bookingIdInc;
         public static void ShowBookings(List<Booking> bookings)
         {
             Message.ViewBookings();
@@ -74,7 +74,7 @@ namespace Project.Views
                     goto numofTickets;
                 }
             float totalprice = numOfTickets * eventBooked.Price;
-            Booking booking = new Booking(eventBooked, customer, numOfTickets, totalprice);
+            Booking booking = new Booking(++bookingId,eventBooked, customer, numOfTickets, totalprice);
             bookingController.BookEvent(booking);
             Message.TicketsBooked();
             

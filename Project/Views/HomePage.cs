@@ -10,15 +10,24 @@ namespace Project.UILayer
         
         static void Main(string[] args)
         {
-            HomePageFunction();
+            try
+            {
+                HomePageFunction();
+            }
+            catch
+            {
+                Console.WriteLine("Something went wrong!!");
+            }
+            
         }
         public static void HomePageFunction()
         {
             Message.HomePage();
-            Console.Write(Message.ChooseNum);
+            
             while (true)
             {
-            HomePageOptions input;
+                Console.Write(Message.ChooseNum);
+                HomePageOptions input;
                 input = (HomePageOptions)InputValidation.IntegerValidation();
                 switch (input)
                 {
@@ -30,6 +39,7 @@ namespace Project.UILayer
                     case HomePageOptions.Signup:
                         Console.ResetColor();
                         RegistrationUI.AddNewUserUI(Role.Customer);
+                        Authenticate.LoginUI();
                         break;
 
                     case HomePageOptions.Exit:
@@ -37,7 +47,7 @@ namespace Project.UILayer
                         break;
 
                     default:
-                        Message.InvalidInput();
+                        Console.WriteLine(Message.invalidInput); 
                         continue;
                 }
                 break;   

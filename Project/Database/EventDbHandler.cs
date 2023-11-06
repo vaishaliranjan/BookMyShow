@@ -1,11 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Project.Models;
 using Project.Controller;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Project.Database
 {
@@ -75,18 +71,15 @@ namespace Project.Database
         public void DecTicketToDB(Event bookedEvent, int numOfTickets)
         {
 
-            Event e = null;
+            
             foreach (var eve in listOfEvents)
             {
                 if (eve.Id == bookedEvent.Id)
                 {
-                    e = eve;
-                    e.NumOfTicket = e.NumOfTicket - numOfTickets;
-                    listOfEvents.Remove(eve);
-                    break;
+                    eve.NumOfTicket-= numOfTickets;          
                 }
             }
-            listOfEvents.Add(e);
+            
             UpdateEntry(_events_path,listOfEvents);
 
         }

@@ -1,5 +1,4 @@
 ﻿using Project.BusinessLayer;
-using Project.Controller;
 using Project.Enum;
 using Project.Models;
 using Project.Objects;
@@ -14,10 +13,11 @@ namespace Project.UILayer
         public static void CUSTOMERUI(CustomerObjects customer)
         {
             Message.CustomerPage();
-            Console.Write(Message.ChooseNum);
+           
             
             while (true)
             {
+                Console.Write(Message.ChooseNum);
                 CustomerOptions input;                
                 input = (CustomerOptions)InputValidation.IntegerValidation();
                 switch (input)
@@ -32,11 +32,11 @@ namespace Project.UILayer
                         break;
 
                     case CustomerOptions.LogOut:
-                        AuthManager<User>.AuthObject.Logout();
+                        AuthManager.AuthObject.Logout();
                         break;
 
                     default:
-                        Message.InvalidInput();
+                        Console.WriteLine(Message.invalidInput);
                         continue;
                 }
                 break;
@@ -45,11 +45,11 @@ namespace Project.UILayer
         public static void CustomerViewBookingsUI(CustomerObjects customer)
         {
             BookingsUI.ViewBookingsUI(Role.Customer, customer.realCustomerObject.Username,customer.bookingController);
-            Message.PressToExit();
-            Console.Write(Message.ChooseNum);
+            
+            
             while (true)
             {
-
+                Message.PressToExit();
                 BookingsOptions input;
                 input = (BookingsOptions)InputValidation.IntegerValidation();
 
@@ -63,23 +63,23 @@ namespace Project.UILayer
 
 
                     default:
-                        Message.InvalidInput();
+                        Console.WriteLine(Message.invalidInput);
                         continue;
                 }
                 break;
             }
 
         }
-        //to be removed
+        
         public static void CustomerViewEventsUI(CustomerObjects customer)
         {
             EventUI.ViewEventsUI(Role.Customer);
             Message.CustomerViewEvents();
-            Console.Write(Message.ChooseNum);
+            
             
             while (true)
             {
-
+                Console.Write(Message.ChooseNum);
                 CustomerUIOpitonsViewEvents ip;
                 ip = (CustomerUIOpitonsViewEvents)InputValidation.IntegerValidation();
                 switch (ip)
@@ -94,7 +94,7 @@ namespace Project.UILayer
                         break;
 
                     default:
-                        Message.InvalidInput();
+                        Console.WriteLine(Message.invalidInput);
                         continue;
                 }
                 break;

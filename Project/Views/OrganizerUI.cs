@@ -1,6 +1,5 @@
 ﻿using Project.BusinessLayer;
 using Project.Views;
-using System;
 using Project.Enum;
 using Project.Models;
 
@@ -14,13 +13,16 @@ namespace Project.UILayer
         {
             Message.OrganizerPage();
             OrganizerUIOptions input;
-            Console.Write(Message.ChooseNum);
-            input = (OrganizerUIOptions)InputValidation.IntegerValidation();
+            
+            
            
             while (true)
             {
+                Console.Write(Message.ChooseNum);
+                input = (OrganizerUIOptions)InputValidation.IntegerValidation();
                 switch (input)
                 {
+                    
                     case OrganizerUIOptions.CreateEvent:
                         CreateEvent(organizer);
                         break;
@@ -34,12 +36,12 @@ namespace Project.UILayer
                         break;
 
                     case OrganizerUIOptions.LogOut:
-                        AuthManager<User>.AuthObject.Logout();
+                        AuthManager.AuthObject.Logout();
                         break;
 
                     default:
-                        Message.InvalidInput();
-                        continue; ;
+                        Console.WriteLine(Message.invalidInput);
+                        continue; 
                 }
                 break;
             }
@@ -61,14 +63,15 @@ namespace Project.UILayer
         }
         public static void ViewPreviousEventsUI(OrganizerObjects organizer) 
         {
-            Message.ViewEvents();
+            
             EventUI.ViewEventsUI(Role.Organizer, organizer.realOrganizerObject.Username);
-            Message.PressToExit();
+           
             while (true)
             {
                 OrganizerUIOptions ip;
                 while (true)
                 {
+                    Message.PressToExit();
                     ip = (OrganizerUIOptions)(InputValidation.IntegerValidation());
                     switch (ip)
                     {
@@ -77,7 +80,7 @@ namespace Project.UILayer
                             break;
 
                         default:
-                            Message.InvalidInput();
+                            Console.WriteLine(Message.invalidInput);
                             continue;
                     }
                 }

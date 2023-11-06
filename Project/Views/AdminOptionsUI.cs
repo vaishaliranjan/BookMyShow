@@ -1,11 +1,10 @@
-﻿using Project.Controller;
+﻿
 using Project.Enum;
-using Project.Helper;
 using Project.Models;
 using Project.Objects;
 using Project.UI;
 using Project.UILayer;
-using System.Data;
+
 
 
 namespace Project.Views
@@ -17,9 +16,10 @@ namespace Project.Views
             BookingsUI.ViewBookingsUI(Role.Admin, admin.realAdminObject.Username, admin.bookingController);
             Message.AdminViewBookingsOptions();
             BookingsOptions input;
-            Console.Write(Message.ChooseNum);
+            
             while (true)
             {
+                Console.Write(Message.ChooseNum);
                 input = (BookingsOptions)InputValidation.IntegerValidation();
                 switch (input)
                 {
@@ -34,7 +34,7 @@ namespace Project.Views
                         break;
 
                     default:
-                        Message.InvalidInput();
+                        Console.WriteLine(Message.invalidInput);
                         continue;
                 }
 
@@ -48,9 +48,10 @@ namespace Project.Views
             EventUI.ViewEventsUI(Role.Admin);
             Message.AdminViewEventsOptions();
             AdminFuncOptions ip;
-            Console.Write(Message.ChooseNum);
+            
             while (true)
             {
+                Console.Write(Message.ChooseNum);
                 ip = (AdminFuncOptions)InputValidation.IntegerValidation();
                 switch (ip)
                 {
@@ -69,21 +70,22 @@ namespace Project.Views
                         break;
 
                     default:
-                        Message.InvalidInput();
+                        Console.WriteLine(Message.invalidInput);
                         continue;
                 }
                 break;
             }
         }
-         static void CancelEvent(AdminObjects admin)
+        static void CancelEvent(AdminObjects admin)
         {
-            EventUI.ViewEventsUI(Role.Admin);
+            
             EventUI.CancelEventUI();
         }
          static void AddNewEvent(AdminObjects admin)
         {
             Organizer organizerOfEvent = null;
-            admin.organizationController.ViewOrganizers();
+            var organizers= admin.organizationController.ViewOrganizers();
+            HelperClass.PrintUsers(organizers);
         selectOrganizer: Console.WriteLine(Message.selectOrganizer);
             
             Console.Write(Message.enterUsername);
@@ -102,7 +104,8 @@ namespace Project.Views
         static void AddNewBooking(AdminObjects admin)
         {
             Customer customer = null;
-            admin.customerController.ViewCustomers();
+            var customers= admin.customerController.ViewCustomers();
+            HelperClass.PrintUsers(customers);
         selectCustomer: Console.WriteLine(Message.selectCustomer);
             
             Console.Write(Message.enterUsername);
@@ -117,7 +120,7 @@ namespace Project.Views
             BookingsUI.BookTicketsUI(customer);
 
         }
-        //VIEW ADMINS UI 
+        
         public static void ViewAdminsUI(AdminObjects admin)
         {
            
@@ -128,14 +131,16 @@ namespace Project.Views
             Console.ResetColor();
             Console.WriteLine();
             AdminFuncOptions input;
-            Console.Write(Message.ChooseNum);
+            
             while (true)
             {
+                Console.Write(Message.ChooseNum); 
                 input = (AdminFuncOptions)InputValidation.IntegerValidation();
                 switch (input)
                 {
                     case AdminFuncOptions.AddNew:
-                        RegistrationUI.AddNewUserUI(Role.Admin);
+                        RegistrationUI.AddNewUserUI(Role.Admin, admin);
+                        AdminUI.ADMINUI(admin);
                         break;
 
                     case AdminFuncOptions.Exit:
@@ -144,14 +149,14 @@ namespace Project.Views
                         break;
 
                     default:
-                        Message.InvalidInput();
+                        Console.WriteLine(Message.invalidInput);
                         continue;
                 }
                 break;
             }
         }
 
-        // VIEW ARTIST UI 
+        
         public static void ViewArtistUI(AdminObjects admin)
         {
             ArtistUI.ViewArtistsUI(admin.artistController);
@@ -174,7 +179,7 @@ namespace Project.Views
                         break;
 
                     default:
-                        Message.InvalidInput();
+                        Console.WriteLine(Message.invalidInput);
                         continue;
                 }
                 break;
@@ -182,15 +187,16 @@ namespace Project.Views
 
         }
 
-        // VIEW VENUES UI 
+        
         public static void ViewVenuesUI(AdminObjects admin)
         {
             VenueUI.ViewVenuesUI(admin.venueController);
             Message.AdminViewVenues();
             AdminFuncOptions input;
-            Console.Write(Message.ChooseNum);
+            
             while (true)
             {
+                Console.Write(Message.ChooseNum);
                 input = (AdminFuncOptions)InputValidation.IntegerValidation();
                 switch (input)
                 {
@@ -204,7 +210,7 @@ namespace Project.Views
                         break;
 
                     default:
-                        Message.InvalidInput();
+                        Console.WriteLine(Message.invalidInput);
                         continue;
                 }
                 break;
@@ -213,7 +219,7 @@ namespace Project.Views
         }
         
 
-        // VIEW ORGANIZERS UI 
+        
         public static void ViewOrganizersUI(AdminObjects admin)
         {
 
@@ -224,14 +230,16 @@ namespace Project.Views
             Console.WriteLine();
             Console.ResetColor();
             AdminFuncOptions input;
-            Console.Write(Message.ChooseNum);
+            
             while (true)
             {
+                Console.Write(Message.ChooseNum);
                 input = (AdminFuncOptions)InputValidation.IntegerValidation();
                 switch (input)
                 {
                     case AdminFuncOptions.AddNew:
                         RegistrationUI.AddNewUserUI(Role.Organizer);
+                        AdminUI.ADMINUI(admin);
                         break;
 
                     case AdminFuncOptions.Exit:
@@ -240,7 +248,7 @@ namespace Project.Views
                         break;
 
                     default:
-                        Message.InvalidInput();
+                        Console.WriteLine(Message.invalidInput);
                         continue;
                 }
                 break;
@@ -248,7 +256,7 @@ namespace Project.Views
 
         }
 
-        // VIEW CUSTOMERS UI 
+       
         public static void ViewCustomersUI(AdminObjects admin)
         {
             var customers = admin.customerController.ViewCustomers();
@@ -257,14 +265,16 @@ namespace Project.Views
             Message.AdminViewCustomers();
             Console.WriteLine();
             AdminFuncOptions input;
-            Console.Write(Message.ChooseNum);
+            
             while (true)
             {
+                Console.Write(Message.ChooseNum);
                 input = (AdminFuncOptions)InputValidation.IntegerValidation();
                 switch (input)
                 {
                     case AdminFuncOptions.AddNew:
                         RegistrationUI.AddNewUserUI(Role.Customer);
+                        AdminUI.ADMINUI(admin);
                         break;
 
                     case AdminFuncOptions.Exit:
@@ -273,7 +283,7 @@ namespace Project.Views
                         break;
 
                     default:
-                        Message.InvalidInput();
+                        Console.WriteLine(Message.invalidInput);
                         continue;
                 }
                 break;
@@ -281,14 +291,15 @@ namespace Project.Views
             Console.ResetColor();
 
         }
-
-        //ADD NEW ARTIST
+        public static int artistId = Artist.id;
+        public static int venueId = Venue.venueIdInc;
+       
         public static void AddNewArtistUI(AdminObjects admin)
         {
             Console.Write(Message.enterName);
             string name = InputValidation.NullValidation();
             DateTime dt = InputValidation.DateValidation();
-            var artist = new Artist(name, dt);
+            var artist = new Artist(++artistId,name, dt);
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
             if (admin.artistController.AddNewArtist(artist))
             {
@@ -302,12 +313,12 @@ namespace Project.Views
             AdminUI.ADMINUI(admin);
         }
 
-        //ADD NEW VENUE
+        
         public static void AddNewVenueUI(AdminObjects admin)
         {
             Console.Write(Message.enterPlace);
             string place = InputValidation.NullValidation();
-            Venue venue = new Venue(place);
+            Venue venue = new Venue(++venueId,place);
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
             if (admin.venueController.AddNewVenue(venue))
             {

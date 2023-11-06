@@ -1,7 +1,5 @@
 ﻿using Project.Controller;
-using Project.Enum;
 using Project.Models;
-using Project.UILayer;
 
 
 namespace Project.Views
@@ -75,11 +73,11 @@ namespace Project.Views
             Venue choosenVenue = null;
             int venueId= InputValidation.IntegerValidation();
            
-               
                 choosenVenue=venueController.SelectVenue(venueId);
                 if (choosenVenue == null)
                 {
-                    goto selectVenueId;
+                Console.WriteLine(Message.doesntExist);
+                goto selectVenueId;
                 }
 
             string eventName;

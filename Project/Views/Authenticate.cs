@@ -1,8 +1,9 @@
 ﻿using Project.BusinessLayer;
-using Project.Helper;
 using Project.Models;
 using Project.Views;
 using Project.Objects;
+using System.Data;
+using System.Xml.Linq;
 
 namespace Project.UILayer
 {
@@ -16,48 +17,42 @@ namespace Project.UILayer
                 string username = InputValidation.NullValidation();
                 Console.Write(Message.enterPassword);
                 string password =HelperClass.HideCharacter();
-                User user = AuthManager<User>.AuthObject.Login(username, password);
+                User user = AuthManager.AuthObject.Login(username, password);
                 Console.ResetColor();
                 if (user != null)
                 {
                     if (user.role == Role.Admin)
                     {
-                        Admin newAdmin = new Admin() { UserId = user.UserId,
-                        Name = user.Name,
-                        Username = user.Username,
-                        Email = user.Email,
-                        role = user.role,
-                        Password = user.Password
-                    };
+                        Admin newAdmin = new Admin(user.UserId,user.Name,
+                            user.Username,
+                        user.Email,
+                        user.Password,
+                           user.role) ;
                         
                         AdminUI.ADMINUI(new AdminObjects(newAdmin));
                         break;
                     }
                     else if (user.role == Role.Customer)
                     {
-                        Customer newCustomer = new Customer()
-                        {
-                            UserId = user.UserId,
-                            Name = user.Name,
-                            Username = user.Username,
-                            Email = user.Email,
-                            role = user.role,
-                            Password = user.Password
-                        };
+                        Customer newCustomer = new Customer(user.UserId,
+                            user.Name,
+                            user.Username,
+                        user.Email,
+                        user.Password,
+                           user.role
+                            )
+                       ;
                         CustomerUI.CUSTOMERUI(new CustomerObjects(newCustomer));
                         break;
                     }
                     else if (user.role == Role.Organizer)
                     {
-                        Organizer newOrganizer = new Organizer()
-                        {
-                            UserId = user.UserId,
-                            Name = user.Name,
-                            Username = user.Username,
-                            Email = user.Email,
-                            role = user.role,
-                            Password = user.Password
-                        };
+                        Organizer newOrganizer = new Organizer(user.UserId, user.Name,
+                            user.Username,
+                        user.Email,
+                        user.Password,
+                           user.role)
+                        ;
                         OrganizerUI.ORGANIZERUI(new OrganizerObjects(newOrganizer));
                         break;
                     }

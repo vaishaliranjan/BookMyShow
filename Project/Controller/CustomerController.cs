@@ -1,10 +1,6 @@
 ﻿using Project.Database;
 using Project.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Project.Controller
 {
@@ -28,7 +24,6 @@ namespace Project.Controller
             }
             else
             {
-                Error.NotFound("customers");
                 return null;
             }
         }

@@ -1,5 +1,4 @@
-﻿using Project.Controller;
-using Project.Database;
+﻿using Project.Database;
 
 namespace Project.Models
 {
@@ -13,7 +12,7 @@ namespace Project.Models
         public int initialTickets;
         public int NumOfTicket;
         public float Price;
-        public static int eventIDInc = EventDbHandler.EventDbInstance.listOfEvents[-1].Id;
+        public static int eventIDInc = EventDbHandler.EventDbInstance.listOfEvents[EventDbHandler.EventDbInstance.listOfEvents.Count-1].Id;
 
     }
 }

@@ -25,7 +25,6 @@ namespace Project.Controller
             }
             catch (Exception ex)
             {
-                Error.NotFound("artist");
                 return choosenArtist;
             }
         }

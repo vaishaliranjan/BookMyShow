@@ -1,10 +1,6 @@
 ﻿using Project.Database;
 using Project.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Project.Controller
 {
@@ -19,14 +15,13 @@ namespace Project.Controller
         public Organizer GetOrganizer(string username)
         {
             Organizer organizer = null;
-            organizer = OrganizerDbHandler.OrganizerDbInstance.listOfOrganizer.Single(u => u.Username == username);
-            if (organizer != null)
+            try
             {
+                organizer = OrganizerDbHandler.OrganizerDbInstance.listOfOrganizer.Single(u => u.Username == username);
                 return organizer;
             }
-            else
-            {
-                Error.NotFound("organizers");
+            catch 
+            { 
                 return organizer;
             }
         }

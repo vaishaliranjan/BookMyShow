@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Project.Views
 {
@@ -27,14 +24,24 @@ namespace Project.Views
 
         public static string NullValidation()
         {
-        label: Console.WriteLine();
-            string input = Console.ReadLine();
-            if (string.IsNullOrWhiteSpace(input))
+        
+        label: string input = Console.ReadLine();
+            try
+            {
+
+
+                if (string.IsNullOrWhiteSpace(input))
+                {
+                    Message.OnlyString();
+                    goto label;
+                }
+                return input;
+            }
+            catch
             {
                 Message.OnlyString();
                 goto label;
             }
-            return input;
         }
         public static DateTime DateValidation()
         {

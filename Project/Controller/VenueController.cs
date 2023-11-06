@@ -31,7 +31,6 @@ namespace Project.Controller
             }
             catch
             {
-                Error.NotFound("venue");
                 return choosenVenue;
             }
 

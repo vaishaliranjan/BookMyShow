@@ -6,22 +6,22 @@ using Project.UILayer;
 
 namespace Project.BusinessLayer
 {
-    public class AuthManager<T> where T : User, new()
+    public class AuthManager
     {
-        private static AuthManager<T> _authManagerObject;
+        private static AuthManager _authManagerObject=null;
         private AuthManager(){}
-        public static AuthManager<T> AuthObject
+        public static AuthManager AuthObject
         {
             get
             {
                 if(_authManagerObject == null)
                 {
-                    _authManagerObject = new AuthManager<T>();
+                    _authManagerObject = new AuthManager();
                 }
                 return _authManagerObject;
             }
         }
-        public static int userIDInc = UserDbHandler.UserDbInstance.listOfUsers[-1].UserId;
+        public static int userIDInc = UserDbHandler.UserDbInstance.listOfUsers[UserDbHandler.UserDbInstance.listOfUsers.Count-1].UserId;
         public User Login(string username, string password)
         {
             List<User> allUsers = UserDbHandler.UserDbInstance.listOfUsers;
@@ -34,32 +34,25 @@ namespace Project.BusinessLayer
             }
             return null;
         }
-         public  User Register(string name, string username, string email, string password, Role roleInput)
+         public  void Register(User user, Role role) 
          {
-            if (ValidateUser(username))
+            if (role == Role.Admin)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                return null;
+                AdminDbHandler.AdminDbInstance.AddAdmin((Admin)user);
+                UserDbHandler.UserDbInstance.AddUser(user);
+            }
+            else if (role == Role.Organizer)
+            {
+                OrganizerDbHandler.OrganizerDbInstance.AddOrganizer((Organizer)user);
+                UserDbHandler.UserDbInstance.AddUser(user);
+            }
+            else if (role == Role.Customer)
+            {
+                CustomerDbHandler.CustomerDbInstance.AddCustomer((Customer)user);
+                UserDbHandler.UserDbInstance.AddUser(user);
             }
 
-            else
-            {
-                    var newUser = new T
-                    {
-                        UserId = ++userIDInc,
-                        Name = name,
-                        Username = username,
-                        Email = email,
-                        Password = password,
-                        role = (Role)roleInput,
-                    };
-                    
-
-                    UserDbHandler.UserDbInstance.AddUser(newUser);
-                    return newUser;
-                
-            }
-         }
+        }
         public void Logout()
         {
             HomePage.HomePageFunction();
@@ -72,10 +65,10 @@ namespace Project.BusinessLayer
             {
                 if (user.Username == uname)
                 {
-                    return true;
+                    return false;
                 }
             }
-            return false;
+            return true;
         }
     }
 }

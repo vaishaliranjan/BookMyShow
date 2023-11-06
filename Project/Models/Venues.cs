@@ -6,11 +6,12 @@ namespace Project.Models
     {
         public int venueId;
         public string Place;
-        public static int venueIdInc = VenueDbHandler.VenueDbInstance.listOfVenues[-1].venueId;
-        public Venue(string Place)
+        public static int venueIdInc = VenueDbHandler.VenueDbInstance.listOfVenues[VenueDbHandler.VenueDbInstance.listOfVenues.Count- 1].venueId;
+        public Venue(int venueId, string Place)
         {
+           
             this.Place = Place;
-            venueId = ++venueIdInc;
+            this.venueId = venueId;
         }
         
     }

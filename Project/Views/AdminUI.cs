@@ -1,6 +1,5 @@
 ﻿using Project.BusinessLayer;
 using Project.Enum;
-using Project.Helper;
 using Project.Models;
 using Project.Objects;
 using Project.Views;
@@ -15,9 +14,10 @@ namespace Project.UILayer
 
             Message.AdminPage();
             AdminOptions input;
-            Console.Write(Message.ChooseNum);   
+            
             while (true)
             {
+                Console.Write(Message.ChooseNum);
                 input = (AdminOptions)InputValidation.IntegerValidation();
                
                 switch (input)
@@ -52,11 +52,11 @@ namespace Project.UILayer
                         break;
 
                     case AdminOptions.LogOut:
-                        AuthManager<User>.AuthObject.Logout();
+                        AuthManager.AuthObject.Logout();
                         break;
 
                     default:
-                        Message.InvalidInput();
+                        Console.WriteLine(Message.invalidInput);
                         continue;
                 }
                 break;

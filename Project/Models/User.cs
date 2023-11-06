@@ -1,4 +1,6 @@
-﻿namespace Project.Models
+﻿using Project.Database;
+
+namespace Project.Models
 {
     public enum Role
     {
@@ -8,6 +10,7 @@
     }
     public class User
     {
+        public static int userIdInc = UserDbHandler.UserDbInstance.listOfUsers[UserDbHandler.UserDbInstance.listOfUsers.Count - 1].UserId;
         public int UserId;
         public string Name;
         public string Username;

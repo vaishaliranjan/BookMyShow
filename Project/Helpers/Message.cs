@@ -1,9 +1,4 @@
-﻿using Project.BusinessLayer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace Project.Views
 {
@@ -34,6 +29,8 @@ namespace Project.Views
         public static string pricePerTicket = "Enter price per ticket: ";
         public static string onlyCharacters = "It can only include characters";
         public static string entervalidEmail = "Enter a valid email address..";
+        public static string invalidInput = "Invalid Input! ";
+        public static string userExists = "User already exists! ";
         public static void InvalidInput()
         {
             Console.WriteLine("You can only enter a numeric value!!");
@@ -42,7 +39,7 @@ namespace Project.Views
 
         public static void OnlyString()
         {
-            Console.WriteLine("Input can't be empty!");
+            Console.WriteLine("Input can't be empty or number!! Enter string!");
             Console.Write("Re enter: ");
         }
         public static void LoginPage()
@@ -109,51 +106,65 @@ namespace Project.Views
         {
             Console.WriteLine();
             Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("1. Add new Event");
             Console.WriteLine("2. Cancel an Event");
             Console.WriteLine("0. Back");
+            Console.ResetColor();
             Console.WriteLine();
         }
         public static void AdminViewBookingsOptions()
         {
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("1. Add new booking");
             Console.WriteLine("0. Back");
+            Console.ResetColor();
             Console.WriteLine();
         }
         public static void AdminViewOrganizer()
         {
             Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("1. Add new Organizer");
             Console.WriteLine("0. Back");
+            Console.ResetColor();
             Console.WriteLine();
         }
 
         public static void AdminViewArtist()
         {
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("1. Add new Artist");
             Console.WriteLine("0. Back");
+            Console.ResetColor();
             Console.WriteLine();
         }
         public static void AdminViewCustomers()
         {
             Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("1. Add new Customer");
             Console.WriteLine("0. Back");
+            Console.ResetColor();
             Console.WriteLine();
         }
 
         public static void AdminViewVenues()
         {
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine();
             Console.WriteLine("1. Add new Venue");
             Console.WriteLine("0. Back");
+            Console.ResetColor();
             Console.WriteLine();
         }
         public static void AdminViewAdmins()
         {
             Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("1. Add new admin");
             Console.WriteLine("0. Back");
+            Console.ResetColor();
             Console.WriteLine();
         }
 
