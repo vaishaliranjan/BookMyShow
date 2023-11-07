@@ -55,7 +55,7 @@ namespace Project.Views
                 dt = DateTime.ParseExact(userInput, "yyyy-MM-ddTHH:mm", CultureInfo.CurrentCulture);
                 return dt;
             }
-            catch (Exception ex)
+            catch
             {
                 Console.WriteLine("Enter the date in correct format!");
                 goto enterDate;

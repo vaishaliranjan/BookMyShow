@@ -2,7 +2,7 @@
 
 namespace Project.Objects
 {
-    public class AllUserObjects
+    public interface AllUserObjects
     {
        
        
