@@ -67,7 +67,7 @@ namespace Project.UI
             {
                 Admin a = new Admin(idOfUser, name, username, email, password, Role.Admin);
                 AuthManager.AuthObject.Register(a, Role.Admin);
-                 result = true;
+                result = true;
             }
 
             else if (role == Role.Customer)
