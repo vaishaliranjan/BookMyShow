@@ -1,15 +1,16 @@
 ﻿using Newtonsoft.Json;
 using Project.Models;
 using Project.Controller;
-
+using Project.Enum;
+using Project.Views;
 
 namespace Project.Database
 {
     internal class CustomerDbHandler : DbHandler<Customer>
     {
-        private static CustomerDbHandler? customerDbInstance;
-        private static string? _user_path;
-        public List<Customer> listOfCustomers { get; set; }
+        private static CustomerDbHandler customerDbInstance;
+        private static string _user_path;
+        public List<Customer> ListOfCustomers { get; set; }
         public static CustomerDbHandler CustomerDbInstance
         {
             get
@@ -24,23 +25,24 @@ namespace Project.Database
 
         private CustomerDbHandler()
         {
-            listOfCustomers = new List<Customer>();
-            _user_path = @"C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Users.json";
+            ListOfCustomers = new List<Customer>();
+            _user_path = @"C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Files\Users.json";
 
             try
             {
                 string userFileContent = File.ReadAllText(_user_path);
                 List<Customer> listOfUsers = JsonConvert.DeserializeObject<List<Customer>>(userFileContent)!;
-                listOfCustomers= listOfUsers.FindAll(u=> u.role==Role.Customer);
+                ListOfCustomers= listOfUsers.FindAll(u=> u.Role==Role.Customer);
             }
-            catch
+            catch(Exception ex) 
             {
                 Error.UnexpectedError();
+                HelperClass.LogException(ex, "An error occurred while reading the json.");
             }
         }
         public bool AddCustomer(Customer customer)
         {
-            if (AddEntry(customer, listOfCustomers, _user_path))
+            if (AddEntry(customer, ListOfCustomers, _user_path))
                 return true;
             return false;
         }

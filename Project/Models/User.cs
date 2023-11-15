@@ -1,21 +1,16 @@
 ﻿using Project.Database;
+using Project.Enum;
 
 namespace Project.Models
 {
-    public enum Role
-    {
-        Admin,
-        Organizer,
-        Customer
-    }
     public class User
     {
-        public static int userIdInc = UserDbHandler.UserDbInstance.listOfUsers[UserDbHandler.UserDbInstance.listOfUsers.Count - 1].UserId;
+        public static int UserIdInc = UserDbHandler.UserDbInstance.ListOfUsers[UserDbHandler.UserDbInstance.ListOfUsers.Count - 1].UserId;
         public int UserId;
         public string Name;
         public string Username;
         public string Email;
-        public Role role;
+        public Role Role;
         public string Password;
 
     }

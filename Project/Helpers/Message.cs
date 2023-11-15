@@ -16,7 +16,7 @@ namespace Project.Views
         public static string artistAdded = "Artist added successfully";
         public static string errorOccurred = "An error occurred";
         public static string enterPlace = "Enter place name: ";
-        public static string wrongCredentials = "Wrong credentials";
+        public static string WrongCredentials = "Wrong credentials";
         public static string eventId = "Enter Event Id: ";
         public static string numOfTickets = "Enter number of tickets: ";
         public static string noTickets = "No Tickets Available!";
@@ -121,7 +121,7 @@ namespace Project.Views
             Console.ResetColor();
             Console.WriteLine();
         }
-        public static void AdminViewOrganizer()
+        public static void AdminViewOrganizerOptions()
         {
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Cyan;
@@ -131,7 +131,7 @@ namespace Project.Views
             Console.WriteLine();
         }
 
-        public static void AdminViewArtist()
+        public static void AdminViewArtistOptions()
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("1. Add new Artist");
@@ -139,7 +139,7 @@ namespace Project.Views
             Console.ResetColor();
             Console.WriteLine();
         }
-        public static void AdminViewCustomers()
+        public static void AdminViewCustomerOptions()
         {
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Cyan;
@@ -149,7 +149,7 @@ namespace Project.Views
             Console.WriteLine();
         }
 
-        public static void AdminViewVenues()
+        public static void AdminViewVenuesOptions()
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine();
@@ -158,7 +158,7 @@ namespace Project.Views
             Console.ResetColor();
             Console.WriteLine();
         }
-        public static void AdminViewAdmins()
+        public static void AdminViewAdminOptions()
         {
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Cyan;

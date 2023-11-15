@@ -21,21 +21,13 @@ namespace Project.Views
             Console.WriteLine();
             return code;
         }
-
-        public static void PrintUsers<T>(List<T> users) where T : User
+        public static void LogException(Exception ex, string error)
         {
-            foreach (T user in users)
-            {
-                Console.WriteLine();
-
-                Console.WriteLine("Id: " + user.UserId);
-                Console.WriteLine("Name: " + user.Name);
-                Console.WriteLine("Username: " + user.Username);
-                Console.WriteLine("Email: " + user.Email);
-                Console.WriteLine();
-
-            }
-
+            string path = @"C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Files\Exceptions.txt";
+            var time = DateTime.Now.ToString();    
+            string text="EXCEPTION::   "+ ex.ToString() + "\n\nERROR::   " + error +"\n"+ time+"\n\n";
+            File.AppendAllText(path, text);
         }
+        
     }
 }

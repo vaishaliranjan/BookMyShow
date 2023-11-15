@@ -1,14 +1,15 @@
 ﻿using Newtonsoft.Json;
 using Project.Models;
 using Project.Controller;
+using Project.Views;
 
 namespace Project.Database
 {
     internal class ArtistDbHandler: DbHandler<Artist>
     {
-        private static ArtistDbHandler? artistDbInstance;
-        private static string? _artist_path;
-        public List<Artist> listOfArtists { get; set; }
+        private static ArtistDbHandler artistDbInstance;
+        private static string _artist_path;
+        public List<Artist> ListOfArtists { get; set; }
         public static ArtistDbHandler ArtistDbInstance
         {
             get
@@ -23,36 +24,30 @@ namespace Project.Database
 
         private ArtistDbHandler()
         {
-            listOfArtists = new List<Artist>();
-            _artist_path = @"C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Artists.json";
+            ListOfArtists = new List<Artist>();
+            _artist_path = @"C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Files\Artists.json";
 
             try
             {
                 string artistFileContent = File.ReadAllText(_artist_path);
-                listOfArtists = JsonConvert.DeserializeObject<List<Artist>>(artistFileContent)!;
+                ListOfArtists = JsonConvert.DeserializeObject<List<Artist>>(artistFileContent)!;
             }
-            catch
+            catch(Exception ex) 
             {
                 Error.UnexpectedError();
+                HelperClass.LogException(ex, "An error occurred while reading the json.");
             }
         }
         public bool AddArtist(Artist artist)
         {
-            if (AddEntry(artist, listOfArtists, _artist_path))
+            if (AddEntry(artist, ListOfArtists, _artist_path))
                 return true;
             return false;
         }
 
-        public bool RemoveArtist(Artist deleteArtist)
+        public bool RemoveArtist(List<Artist> listOfArtists)
         {
-            var artist = listOfArtists.Single(a => a.artistId == deleteArtist.artistId);
-            if (artist != null)
-            {
-                listOfArtists.Remove(artist);
-                UpdateEntry(_artist_path, listOfArtists);
-                return true;
-            }
-            return false;
+            return UpdateEntry(_artist_path, listOfArtists);
         }
     }
 }

@@ -10,11 +10,9 @@ namespace Project.UILayer
     internal class CustomerUI
     {
 
-        public static void CUSTOMERUI(CustomerObjects customer)
+        public static void CustomerPage(CustomerObjects customer)
         {
-            Message.CustomerPage();
-           
-            
+            Message.CustomerPage();  
             while (true)
             {
                 Console.Write(Message.ChooseNum);
@@ -23,16 +21,16 @@ namespace Project.UILayer
                 switch (input)
                 {
                     case CustomerOptions.ViewEvents:
-                        CustomerViewEventsUI(customer); 
+                        CustomerView.ViewEvents(customer); 
                         break;
 
                     case CustomerOptions.ViewPreviousBookings:
-                        CustomerViewBookingsUI(customer);
+                        CustomerView.ViewBookings(customer);
                         
                         break;
 
                     case CustomerOptions.LogOut:
-                        AuthManager.AuthObject.Logout();
+                        AuthController.AuthObject.Logout();
                         break;
 
                     default:
@@ -41,72 +39,9 @@ namespace Project.UILayer
                 }
                 break;
             }
-        }
-        public static void CustomerViewBookingsUI(CustomerObjects customer)
-        {
-            BookingsUI.ViewBookingsUI(Role.Customer, customer.realCustomerObject.Username,customer.bookingController);
-            
-            
-            while (true)
-            {
-                Message.PressToExit();
-                BookingsOptions input;
-                input = (BookingsOptions)InputValidation.IntegerValidation();
-
-                switch (input)
-                {
-
-                    case BookingsOptions.Exit:
-                        Console.WriteLine();
-                        CustomerUI.CUSTOMERUI(customer);
-                        break;
-
-
-                    default:
-                        Console.WriteLine(Message.invalidInput);
-                        continue;
-                }
-                break;
-            }
-
         }
         
-        public static void CustomerViewEventsUI(CustomerObjects customer)
-        {
-            EventUI.ViewEventsUI(Role.Customer);
-            Message.CustomerViewEvents();
-            
-            
-            while (true)
-            {
-                Console.Write(Message.ChooseNum);
-                CustomerUIOpitonsViewEvents ip;
-                ip = (CustomerUIOpitonsViewEvents)InputValidation.IntegerValidation();
-                switch (ip)
-                {
-                    case CustomerUIOpitonsViewEvents.BookTicket:
-                        BookTicket(customer);
-                        CustomerUI.CUSTOMERUI(customer);
-                        break;
-
-                    case CustomerUIOpitonsViewEvents.Exit:
-                        CustomerUI.CUSTOMERUI(customer);
-                        break;
-
-                    default:
-                        Console.WriteLine(Message.invalidInput);
-                        continue;
-                }
-                break;
-            }
-           
-        }
-
-        static void BookTicket(CustomerObjects customer)
-        {
-            BookingsUI.BookTicketsUI(customer.realCustomerObject);
-            
-
-        }
+        
+        
     }
 }

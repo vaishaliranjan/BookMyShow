@@ -1,13 +1,14 @@
-﻿using Project.Database;
+﻿using Project.ControllerInterface;
+using Project.Database;
 using Project.Models;
 
 namespace Project.Controller
 {
-    public class AdminController
+    public class AdminController: IAdminController
     {     
-        public List<Admin> ViewAdmins()
-        {   
-            return AdminDbHandler.AdminDbInstance.listOfAdmins; 
+        public List<Admin> GetAll()
+        {      
+            return AdminDbHandler.AdminDbInstance.ListOfAdmins;
         }           
        
     }

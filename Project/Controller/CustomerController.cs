@@ -1,24 +1,26 @@
-﻿using Project.Database;
+﻿using Project.ControllerInterface;
+using Project.Database;
 using Project.Models;
-
+using Project.Views;
 
 namespace Project.Controller
 {
-    public class CustomerController
+    public class CustomerController: ICustomerController 
     {
-        public Customer GetCustomer(string username)
+        public Customer GetByUsername(string username)
         {
-            List<Customer> customers = CustomerDbHandler.CustomerDbInstance.listOfCustomers;
+            List<Customer> customers = CustomerDbHandler.CustomerDbInstance.ListOfCustomers;
             if (customers != null)
             {
                 Customer customer = null;
                 try
                 {
-                    customer = customers.Single(u => u.Username == username);
+                    customer = customers.Single(u => u.Username.ToLower().Equals(username.ToLower()));
                     return customer;
                 }
                 catch (Exception ex)
                 {
+                    HelperClass.LogException(ex, "More than one customer with same username.");
                     return customer;
                 }
             }
@@ -28,9 +30,9 @@ namespace Project.Controller
             }
         }
 
-        public List<Customer> ViewCustomers()
+        public List<Customer> GetAll()
         {
-            return  CustomerDbHandler.CustomerDbInstance.listOfCustomers;
+            return  CustomerDbHandler.CustomerDbInstance.ListOfCustomers;
             
         }
     }

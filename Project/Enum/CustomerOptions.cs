@@ -1,5 +1,4 @@
 ﻿
-
 namespace Project.Enum
 {
         public enum CustomerOptions
@@ -10,11 +9,4 @@ namespace Project.Enum
             LogOut = 3
 
         }
-
-    public enum CustomerUIOpitonsViewEvents
-    {
-        Exit = 0,
-        BookTicket = 1
-    }
-
 }

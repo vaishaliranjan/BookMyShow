@@ -1,19 +1,20 @@
 ﻿using Project.Controller;
+using Project.ControllerInterface;
 using Project.Models;
 
 
 namespace Project.Objects
 {
-    public class AdminObjects : AllUserObjects
+    public class AdminObjects 
     {
         public Admin realAdminObject;
-        public AdminController adminController;
-        public ArtistController artistController;
-        public CustomerController customerController;
-        public OrganizerController organizationController;
-        public VenueController venueController;
-        public BookingController bookingController;
-        public EventContoller eventContoller;
+        public IAdminController adminController;
+        public IArtistController artistController;
+        public ICustomerController customerController;
+        public IOrganizerController organizationController;
+        public IVenueController venueController;
+        public IBookingController bookingController;
+        public IEventController eventContoller;
 
 
         public AdminObjects(Admin admin)

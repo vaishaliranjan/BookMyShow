@@ -4,14 +4,14 @@ namespace Project.Models
 {
     public class Venue
     {
-        public int venueId;
+        public int VenueId;
         public string Place;
-        public static int venueIdInc = VenueDbHandler.VenueDbInstance.listOfVenues[VenueDbHandler.VenueDbInstance.listOfVenues.Count- 1].venueId;
-        public Venue(int venueId, string Place)
+        public static int VenueIdInc = VenueDbHandler.VenueDbInstance.ListOfVenues[VenueDbHandler.VenueDbInstance.ListOfVenues.Count- 1].VenueId;
+        public Venue(int venueId, string place)
         {
            
-            this.Place = Place;
-            this.venueId = venueId;
+            Place = place;
+            VenueId = venueId;
         }
         
     }

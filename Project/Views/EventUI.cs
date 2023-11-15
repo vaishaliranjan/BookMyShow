@@ -1,4 +1,5 @@
 ﻿using Project.Controller;
+using Project.ControllerInterface;
 using Project.Models;
 
 
@@ -6,129 +7,134 @@ namespace Project.Views
 {
     internal class EventUI
     {
-        public static int eventIdInc = Event.eventIDInc;
-        static void ShowEvents(List<Event> events)
+        static int eventIdInc = Event.EventIDInc;
+        public static void ViewEvents(IEventController eventController)
         {
-            foreach (Event e in events)
-            {
-                Console.WriteLine();
-                Console.WriteLine("Event Id: " + e.Id);
-                Console.WriteLine("Name: " + e.Name);
-                Console.WriteLine("Timing: " + e.artist.timing);
-                Console.WriteLine("Artist: " + e.artist.Name);
-                Console.WriteLine("Venue: " + e.venue.Place);
-                Console.WriteLine("Number of tickets left: " + e.NumOfTicket);
-                Console.WriteLine("Price per ticket: " + e.Price);
-                Console.WriteLine();
-            }
+            var events = eventController.GetAll();
+            Message.ViewEvents();
+            ShowEvents(events);
         }
-        public static void ViewEventsUI(Role role, string username = null ) 
+        public static void ShowEvents(List<Event> events)
         {
-            EventContoller eventContoller = new EventContoller();
-            var events=eventContoller.ViewEvents();
-            if(events != null)
+            if (events != null)
             {
-                Message.ViewEvents();
-                if ( role == Role.Admin || role == Role.Customer)
+                foreach (Event e in events)
                 {
-                    ShowEvents(events);
-                    return;
-                    
-                }
-                else if (role == Role.Organizer)
-                {
-                    var organizerEvents = events.FindAll(e => e.organizer.Username == username);
-                    ShowEvents(organizerEvents);
-                    return;
+                    Console.WriteLine();
+                    Console.WriteLine("Event Id: " + e.Id);
+                    Console.WriteLine("Name: " + e.Name);
+                    Console.WriteLine("Timing: " + e.Artist.Timing);
+                    Console.WriteLine("Artist: " + e.Artist.Name);
+                    Console.WriteLine("Venue: " + e.Venue.Place);
+                    Console.WriteLine("Number of tickets left: " + e.NumOfTicket);
+                    Console.WriteLine("Price per ticket: " + e.Price);
+                    Console.WriteLine();
                 }
             }
-            
-           
-
-
+            else
+            {
+                Error.NotFound("events");
+            }
         }
+       
+
+       
         
-        public static void CreateEventUI(Role role, Organizer organizerOfEvent) 
+        public static void CreateEvent(Organizer organizerOfEvent) 
         {
-            ArtistController artistController= new ArtistController();
-            VenueController venueController = new VenueController();
-            EventContoller eventContoller = new EventContoller();
-            Console.WriteLine();
-            Console.WriteLine(Message.selectArtist);
-            ArtistUI.ViewArtistsUI(artistController);
-            Artist choosenArtist = null;
-        selectArtistId: Console.Write(Message.artistId);
-            int artistId = InputValidation.IntegerValidation();
-         
-                choosenArtist = artistController.SelectArtist(artistId);
-                if (choosenArtist == null)
-                {
-                    Console.WriteLine(Message.doesntExist);
-                    goto selectArtistId;
-                }
-            Console.WriteLine();
-            Console.WriteLine(Message.selectVenue);
-            VenueUI.ViewVenuesUI(venueController);
-            selectVenueId:  Console.Write(Message.venueId);
-            Venue choosenVenue = null;
-            int venueId= InputValidation.IntegerValidation();
-           
-                choosenVenue=venueController.SelectVenue(venueId);
-                if (choosenVenue == null)
-                {
-                Console.WriteLine(Message.doesntExist);
-                goto selectVenueId;
-                }
-
-            string eventName;
-            Console.Write(Message.eventName);
-            eventName = InputValidation.NullValidation();
-            Console.Write(Message.numOfTickets);
-            int tickets = InputValidation.IntegerValidation();
-            Console.Write(Message.pricePerTicket);
-            int price= InputValidation.IntegerValidation();
-            int initialTick = tickets;
-            var newEvent = new Event()
-            {
-                Id= ++eventIdInc,
-                Name= eventName,
-                organizer = organizerOfEvent,
-                artist = choosenArtist,
-                venue= choosenVenue,
-                NumOfTicket=tickets,
-                initialTickets=initialTick,
-                Price=price
-
-            };
-            if (eventContoller.AddEvent(newEvent))
+            var artist = SelectArtist();
+            var venue = SelectVenue();
+            var eventName = EnterEventName();
+            var tickets = EnterNumberOfTickets();   
+            var price = EnterPricePerTicket();
+            var initialTick = tickets;
+            IEventController eventContoller = new EventContoller();
+            var newEvent = new Event(++eventIdInc, eventName, organizerOfEvent, artist, venue, tickets, initialTick, price);
+            if (eventContoller.Add(newEvent))
             {
                 Message.EventAdded();
             }
             else
             {
                 Console.WriteLine(Message.errorOccurred); 
-            }
-           
-
+            }  
         }
 
-        public static void CancelEventUI()
-        {
-            EventContoller eventContoller = new EventContoller();
+        public static void CancelEvent(IEventController eventController)
+        {  
             Console.Write(Message.eventId);
-            int deleteEventId = InputValidation.IntegerValidation();
-            if (eventContoller.DeleteEvent(deleteEventId))
+            var deleteEventId = InputValidation.IntegerValidation();
+            if (eventController.Delete(deleteEventId))
             {
                 Message.EventDeleted();
-              
             }
             else
             {
-                Message.CantCancelEvent();
-                
+                Message.CantCancelEvent(); 
             }
-            
+        }
 
+
+        static Artist SelectArtist()
+        {
+            IArtistController artistController = new ArtistController();
+            Console.WriteLine(Message.selectArtist);
+            ArtistUI.ViewArtists(artistController);
+            Artist artist = null;
+            while (true)
+            {
+                Console.Write(Message.artistId);
+                int artistId = InputValidation.IntegerValidation();
+                artist = artistController.GetById(artistId);
+                if (artist == null)
+                {
+                    Console.WriteLine(Message.doesntExist);
+                    continue;
+                }
+                break;
+            }
+            return artist;
+        }
+        static Venue SelectVenue()
+        {
+            IVenueController venueController = new VenueController();
+            Console.WriteLine(Message.selectVenue);
+            VenueUI.ViewVenues(venueController);
+            Venue venue = null;
+            while (true)
+            {
+                Console.Write(Message.venueId);
+
+                int venueId = InputValidation.IntegerValidation();
+                venue = venueController.GetById(venueId);
+                if (venue == null)
+                {
+                    Console.WriteLine(Message.doesntExist);
+                    continue;
+                }
+                break;
+            }
+            return venue;
+        }
+
+        static string EnterEventName()
+        {
+            Console.Write(Message.eventName);
+            var eventName = InputValidation.StringValidation();
+            return eventName;
+        }
+        static int EnterNumberOfTickets()
+        {
+            Console.Write(Message.numOfTickets);
+            var tickets = InputValidation.IntegerValidation();
+            return tickets;
+        }
+
+        static double EnterPricePerTicket()
+        {
+            Console.Write(Message.pricePerTicket);
+            double price = InputValidation.FloatValidation();
+            return price;
         }
     }
 }

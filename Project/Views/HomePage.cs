@@ -1,22 +1,23 @@
 ﻿using Project.UI;
 using Project.Enum;
-using Project.Models;
 using Project.Views;
 
 namespace Project.UILayer
 {
     public class HomePage
     {
-        
         static void Main(string[] args)
         {
             try
             {
+               
                 HomePageFunction();
+                
             }
-            catch
+            catch(Exception ex) 
             {
                 Console.WriteLine("Something went wrong!!");
+                HelperClass.LogException(ex, "Something went wrong");
             }
             
         }
@@ -33,13 +34,13 @@ namespace Project.UILayer
                 {
                     case HomePageOptions.Login:
                         Console.ResetColor();
-                        Authenticate.LoginUI();
+                        Authenticate.Login();
                         break;
 
                     case HomePageOptions.Signup:
                         Console.ResetColor();
-                        RegistrationUI.AddNewUserUI(Role.Customer);
-                        Authenticate.LoginUI();
+                        RegistrationUI.AddNewUser(Role.Customer);
+                        Authenticate.Login();
                         break;
 
                     case HomePageOptions.Exit:

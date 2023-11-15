@@ -1,17 +1,18 @@
 ﻿using Project.Controller;
+using Project.ControllerInterface;
 using Project.Models;
 using Project.Objects;
 
 
 namespace Project.Views
 {
-    internal class OrganizerObjects:AllUserObjects
+    internal class OrganizerObjects
     {
         public Organizer realOrganizerObject;
-        public ArtistController artistController;
-        public VenueController venueController;
-        public EventContoller eventContoller;
-        public OrganizerController organizationController;
+        public IArtistController artistController;
+        public IVenueController venueController;
+        public IEventController eventContoller;
+        public IOrganizerController organizationController;
 
         public OrganizerObjects(Organizer organizer)
         {

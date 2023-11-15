@@ -1,24 +1,20 @@
-﻿using Project.Controller;
-using Project.Database;
+﻿using Project.Database;
 
 namespace Project.Models
 {
     public class Artist
     {
-        public int artistId;
+        public int ArtistId;
         public string Name;
-        public DateTime timing;
-
-        public static int id = ArtistDbHandler.ArtistDbInstance.listOfArtists[ArtistDbHandler.ArtistDbInstance.listOfArtists.Count-1].artistId;
+        public DateTime Timing;
+        public static int ArtistIdInc = ArtistDbHandler.ArtistDbInstance.ListOfArtists[ArtistDbHandler.ArtistDbInstance.ListOfArtists.Count-1].ArtistId;
 
         public Artist(int artistId,string name, DateTime timing)
         {
             
             Name = name;
-            this.timing = timing;
-            this.artistId = artistId;
-
-
+            Timing = timing;
+            ArtistId = artistId;
         }
         
     }

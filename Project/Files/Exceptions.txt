@@ -1,0 +1,28 @@
+
+EXCEPTION::   System.NotImplementedException: The method or operation is not implemented.
+   at Project.UILayer.HomePage.Main(String[] args) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Views\HomePage.cs:line 13
+
+ERROR::   Something went wrong
+11/16/2023 2:49:21 AM
+
+EXCEPTION::   System.NotImplementedException: The method or operation is not implemented.
+   at Project.UILayer.HomePage.Main(String[] args) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Views\HomePage.cs:line 13
+
+ERROR::   Something went wrong
+11/16/2023 2:49:56 AM
+
+EXCEPTION::   System.IO.FileNotFoundException: Could not find file 'C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Files\Venues.jso'.
+File name: 'C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Files\Venues.jso'
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategyCore(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategy(FileStream fileStream, String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, Int64 preallocationSize)
+   at System.IO.StreamReader.ValidateArgsAndOpenPath(String path, Encoding encoding, Int32 bufferSize)
+   at System.IO.File.InternalReadAllText(String path, Encoding encoding)
+   at System.IO.File.ReadAllText(String path)
+   at Project.Database.VenueDbHandler..ctor() in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Database\VenueDbHandler.cs:line 31
+
+ERROR::   An error occurred while reading the json.
+11/16/2023 2:59:52 AM
+

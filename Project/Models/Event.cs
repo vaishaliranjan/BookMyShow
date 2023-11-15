@@ -6,13 +6,23 @@ namespace Project.Models
     {
         public int Id;
         public string Name;
-        public Organizer organizer;
-        public Artist artist;
-        public Venue venue;
-        public int initialTickets;
+        public Organizer Organizer;
+        public Artist Artist;
+        public Venue Venue;
+        public int InitialTickets;
         public int NumOfTicket;
-        public float Price;
-        public static int eventIDInc = EventDbHandler.EventDbInstance.listOfEvents[EventDbHandler.EventDbInstance.listOfEvents.Count-1].Id;
-
+        public double Price;
+        public static int EventIDInc = EventDbHandler.EventDbInstance.ListOfEvents[EventDbHandler.EventDbInstance.ListOfEvents.Count-1].Id;
+        public Event(int id, string name, Organizer organizer, Artist artist, Venue venue, int initialTickets, int numOfTickets, double price)
+        {
+            Id = id;
+            Name = name;
+            Organizer = organizer;
+            Artist = artist;
+            Venue = venue;
+            InitialTickets = initialTickets;
+            NumOfTicket = numOfTickets;
+            Price = price;
+        }
     }
 }

@@ -1,14 +1,16 @@
 ﻿using Newtonsoft.Json;
 using Project.Models;
 using Project.Controller;
+using Project.Enum;
+using Project.Views;
 
 namespace Project.Database
 {
-    internal class AdminDbHandler: DbHandler<Admin>
+    public class AdminDbHandler: DbHandler<Admin>
     {
         private static AdminDbHandler adminDbInstance;
         private static string _user_path;
-        public List<Admin> listOfAdmins { get; set; }
+        public List<Admin> ListOfAdmins { get; set; }
         public static AdminDbHandler AdminDbInstance
         {
             get
@@ -23,25 +25,27 @@ namespace Project.Database
 
         private AdminDbHandler()
         {
-            listOfAdmins = new List<Admin>();
+            ListOfAdmins = new List<Admin>();
             
 
-            _user_path = @"C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Users.json";
+            _user_path = @"C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Files\Users.json";
 
             try
             {
                 string userFileContent = File.ReadAllText(_user_path);
                 List<Admin> listOfUsers = JsonConvert.DeserializeObject<List<Admin>>(userFileContent)!;
-                listOfAdmins = listOfUsers.FindAll(u => u.role == Role.Admin);
+                ListOfAdmins = listOfUsers.FindAll(u => u.Role == Role.Admin);
             }
-            catch
+            catch(Exception ex) 
             {
                 Error.UnexpectedError();
+                HelperClass.LogException(ex, "An error occurred while reading the json.");
             }
         }
+       
         public bool AddAdmin(Admin admin)
         {
-            if(AddEntry(admin,listOfAdmins, _user_path))
+            if(AddEntry(admin,ListOfAdmins, _user_path))
                 return true;
             return false;
         }

@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Project.Controller;
 using Project.Models;
-
+using Project.Views;
 
 namespace Project.Database
 {
@@ -9,7 +9,7 @@ namespace Project.Database
     {
         private static VenueDbHandler venueDbInstance;
         private static string _venues_path;
-        public List<Venue> listOfVenues { get; set; }
+        public List<Venue> ListOfVenues { get; set; }
         public static VenueDbHandler VenueDbInstance
         {
             get
@@ -23,35 +23,29 @@ namespace Project.Database
         }
         private VenueDbHandler()
         {
-            listOfVenues = new List<Venue>();
-            _venues_path = @"C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Venues.json";
+            ListOfVenues = new List<Venue>();
+            _venues_path = @"C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Files\Venues.json";
 
             try
             {
                 string venuesFileContent = File.ReadAllText(_venues_path);
-                listOfVenues = JsonConvert.DeserializeObject<List<Venue>>(venuesFileContent)!;
+                ListOfVenues = JsonConvert.DeserializeObject<List<Venue>>(venuesFileContent)!;
             }
-            catch
+            catch(Exception ex)
             {
                 Error.UnexpectedError();
+                HelperClass.LogException(ex, "An error occurred while reading the json.");
             }
         }
         public bool AddVenue(Venue venue)
         {
-            if (AddEntry(venue, listOfVenues, _venues_path))
+            if (AddEntry(venue, ListOfVenues, _venues_path))
                 return true;
             return false;
         }
-        public bool RemoveVenue(Venue deleteVenue)
+        public bool RemoveVenue(List<Venue> listOfVenues)
         {
-            var venue= listOfVenues.Single(v=> v.venueId==deleteVenue.venueId);
-            if(venue != null)
-            {
-                listOfVenues.Remove(venue);
-                UpdateEntry(_venues_path, listOfVenues);
-                return true;
-            }
-            return false;
+               return UpdateEntry(_venues_path, listOfVenues);         
         }
        
     }

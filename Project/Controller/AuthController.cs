@@ -1,33 +1,35 @@
 ﻿
+using Project.ControllerInterface;
 using Project.Database;
+using Project.Enum;
 using Project.Models;
 using Project.UILayer;
 
 
 namespace Project.BusinessLayer
 {
-    public class AuthManager
+    public class AuthController: IAuthController
     {
-        private static AuthManager _authManagerObject=null;
-        private AuthManager(){}
-        public static AuthManager AuthObject
+        private static AuthController _authManagerObject=null;
+        private AuthController(){}
+        public static AuthController AuthObject
         {
             get
             {
                 if(_authManagerObject == null)
                 {
-                    _authManagerObject = new AuthManager();
+                    _authManagerObject = new AuthController();
                 }
                 return _authManagerObject;
             }
         }
-        public static int userIDInc = UserDbHandler.UserDbInstance.listOfUsers[UserDbHandler.UserDbInstance.listOfUsers.Count-1].UserId;
+      
         public User Login(string username, string password)
         {
-            List<User> allUsers = UserDbHandler.UserDbInstance.listOfUsers;
+            List<User> allUsers = UserDbHandler.UserDbInstance.ListOfUsers;
             foreach (User user in allUsers)
             {
-                if(user.Username == username && user.Password== password)
+                if(user.Username.ToLower().Equals(username.ToLower()) && user.Password.ToLower().Equals(password.ToLower()))
                 {
                     return user;
                 }
@@ -58,12 +60,12 @@ namespace Project.BusinessLayer
             HomePage.HomePageFunction();
         }
 
-        public bool ValidateUser(string uname)
+        public bool ValidateUser(string username)
         {
-            var users = UserDbHandler.UserDbInstance.listOfUsers;
+            var users = UserDbHandler.UserDbInstance.ListOfUsers;
             foreach (User user in users)
             {
-                if (user.Username == uname)
+                if (user.Username.ToLower().Equals(username.ToLower()))
                 {
                     return false;
                 }

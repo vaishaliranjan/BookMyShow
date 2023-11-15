@@ -1,20 +1,27 @@
-﻿using Project.Database;
+﻿using Project.ControllerInterface;
+using Project.Database;
 using Project.Models;
-
+using Project.Views;
 
 namespace Project.Controller
 {
-    public class EventContoller
+    public class EventContoller: IEventController
     {
-        public static void DecrementTicket(Event bookedEvent, int numOfTickets)
+        public void DecrementTicket(Event bookedEvent, int numOfTickets)
         {
-            EventDbHandler.EventDbInstance.DecTicketToDB(bookedEvent, numOfTickets);
-
-
+            var listOfEvents = EventDbHandler.EventDbInstance.ListOfEvents;
+            foreach (var eve in listOfEvents)
+            {
+                if (eve.Id == bookedEvent.Id)
+                {
+                    eve.NumOfTicket -= numOfTickets;
+                }
+            }
+            EventDbHandler.EventDbInstance.DecTicketToDB(listOfEvents);
         }
-        public static Event GetEvent(int eventId)
+        public Event GetById(int eventId)
         {
-            List<Event> events = EventDbHandler.EventDbInstance.listOfEvents;
+            List<Event> events = EventDbHandler.EventDbInstance.ListOfEvents;
             Event e = null;
 
             if (events != null)
@@ -26,6 +33,7 @@ namespace Project.Controller
                 }
                 catch (Exception ex)
                 {
+                    HelperClass.LogException(ex, "More than one event with same id.");
                     return e;
                 }
 
@@ -35,26 +43,32 @@ namespace Project.Controller
                 return e;
             }
         }
-        public List<Event> ViewEvents()
+        public List<Event> GetAll()
         {
-            List<Event> events = EventDbHandler.EventDbInstance.listOfEvents;
-            return events;
+            return EventDbHandler.EventDbInstance.ListOfEvents;
+            
         }
-        public bool AddEvent(Event newEvent)
+        public List<Event> GetOrganizerEvents(string username)
+        {
+            List<Event> events = EventDbHandler.EventDbInstance.ListOfEvents;
+            var organizerEvents = events.FindAll(e => e.Organizer.Username.ToLower().Equals(username.ToLower()));
+            return organizerEvents;
+        }
+        public bool Add(Event newEvent)
         {
             return EventDbHandler.EventDbInstance.AddEvent(newEvent);
         }
-        public bool DeleteEvent(int deleteEventId)
+        public bool Delete(int deleteEventId)
         {
-            var events = EventDbHandler.EventDbInstance.listOfEvents;
+            var events = EventDbHandler.EventDbInstance.ListOfEvents;
             foreach (Event e in events)
             {
                 if (e.Id == deleteEventId)
                 {
-                    if (e.NumOfTicket == e.initialTickets)
+                    if (e.NumOfTicket == e.InitialTickets)
                     {
-                        EventDbHandler.EventDbInstance.RemoveEvent(e);
-                        return true;
+                        events.Remove(e);
+                        return EventDbHandler.EventDbInstance.RemoveEvent(events);
                     }
                 }
             }

@@ -1,11 +1,13 @@
 ﻿
+using Project.Views;
+
 namespace Project.Database
 {
-    internal abstract class DbHandler<T> where T : class
+
+    public abstract class DbHandler<T> where T : class
     {
         public bool AddEntry(T obj,List<T> list, string path)
         {
-           // list.Sort();
             list.Add(obj);
             if(UpdateEntry(path,list)) 
                 return true;
@@ -18,12 +20,14 @@ namespace Project.Database
                 var jsonFormattedContent = Newtonsoft.Json.JsonConvert.SerializeObject(list);
                 File.WriteAllText(path, jsonFormattedContent);
             }
-            catch
+            catch(Exception ex)
             {
+                HelperClass.LogException(ex, "An error occurred while updating the json.");
                 return false;
             }
             return true;
         }
+       
         
     }
 }

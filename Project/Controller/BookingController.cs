@@ -1,20 +1,28 @@
-﻿using Project.Database;
+﻿using Project.ControllerInterface;
+using Project.Database;
 using Project.Models;
 
 
 namespace Project.Controller
 {
-    public class BookingController
+    public class BookingController:IBookingController
     {
         public void BookEvent(Booking booking)
         {
             BookingDbHandler.BookingDbInstance.AddBooking(booking);
-            EventContoller .DecrementTicket(booking.bookedEvent, booking.numOfTickets);
         }
-        public List<Booking> ViewBookings()
+        public List<Booking> GetAll()
         {
-            List<Booking> bookings = BookingDbHandler.BookingDbInstance.listOfBookings;
+            List<Booking> bookings = BookingDbHandler.BookingDbInstance.ListOfBookings;
             return bookings;
+        }
+
+        public List<Booking> GetCustomerBookings(string username)
+        {
+            var bookings = BookingDbHandler.BookingDbInstance.ListOfBookings;
+            var customerBookings = bookings.FindAll(b=> b.Customer.Username.ToLower().Equals(username.ToLower()));
+            return customerBookings;
+
         }
     }
 }

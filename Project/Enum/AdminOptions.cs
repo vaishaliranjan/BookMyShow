@@ -12,10 +12,5 @@ namespace Project.Enum
         ViewBookings = 7,
         LogOut = 8
     }
-    public enum AdminFuncOptions
-    {
-        AddNew = 1,
-        Cancel = 2,
-        Exit = 0
-    }
+    
 }

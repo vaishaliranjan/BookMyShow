@@ -1,64 +1,91 @@
-﻿
-using System.Globalization;
-
+﻿using System.Globalization;
 
 namespace Project.Views
 {
-    internal class InputValidation
+    public class InputValidation
     {
         public static int IntegerValidation()
         {
-        label: Console.WriteLine();
             int input;
-            try
+            while (true)
             {
-                input = Convert.ToInt32(Console.ReadLine());
-                return input;
+                Console.WriteLine();
+                try
+                {
+                    input = Convert.ToInt32(Console.ReadLine());
+                    return input;
+                }
+                catch(Exception ex) 
+                {
+                    Message.InvalidInput();
+                    HelperClass.LogException(ex, "Invalid input");
+                    continue;
+                }
             }
-            catch
+        }
+        public static double FloatValidation()
+        {
+            double input;
+            while (true)
             {
-                Message.InvalidInput();
-                goto label;
+                Console.WriteLine();
+                
+                try
+                {
+                    input = Convert.ToDouble(Console.ReadLine());
+                    return input;
+                }
+                catch(Exception ex) 
+                {
+                    Message.InvalidInput();
+                    HelperClass.LogException(ex, "Invalid input");
+                    continue;
+                }
             }
         }
 
-        public static string NullValidation()
+        public static string StringValidation()
         {
-        
-        label: string input = Console.ReadLine();
-            try
+            while (true)
             {
-
-
-                if (string.IsNullOrWhiteSpace(input))
+                string input = Console.ReadLine();
+                try
+                {
+                    if (string.IsNullOrWhiteSpace(input))
+                    {
+                        Message.OnlyString();
+                        continue;
+                    }
+                    return input;
+                }
+                catch(Exception ex) 
                 {
                     Message.OnlyString();
-                    goto label;
+                    HelperClass.LogException(ex, "Invalid input");
+                    continue;
                 }
-                return input;
-            }
-            catch
-            {
-                Message.OnlyString();
-                goto label;
             }
         }
         public static DateTime DateValidation()
         {
             string userInput;
             DateTime dt;
-        enterDate: Console.WriteLine("Enter date and time (yyyy-MM-ddTHH:mm): eg(2023-11-31T04:15");
-            try
+            while (true)
             {
+                Console.WriteLine("Enter date and time (yyyy-MM-ddTHH:mm): eg(2023-11-31T04:15");
+                try
+                {
 
-                userInput = Console.ReadLine();
-                dt = DateTime.ParseExact(userInput, "yyyy-MM-ddTHH:mm", CultureInfo.CurrentCulture);
-                return dt;
-            }
-            catch
-            {
-                Console.WriteLine("Enter the date in correct format!");
-                goto enterDate;
+                    userInput = Console.ReadLine();
+                    dt = DateTime.ParseExact(userInput, "yyyy-MM-ddTHH:mm", CultureInfo.CurrentCulture);
+                    return dt;
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine("Enter the date in correct format!");
+                    HelperClass.LogException(ex, "Invalid date and time");
+                    continue;
+                }
             }
         }
     }

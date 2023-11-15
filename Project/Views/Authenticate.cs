@@ -2,68 +2,65 @@
 using Project.Models;
 using Project.Views;
 using Project.Objects;
-using System.Data;
-using System.Xml.Linq;
+using Project.Enum;
+using Project.ControllerInterface;
 
 namespace Project.UILayer
 {
     public static class Authenticate
     {
-        public static void LoginUI()
+        public static void Login()
         {
             while (true)
             {
-                Console.Write(Message.enterUsername);
-                string username = InputValidation.NullValidation();
-                Console.Write(Message.enterPassword);
-                string password =HelperClass.HideCharacter();
-                User user = AuthManager.AuthObject.Login(username, password);
+                IAuthController authController = AuthController.AuthObject;
+                string username = EnterUsername();
+                string password = EnterPassword();
+                var user = authController.Login(username, password);
                 Console.ResetColor();
                 if (user != null)
                 {
-                    if (user.role == Role.Admin)
+                    if (user.Role==Role.Admin)
                     {
-                        Admin newAdmin = new Admin(user.UserId,user.Name,
-                            user.Username,
-                        user.Email,
-                        user.Password,
-                           user.role) ;
-                        
-                        AdminUI.ADMINUI(new AdminObjects(newAdmin));
+                        var newAdmin = new Admin(user.UserId, user.Name, user.Username, user.Email, user.Password, user.Role) ;
+                        AdminUI.AdminPage(new AdminObjects(newAdmin));
                         break;
                     }
-                    else if (user.role == Role.Customer)
+                    else if (user.Role==Role.Customer)
                     {
-                        Customer newCustomer = new Customer(user.UserId,
-                            user.Name,
-                            user.Username,
-                        user.Email,
-                        user.Password,
-                           user.role
-                            )
-                       ;
-                        CustomerUI.CUSTOMERUI(new CustomerObjects(newCustomer));
+                        var newCustomer = new Customer(user.UserId, user.Name, user.Username, user.Email, user.Password, user.Role);
+                        CustomerUI.CustomerPage(new CustomerObjects(newCustomer));
                         break;
                     }
-                    else if (user.role == Role.Organizer)
+                    else if (user.Role==Role.Organizer)
                     {
-                        Organizer newOrganizer = new Organizer(user.UserId, user.Name,
-                            user.Username,
-                        user.Email,
-                        user.Password,
-                           user.role)
-                        ;
-                        OrganizerUI.ORGANIZERUI(new OrganizerObjects(newOrganizer));
+                        var newOrganizer = new Organizer(user.UserId, user.Name, user.Username, user.Email, user.Password, user.Role);
+                        OrganizerUI.OrganizerPage(new OrganizerObjects(newOrganizer));
                         break;
                     }
                 }
                 else
                 {
-                    Console.WriteLine(Message.wrongCredentials);
+                    Console.WriteLine(Message.WrongCredentials);
                     continue;
-                }   
-                }
+                }  
+                
+            }
+
+            static string EnterUsername()
+            {
+                Console.Write(Message.enterUsername);
+                var username = InputValidation.StringValidation();
+                return username;
+            }
+            static string EnterPassword()
+            {
+                Console.Write(Message.enterPassword);
+                var password = HelperClass.HideCharacter();
+                return password;
             }
         }
+        
     }
+}
 
