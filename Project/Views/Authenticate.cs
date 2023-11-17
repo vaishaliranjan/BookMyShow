@@ -7,16 +7,18 @@ using Project.ControllerInterface;
 
 namespace Project.UILayer
 {
-    public static class Authenticate
+    public static  class Authenticate
     {
+        
+
         public static void Login()
         {
             while (true)
             {
-                IAuthController authController = AuthController.AuthObject;
+                //IAuthController authController = AuthController.AuthObject;
                 string username = EnterUsername();
                 string password = EnterPassword();
-                var user = authController.Login(username, password);
+                var user = AuthController.AuthObject.Login(username, password);
                 Console.ResetColor();
                 if (user != null)
                 {
@@ -49,13 +51,13 @@ namespace Project.UILayer
 
             static string EnterUsername()
             {
-                Console.Write(Message.enterUsername);
+                Console.Write(Message.EnterUsername);
                 var username = InputValidation.StringValidation();
                 return username;
             }
             static string EnterPassword()
             {
-                Console.Write(Message.enterPassword);
+                Console.Write(Message.EnterPassword);
                 var password = HelperClass.HideCharacter();
                 return password;
             }

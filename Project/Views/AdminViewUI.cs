@@ -34,7 +34,7 @@ namespace Project.Views
                         break;
 
                     default:
-                        Console.WriteLine(Message.invalidInput);
+                        Console.WriteLine(Message.InvalidInputMessage);
                         continue;
                 }
                 break;
@@ -63,7 +63,7 @@ namespace Project.Views
                         break;
 
                     default:
-                        Console.WriteLine(Message.invalidInput);
+                        Console.WriteLine(Message.InvalidInputMessage);
                         continue;
                 }
                 break;
@@ -91,7 +91,7 @@ namespace Project.Views
                         break;
 
                     default:
-                        Console.WriteLine(Message.invalidInput);
+                        Console.WriteLine(Message.InvalidInputMessage);
                         continue;
                 }
                 break;
@@ -125,7 +125,7 @@ namespace Project.Views
                         break;
 
                     default:
-                        Console.WriteLine(Message.invalidInput);
+                        Console.WriteLine(Message.InvalidInputMessage);
                         continue;
                 }
                 break;
@@ -158,7 +158,7 @@ namespace Project.Views
                         break;
 
                     default:
-                        Console.WriteLine(Message.invalidInput);
+                        Console.WriteLine(Message.InvalidInputMessage);
                         continue;
                 }
                 break;
@@ -190,7 +190,7 @@ namespace Project.Views
                         break;
 
                     default:
-                        Console.WriteLine(Message.invalidInput);
+                        Console.WriteLine(Message.InvalidInputMessage);
                         continue;
                 }
                 break;
@@ -219,7 +219,7 @@ namespace Project.Views
                         break;
 
                     default:
-                        Console.WriteLine(Message.invalidInput);
+                        Console.WriteLine(Message.InvalidInputMessage);
                         continue;
                 }
                 break;

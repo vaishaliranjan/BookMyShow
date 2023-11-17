@@ -5,32 +5,35 @@ namespace Project.Views
     internal class Message
     {
         public static string ChooseNum = "Choose any number: ";
-        public static string enterUsername = "Enter username: ";
-        public static string enterEmail = "Enter email: ";
-        public static string enterPassword = "Enter password: ";
-        public static string enterName = "Enter Name:";
-        public static string selectOrganizer = "Select an organizer: ";
-        public static string doesntExist = "Doesnt exist!";
-        public static string selectCustomer = "Select a customer: ";
-        public static string venueAdded = "Venue added successfully";
-        public static string artistAdded = "Artist added successfully";
-        public static string errorOccurred = "An error occurred";
-        public static string enterPlace = "Enter place name: ";
+        public static string EnterUsername = "Enter username: ";
+        public static string EnterEmail = "Enter email: ";
+        public static string EnterPassword = "Enter password: ";
+        public static string EnterName = "Enter Name:";
+        public static string SelectOrganizer = "Select an organizer: ";
+        public static string DoesNotExist = "Doesnt exist!";
+        public static string SelectCustomer = "Select a customer: ";
+        public static string VenueAdded = "Venue added successfully";
+        public static string ArtistAdded = "Artist added successfully";
+        public static string ErrorOccurred = "An error occurred";
+        public static string EnterPlace = "Enter place name: ";
         public static string WrongCredentials = "Wrong credentials";
-        public static string eventId = "Enter Event Id: ";
-        public static string numOfTickets = "Enter number of tickets: ";
-        public static string noTickets = "No Tickets Available!";
-        public static string notValidTickets="Tickets must be greater than 0 and less than num of tickets available.";
-        public static string selectArtist = "Select Artist: ";
-        public static string artistId = "Enter Artist Id: ";
-        public static string selectVenue = "Select Venue: ";
-        public static string venueId = "Enter Venue Id: ";
-        public static string eventName = "Enter name of the event: ";
-        public static string pricePerTicket = "Enter price per ticket: ";
-        public static string onlyCharacters = "It can only include characters";
-        public static string entervalidEmail = "Enter a valid email address..";
-        public static string invalidInput = "Invalid Input! ";
-        public static string userExists = "User already exists! ";
+        public static string EnterEventId = "Enter Event Id: ";
+        public static string EnterNumOfTickets = "Enter number of tickets: ";
+        public static string NoTicketsAvailable = "No Tickets Available!";
+        public static string NotValidTickets="Tickets must be greater than 0 and less than num of tickets available.";
+        public static string SelectArtist = "Select Artist: ";
+        public static string EnterArtistId = "Enter Artist Id: ";
+        public static string SelectVenue = "Select Venue: ";
+        public static string EnterVenueId = "Enter Venue Id: ";
+        public static string EnterEventName = "Enter name of the event: ";
+        public static string EnterPricePerTicket = "Enter price per ticket: ";
+        public static string OnlyCharacters = "It can only include characters";
+        public static string EnterValidEmail = "Enter a valid email address..";
+        public static string EnterValidPassword = "Password can't contain spaces..";
+        public static string InvalidInputMessage = "Invalid Input! ";
+        public static string UserAlreadyExists = "User already exists! ";
+        public static string InvalidDate = "Entered date has been passed.";
+
         public static void InvalidInput()
         {
             Console.WriteLine("You can only enter a numeric value!!");

@@ -37,7 +37,7 @@ namespace Project.UILayer
                         break;
 
                     default:
-                        Console.WriteLine(Message.invalidInput);
+                        Console.WriteLine(Message.InvalidInputMessage);
                         continue; 
                 }
                 break;
@@ -78,7 +78,7 @@ namespace Project.UILayer
                             break;
 
                         default:
-                            Console.WriteLine(Message.invalidInput);
+                            Console.WriteLine(Message.InvalidInputMessage);
                             continue;
                     }
                     break;

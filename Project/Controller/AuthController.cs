@@ -29,7 +29,7 @@ namespace Project.BusinessLayer
             List<User> allUsers = UserDbHandler.UserDbInstance.ListOfUsers;
             foreach (User user in allUsers)
             {
-                if(user.Username.ToLower().Equals(username.ToLower()) && user.Password.ToLower().Equals(password.ToLower()))
+                if(user.Username.Equals(username, StringComparison.InvariantCultureIgnoreCase) && user.Password.ToLower().Equals(password.ToLower()))
                 {
                     return user;
                 }

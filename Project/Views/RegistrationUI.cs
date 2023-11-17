@@ -46,7 +46,7 @@ namespace Project.UI
             }
             else
             {
-                Console.WriteLine(Message.errorOccurred);
+                Console.WriteLine(Message.ErrorOccurred);
             }
         }
 
@@ -57,14 +57,14 @@ namespace Project.UI
             string name;
             while (true)
             {
-                Console.Write(Message.enterName);
+                Console.Write(Message.EnterName);
                 name = InputValidation.StringValidation();
                 bool ans = RegexValidation.IsValidName(name);
                 if (ans)
                 {
                     break;
                 }
-                Console.WriteLine(Message.onlyCharacters);
+                Console.WriteLine(Message.OnlyCharacters);
             }
             return name;
         }
@@ -75,21 +75,21 @@ namespace Project.UI
             string username;
             while (true)
             {
-                Console.Write(Message.enterUsername);
+                Console.Write(Message.EnterUsername);
                 username = InputValidation.StringValidation();
 
-                bool r = RegexValidation.IsValidName(username);
+                bool r = RegexValidation.IsValidUsername(username);
                 if (r)
                 {
                     bool res = authController.ValidateUser(username);
                     if (!res)
                     {
-                        Console.WriteLine(Message.userExists);
+                        Console.WriteLine(Message.UserAlreadyExists);
                         continue;
                     }
                     break;
                 }
-                Console.WriteLine(Message.onlyCharacters);
+                Console.WriteLine(Message.OnlyCharacters);
             }
             return username;
 
@@ -100,22 +100,33 @@ namespace Project.UI
             string email;
             while (true)
             {
-                Console.Write(Message.enterEmail);
+                Console.Write(Message.EnterEmail);
                 email = InputValidation.StringValidation();
                 bool answer = RegexValidation.IsValidEmail(email);
                 if (answer)
                 {
                     break;
                 }
-                Console.WriteLine(Message.entervalidEmail);
+                Console.WriteLine(Message.EnterValidEmail);
             }
             return email;
         }
 
         static string EnterPassword()
         {
-            Console.Write(Message.enterPassword);
-            var password = InputValidation.StringValidation();
+            
+            string password;
+            while (true)
+            {
+                Console.Write(Message.EnterPassword);
+                password = InputValidation.StringValidation();
+                bool answer = RegexValidation.IsValidPassword(password);
+                if (answer)
+                {
+                    break;
+                }
+                Console.WriteLine(Message.EnterValidPassword);
+            }
             return password;
         }
     }

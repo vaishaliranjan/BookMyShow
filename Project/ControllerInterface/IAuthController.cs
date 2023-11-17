@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Project.ControllerInterface
 {
-    internal interface IAuthController
+    public interface IAuthController
     {
         User Login(string username, string password);
         void Register(User user, Role role);

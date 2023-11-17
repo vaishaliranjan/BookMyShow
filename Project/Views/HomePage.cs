@@ -9,10 +9,8 @@ namespace Project.UILayer
         static void Main(string[] args)
         {
             try
-            {
-               
-                HomePageFunction();
-                
+            {    
+                HomePageFunction();             
             }
             catch(Exception ex) 
             {
@@ -48,7 +46,7 @@ namespace Project.UILayer
                         break;
 
                     default:
-                        Console.WriteLine(Message.invalidInput); 
+                        Console.WriteLine(Message.InvalidInputMessage); 
                         continue;
                 }
                 break;   

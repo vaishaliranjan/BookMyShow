@@ -5,6 +5,7 @@ using Project.Views;
 
 namespace Project.Database
 {
+    
     internal class VenueDbHandler: DbHandler<Venue>
     {
         private static VenueDbHandler venueDbInstance;

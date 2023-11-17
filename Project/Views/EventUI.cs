@@ -56,13 +56,13 @@ namespace Project.Views
             }
             else
             {
-                Console.WriteLine(Message.errorOccurred); 
+                Console.WriteLine(Message.ErrorOccurred); 
             }  
         }
 
         public static void CancelEvent(IEventController eventController)
         {  
-            Console.Write(Message.eventId);
+            Console.Write(Message.EnterEventId);
             var deleteEventId = InputValidation.IntegerValidation();
             if (eventController.Delete(deleteEventId))
             {
@@ -78,17 +78,17 @@ namespace Project.Views
         static Artist SelectArtist()
         {
             IArtistController artistController = new ArtistController();
-            Console.WriteLine(Message.selectArtist);
+            Console.WriteLine(Message.SelectArtist);
             ArtistUI.ViewArtists(artistController);
-            Artist artist = null;
+            Artist artist;
             while (true)
             {
-                Console.Write(Message.artistId);
+                Console.Write(Message.EnterArtistId);
                 int artistId = InputValidation.IntegerValidation();
                 artist = artistController.GetById(artistId);
                 if (artist == null)
                 {
-                    Console.WriteLine(Message.doesntExist);
+                    Console.WriteLine(Message.DoesNotExist);
                     continue;
                 }
                 break;
@@ -98,18 +98,18 @@ namespace Project.Views
         static Venue SelectVenue()
         {
             IVenueController venueController = new VenueController();
-            Console.WriteLine(Message.selectVenue);
+            Console.WriteLine(Message.SelectVenue);
             VenueUI.ViewVenues(venueController);
-            Venue venue = null;
+            Venue venue;
             while (true)
             {
-                Console.Write(Message.venueId);
+                Console.Write(Message.EnterVenueId);
 
                 int venueId = InputValidation.IntegerValidation();
                 venue = venueController.GetById(venueId);
                 if (venue == null)
                 {
-                    Console.WriteLine(Message.doesntExist);
+                    Console.WriteLine(Message.DoesNotExist);
                     continue;
                 }
                 break;
@@ -119,20 +119,20 @@ namespace Project.Views
 
         static string EnterEventName()
         {
-            Console.Write(Message.eventName);
+            Console.Write(Message.EnterEventName);
             var eventName = InputValidation.StringValidation();
             return eventName;
         }
         static int EnterNumberOfTickets()
         {
-            Console.Write(Message.numOfTickets);
+            Console.Write(Message.EnterNumOfTickets);
             var tickets = InputValidation.IntegerValidation();
             return tickets;
         }
 
         static double EnterPricePerTicket()
         {
-            Console.Write(Message.pricePerTicket);
+            Console.Write(Message.EnterPricePerTicket);
             double price = InputValidation.FloatValidation();
             return price;
         }

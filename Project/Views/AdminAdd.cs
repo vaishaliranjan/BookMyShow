@@ -28,12 +28,12 @@ namespace Project.Views
             var artist = EnterArtistDetails();
             if (admin.artistController.Add(artist))
             {
-                Console.WriteLine(Message.artistAdded);
+                Console.WriteLine(Message.ArtistAdded);
                 Console.ResetColor();
             }
             else
             {
-                Console.WriteLine(Message.errorOccurred);
+                Console.WriteLine(Message.ErrorOccurred);
             }
             AdminUI.AdminPage(admin);
         }
@@ -44,12 +44,12 @@ namespace Project.Views
             var venue = EnterVenueDetails();    
             if (admin.venueController.Add(venue))
             {
-                Console.WriteLine(Message.venueAdded);
+                Console.WriteLine(Message.VenueAdded);
                 Console.ResetColor();
             }
             else
             {
-                Console.WriteLine(Message.errorOccurred);
+                Console.WriteLine(Message.ErrorOccurred);
             }
             AdminUI.AdminPage(admin);
 
@@ -57,15 +57,15 @@ namespace Project.Views
 
         static Venue EnterVenueDetails()
         {
-            Console.Write(Message.enterPlace);
-            string place = InputValidation.StringValidation();
-            Venue venue = new Venue(++venueId, place);
+            Console.Write(Message.EnterPlace);
+            var place = InputValidation.StringValidation();
+            var venue = new Venue(++venueId, place);
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
             return venue;
         }
         static Artist EnterArtistDetails()
         {
-            Console.Write(Message.enterName);
+            Console.Write(Message.EnterName);
             string name = InputValidation.StringValidation();
             DateTime dt = InputValidation.DateValidation();
             var artist = new Artist(++artistId, name, dt);
@@ -74,18 +74,18 @@ namespace Project.Views
         }
         static Organizer SelectOrganizerOfEvent(AdminObjects admin)
         {
-            Organizer organizer = null;
+            Organizer organizer;
             var organizers = admin.organizationController.GetAll();
             Print.PrintUsers(organizers);
             while (true)
             {
-                Console.WriteLine(Message.selectOrganizer);
-                Console.Write(Message.enterUsername);
+                Console.WriteLine(Message.SelectOrganizer);
+                Console.Write(Message.EnterUsername);
                 string uname = InputValidation.StringValidation();
                 organizer = admin.organizationController.GetByUsername(uname);
                 if (organizer == null)
                 {
-                    Console.WriteLine(Message.doesntExist);
+                    Console.WriteLine(Message.DoesNotExist);
                     continue;
                 }
                 break;
@@ -94,19 +94,19 @@ namespace Project.Views
         }
         static Customer SelectCustomerForBooking(AdminObjects admin)
         {
-            Customer customer = null;
+            Customer customer;
             var customers = admin.customerController.GetAll();
             Print.PrintUsers(customers);
             while (true)
             {
-                Console.WriteLine(Message.selectCustomer);
-                Console.Write(Message.enterUsername);
+                Console.WriteLine(Message.SelectCustomer);
+                Console.Write(Message.EnterUsername);
                 string uname = InputValidation.StringValidation();
 
                 customer = admin.customerController.GetByUsername(uname);
                 if (customer == null)
                 {
-                    Console.WriteLine(Message.doesntExist);
+                    Console.WriteLine(Message.DoesNotExist);
                     continue;
                 }
                 break;

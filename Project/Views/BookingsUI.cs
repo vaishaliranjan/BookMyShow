@@ -8,7 +8,7 @@ namespace Project.Views
 {
     public class BookingsUI
     {
-        public static int bookingId = Booking.BookingIdInc;
+        static int bookingId = Booking.BookingIdInc;
         public static void ShowBookings(List<Booking> bookings)
         {
             if (bookings != null)
@@ -57,18 +57,18 @@ namespace Project.Views
             int eventId;
             while (true)
             {
-                Console.Write(Message.eventId);
+                Console.Write(Message.EnterEventId);
                 eventId = InputValidation.IntegerValidation();
                 bookedEvent = eventContoller.GetById(eventId);
                 if (bookedEvent == null)
                 {
-                    Console.WriteLine(Message.doesntExist);
+                    Console.WriteLine(Message.DoesNotExist);
                     Console.WriteLine();
                     continue;
                 }
                 if (bookedEvent.NumOfTicket == 0)
                 {
-                    Console.WriteLine(Message.noTickets);
+                    Console.WriteLine(Message.NoTicketsAvailable);
                     continue;
                 }
                 break;
@@ -81,11 +81,11 @@ namespace Project.Views
             int numOfTickets;
             while (true)
             {
-                Console.Write(Message.numOfTickets);
+                Console.Write(Message.EnterNumOfTickets);
                 numOfTickets = InputValidation.IntegerValidation();
                 if (numOfTickets < 0 || bookedEvent.NumOfTicket < numOfTickets)
                 {
-                    Console.WriteLine(Message.notValidTickets);
+                    Console.WriteLine(Message.NotValidTickets);
                     continue;
                 }
                 break;

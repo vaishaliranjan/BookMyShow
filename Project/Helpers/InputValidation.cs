@@ -69,7 +69,7 @@ namespace Project.Views
         public static DateTime DateValidation()
         {
             string userInput;
-            DateTime dt;
+            DateTime date;
             while (true)
             {
                 Console.WriteLine("Enter date and time (yyyy-MM-ddTHH:mm): eg(2023-11-31T04:15");
@@ -77,8 +77,13 @@ namespace Project.Views
                 {
 
                     userInput = Console.ReadLine();
-                    dt = DateTime.ParseExact(userInput, "yyyy-MM-ddTHH:mm", CultureInfo.CurrentCulture);
-                    return dt;
+                    date = DateTime.ParseExact(userInput, "yyyy-MM-ddTHH:mm", CultureInfo.CurrentCulture);
+                    if(date < DateTime.Now)
+                    {
+                        Console.WriteLine(Message.InvalidDate);
+                        continue;
+                    }
+                    return date;
                 }
                 catch(Exception ex)
                 {
