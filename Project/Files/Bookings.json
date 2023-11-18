@@ -1,1 +1,94 @@
-[{"bookingId":1,"bookedEvent":{"Id":101,"Name":"ED Sheeren Tour","organizer":{"UserId":2,"Name":"Ritika","Username":"ritika","Email":"ritika@gmail.com","role":1,"Password":"ritika"},"artist":{"artistId":1,"Name":"ED Sheeren","timing":"2023-10-31T10:00:00"},"venue":{"venueId":1,"Place":"SK Stadium"},"initialTickets":200,"NumOfTicket":5,"Price":5000.4},"customer":{"UserId":3,"Name":"Mehak","Username":"mehak","Email":"mehak@gmail.com","role":2,"Password":"mehak"},"numOfTickets":2,"totalPrice":10000.8},{"bookingId":2,"bookedEvent":{"Id":102,"Name":"JAZ Night","organizer":{"UserId":2,"Name":"Ritika","Username":"ritika","Email":"ritika@gmail.com","role":1,"Password":"ritika"},"artist":{"artistId":2,"Name":"Ankit Singh","timing":"2023-10-31T15:30:00Z"},"venue":{"venueId":102,"Place":"Rubbaru, Noida"},"initialTickets":200,"NumOfTicket":200,"Price":2000.0},"customer":{"UserId":6,"Name":"Ayush","Username":"ayush","Email":"ayush@gmail.com","role":2,"Password":"ayush"},"numOfTickets":10,"totalPrice":20000.0},{"bookingId":3,"bookedEvent":{"Id":102,"Name":"JAZ Night","organizer":{"UserId":2,"Name":"Ritika","Username":"ritika","Email":"ritika@gmail.com","role":1,"Password":"ritika"},"artist":{"artistId":2,"Name":"Ankit Singh","timing":"2023-10-31T15:30:00Z"},"venue":{"venueId":102,"Place":"Rubbaru, Noida"},"initialTickets":200,"NumOfTicket":196,"Price":2000.0},"customer":{"UserId":6,"Name":"Ayush","Username":"ayush","Email":"ayush@gmail.com","role":2,"Password":"ayush"},"numOfTickets":4,"totalPrice":8000.0},{"bookingId":4,"bookedEvent":{"Id":101,"Name":"Arijit Singh Heavy Motion","organizer":{"UserId":2,"Name":"Ritika","Username":"ritika","Email":"ritika@gmail.com","role":1,"Password":"ritika"},"artist":{"artistId":1,"Name":"Arijit Singh","timing":"2023-10-11T09:00:00"},"venue":{"venueId":2,"Place":"SRK Stadium"},"initialTickets":200,"NumOfTicket":150,"Price":2220.4},"customer":{"UserId":6,"Name":"Ayush","Username":"ayush","Email":"ayush@gmail.com","role":2,"Password":"ayush"},"numOfTickets":5,"totalPrice":11102.0}]
+[
+  {
+    "BookingId": 1,
+    "BookedEvent": {
+      "Id": 101,
+      "Name": "ED Sheeren Tour",
+      "OrganizerUsername": "ritika",
+      "Artist": {
+        "artistId": 1,
+        "Name": "ED Sheeren",
+        "timing": "2023-10-31T10:00:00"
+      },
+      "Venue": {
+        "venueId": 1,
+        "Place": "SK Stadium"
+      },
+      "InitialTickets": 200,
+      "NumOfTicket": 5,
+      "Price": 5000.4
+    },
+    "CustomerUsername": "mehak",
+    "NumOfTickets": 2,
+    "TotalPrice": 10000.8
+  },
+  {
+    "BookingId": 2,
+    "BookedEvent": {
+      "Id": 102,
+      "Name": "JAZ Night",
+      "OrganizerUsername": "ritika",
+      "Artist": {
+        "artistId": 2,
+        "Name": "Ankit Singh",
+        "timing": "2023-10-31T15:30:00Z"
+      },
+      "Venue": {
+        "venueId": 102,
+        "Place": "Rubbaru, Noida"
+      },
+      "InitialTickets": 200,
+      "NumOfTicket": 200,
+      "Price": 2000.0
+    },
+    "CustomerUsername": "ayush",
+    "NumOfTickets": 10,
+    "TotalPrice": 20000.0
+  },
+  {
+    "BookingId": 3,
+    "BookedEvent": {
+      "Id": 102,
+      "Name": "JAZ Night",
+      "OrganizerUsername": "ritika",
+      "Artist": {
+        "artistId": 2,
+        "Name": "Ankit Singh",
+        "timing": "2023-10-31T15:30:00Z"
+      },
+      "Venue": {
+        "venueId": 102,
+        "Place": "Rubbaru, Noida"
+      },
+      "InitialTickets": 200,
+      "NumOfTicket": 196,
+      "Price": 2000.0
+    },
+    "CustomerUsername": "ayush",
+    "NumOfTickets": 4,
+    "TotalPrice": 8000.0
+  },
+  {
+    "BookingId": 4,
+    "BookedEvent": {
+      "Id": 101,
+      "Name": "Arijit Singh Heavy Motion",
+      "OrganizerUsername": "ritika",
+      "Artist": {
+        "artistId": 1,
+        "Name": "Arijit Singh",
+        "timing": "2023-10-11T09:00:00"
+      },
+      "Venue": {
+        "venueId": 2,
+        "Place": "SRK Stadium"
+      },
+      "InitialTickets": 200,
+      "NumOfTicket": 150,
+      "Price": 2220.4
+    },
+    "CustomerUsername": "ayush",
+    "NumOfTickets": 5,
+    "TotalPrice": 11102.0
+  }
+]

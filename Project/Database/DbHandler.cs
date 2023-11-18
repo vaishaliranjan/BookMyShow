@@ -3,11 +3,16 @@ using Project.Views;
 
 namespace Project.Database
 {
-
-    public abstract class DbHandler<T> where T : class
+    public interface IDbHandler<T> where T: class
+    {
+        bool AddEntry(T obj, List<T> list, string path);
+        bool UpdateEntry(string path, List<T> list);
+    }
+    public abstract class DbHandler<T>:IDbHandler<T> where T : class
     {
         public bool AddEntry(T obj,List<T> list, string path)
         {
+           
             list.Add(obj);
             if(UpdateEntry(path,list)) 
                 return true;

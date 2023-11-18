@@ -1,28 +1,21 @@
-﻿using Project.UI;
-using Project.Enum;
-using Project.Views;
+﻿using Project.Enum;
+using Project.ViewsInterface;
 
-namespace Project.UILayer
+namespace Project.Views
 {
-    public class HomePage
+    public class HomePage: IHomePage
     {
-        static void Main(string[] args)
+        public IAuthenticate Authenticate { get; }
+        public IRegistration Register { get; }
+        public HomePage(IAuthenticate authenticate, IRegistration register)
         {
-            try
-            {    
-                HomePageFunction();             
-            }
-            catch(Exception ex) 
-            {
-                Console.WriteLine("Something went wrong!!");
-                HelperClass.LogException(ex, "Something went wrong");
-            }
-            
+            Authenticate = authenticate;  
+            Register = register;
         }
-        public static void HomePageFunction()
+
+        public void Run()
         {
-            Message.HomePage();
-            
+            Message.HomePage();           
             while (true)
             {
                 Console.Write(Message.ChooseNum);
@@ -37,7 +30,7 @@ namespace Project.UILayer
 
                     case HomePageOptions.Signup:
                         Console.ResetColor();
-                        RegistrationUI.AddNewUser(Role.Customer);
+                        Register.RegisterUser(Role.Customer);
                         Authenticate.Login();
                         break;
 

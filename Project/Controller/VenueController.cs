@@ -7,23 +7,24 @@ namespace Project.Controller
 {
     public class VenueController: IVenueController
     {
+       
         public bool Add(Venue venue)
         {
             return VenueDbHandler.VenueDbInstance.AddVenue(venue);
         }
         public List<Venue> GetAll()
         {
-            return VenueDbHandler.VenueDbInstance.ListOfVenues;
+            return VenueDbHandler.VenueDbInstance.ListOfVenues; 
         }
 
         public Venue GetById(int id)
         {
-
+            var Venues= VenueDbHandler.VenueDbInstance.ListOfVenues;
             Venue choosenVenue = null;
 
             try
             {
-                choosenVenue = VenueDbHandler.VenueDbInstance.ListOfVenues.Single(a => a.VenueId == id);
+                choosenVenue = Venues.Single(a => a.VenueId == id);
                 RemoveVenue(choosenVenue);
                 return choosenVenue;
             }
@@ -37,12 +38,12 @@ namespace Project.Controller
         }
         public static bool RemoveVenue(Venue choosenVenue)
         {
-            var listOfVenues = VenueDbHandler.VenueDbInstance.ListOfVenues;
-            var venue = listOfVenues.SingleOrDefault(v => v.VenueId == choosenVenue.VenueId);
+            var Venues = VenueDbHandler.VenueDbInstance.ListOfVenues;
+            var venue = Venues.SingleOrDefault(v => v.VenueId == choosenVenue.VenueId);
             if (venue != null)
             {
-                listOfVenues.Remove(venue);
-                return VenueDbHandler.VenueDbInstance.RemoveVenue(listOfVenues);
+                Venues.Remove(venue);
+                return VenueDbHandler.VenueDbInstance.RemoveVenue(Venues);
             }
             return false;
         }

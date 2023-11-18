@@ -7,6 +7,7 @@ namespace Project.Controller
 {
     public class EventContoller: IEventController
     {
+        
         public void DecrementTicket(Event bookedEvent, int numOfTickets)
         {
             var listOfEvents = EventDbHandler.EventDbInstance.ListOfEvents;
@@ -21,14 +22,14 @@ namespace Project.Controller
         }
         public Event GetById(int eventId)
         {
-            List<Event> events = EventDbHandler.EventDbInstance.ListOfEvents;
+            var Events = EventDbHandler.EventDbInstance.ListOfEvents;
             Event e = null;
 
-            if (events != null)
+            if (Events != null)
             {
                 try
                 {
-                    e = events.Single(e => e.Id == eventId);
+                    e = Events.Single(e => e.Id == eventId);
                     return e;
                 }
                 catch (Exception ex)
@@ -45,13 +46,14 @@ namespace Project.Controller
         }
         public List<Event> GetAll()
         {
-            return EventDbHandler.EventDbInstance.ListOfEvents;
+            var Events = EventDbHandler.EventDbInstance.ListOfEvents;
+            return Events;
             
         }
         public List<Event> GetOrganizerEvents(string username)
         {
-            List<Event> events = EventDbHandler.EventDbInstance.ListOfEvents;
-            var organizerEvents = events.FindAll(e => e.Organizer.Username.ToLower().Equals(username.ToLower()));
+            var Events = EventDbHandler.EventDbInstance.ListOfEvents; 
+            var organizerEvents = Events.FindAll(e => e.OrganizerUsername.ToLower().Equals(username.ToLower()));
             return organizerEvents;
         }
         public bool Add(Event newEvent)
@@ -60,15 +62,15 @@ namespace Project.Controller
         }
         public bool Delete(int deleteEventId)
         {
-            var events = EventDbHandler.EventDbInstance.ListOfEvents;
-            foreach (Event e in events)
+            var Events = EventDbHandler.EventDbInstance.ListOfEvents;
+            foreach (Event e in Events)
             {
                 if (e.Id == deleteEventId)
                 {
                     if (e.NumOfTicket == e.InitialTickets)
                     {
-                        events.Remove(e);
-                        return EventDbHandler.EventDbInstance.RemoveEvent(events);
+                        Events.Remove(e);
+                        return EventDbHandler.EventDbInstance.RemoveEvent(Events);
                     }
                 }
             }

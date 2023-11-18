@@ -1,50 +1,36 @@
 [
-    {
-        "Id": 101,
-        "Name": "Arijit Singh Heavy Motion",
-        "organizer": {
-            "UserId": 2,
-            "Name": "Ritika",
-            "Username": "ritika",
-            "Email": "ritika@gmail.com",
-            "role": 1,
-            "Password": "ritika"
-        },
-        "artist": {
-            "artistId": 1,
-            "Name": "Arijit Singh",
-            "timing": "2023-10-11T09:00:00"
-        },
-        "venue": {
-            "venueId": 2,
-            "Place": "SRK Stadium"
-        },
-        "initialTickets": 200,
-        "NumOfTicket": 145,
-        "Price": 2220.4
+  {
+    "Id": 101,
+    "Name": "Arijit Singh Heavy Motion",
+    "OrganizerUsername": "ritika",
+    "Artist": {
+      "artistId": 1,
+      "Name": "Arijit Singh",
+      "timing": "2023-10-11T09:00:00"
     },
-    {
-        "Id": 102,
-        "Name": "JAZ Night",
-        "organizer": {
-            "UserId": 2,
-            "Name": "Ritika",
-            "Username": "ritika",
-            "Email": "ritika@gmail.com",
-            "role": 1,
-            "Password": "ritika"
-        },
-        "artist": {
-            "artistId": 2,
-            "Name": "Ankit Singh",
-            "timing": "2023-10-31T15:30:00Z"
-        },
-        "venue": {
-            "venueId": 102,
-            "Place": "Rubbaru, Noida"
-        },
-        "initialTickets": 200,
-        "NumOfTicket": 196,
-        "Price": 2000.0
-    }
+    "Venue": {
+      "venueId": 2,
+      "Place": "SRK Stadium"
+    },
+    "InitialTickets": 200,
+    "NumOfTicket": 145,
+    "Price": 2220.4
+  },
+  {
+    "Id": 102,
+    "Name": "JAZ Night",
+    "OrganizerUsername": "ritika",
+    "Artist": {
+      "artistId": 2,
+      "Name": "Ankit Singh",
+      "timing": "2023-10-31T15:30:00Z"
+    },
+    "Venue": {
+      "venueId": 102,
+      "Place": "Rubbaru, Noida"
+    },
+    "InitialTickets": 200,
+    "NumOfTicket": 196,
+    "Price": 2000.0
+  }
 ]

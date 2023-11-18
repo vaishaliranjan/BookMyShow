@@ -1,16 +1,31 @@
-﻿using Project.Enum;
+﻿using Project.ControllerInterface;
+using Project.Enum;
+using Project.Helpers;
 using Project.Models;
-using Project.Objects;
-using Project.UILayer;
+using Project.ViewsInterface;
 
 namespace Project.Views
 {
-    public class CustomerView
+    public class CustomerView:ICustomerView
     {
-        public static void ViewBookings(CustomerObjects customer)
+        public IBookingUI BookingUI { get; }
+        public IEventUI EventUI { get; }    
+        public IBookingController BookingController { get; }
+        public IEventController EventController { get; }
+
+        public CustomerView(IBookingUI bookingUI, IEventUI eventUI, IBookingController bookingController, IEventController eventController)
         {
-            var bookings = customer.bookingController.GetCustomerBookings(customer.realCustomerObject.Username);
-            BookingsUI.ShowBookings(bookings);
+            BookingUI = bookingUI;
+            EventUI = eventUI;
+            BookingController = bookingController;
+            EventController = eventController;
+        }
+
+
+        public void ViewBookings(User customer)
+        {
+            var bookings = BookingController.GetCustomerBookings(customer.Username);
+            Print.ShowBookings(bookings);
             while (true)
             {
                 Message.PressToExit();
@@ -19,8 +34,6 @@ namespace Project.Views
                 switch (input)
                 {
                     case BookingsOptions.Exit:
-                        Console.WriteLine();
-                        CustomerUI.CustomerPage(customer);
                         break;
 
                     default:
@@ -31,9 +44,9 @@ namespace Project.Views
             }
         }
 
-        public static void ViewEvents(CustomerObjects customer)
+        public void ViewEvents(User customer)
         {
-            EventUI.ViewEvents(customer.eventContoller);
+            EventUI.ViewEvents();
             Message.CustomerViewEvents();
             while (true)
             {
@@ -43,12 +56,10 @@ namespace Project.Views
                 switch (ip)
                 {
                     case CustomerViewEventsOptions.BookTicket:
-                        BookingsUI.BookTickets(customer.realCustomerObject);
-                        CustomerUI.CustomerPage(customer);
+                        BookingUI.BookTickets(customer.Username);
                         break;
 
                     case CustomerViewEventsOptions.Exit:
-                        CustomerUI.CustomerPage(customer);
                         break;
 
                     default:

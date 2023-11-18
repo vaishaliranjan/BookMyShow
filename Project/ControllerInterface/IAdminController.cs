@@ -2,5 +2,5 @@
 
 namespace Project.ControllerInterface
 {
-    public interface IAdminController : IGetAll<Admin> { }
+    public interface IAdminController : IGetAll<User>{ }
 }

@@ -3,10 +3,9 @@ using Project.ControllerInterface;
 using Project.Database;
 using Project.Enum;
 using Project.Models;
-using Project.UILayer;
+using Project.Views;
 
-
-namespace Project.BusinessLayer
+namespace Project.Controller
 {
     public class AuthController: IAuthController
     {
@@ -29,35 +28,21 @@ namespace Project.BusinessLayer
             List<User> allUsers = UserDbHandler.UserDbInstance.ListOfUsers;
             foreach (User user in allUsers)
             {
-                if(user.Username.Equals(username, StringComparison.InvariantCultureIgnoreCase) && user.Password.ToLower().Equals(password.ToLower()))
+                if(user.Username.Equals(username, StringComparison.InvariantCultureIgnoreCase) && user.Password.Equals(password))
                 {
                     return user;
                 }
             }
             return null;
         }
-         public  void Register(User user, Role role) 
+         public void Register(User user, Role role) 
          {
-            if (role == Role.Admin)
-            {
-                AdminDbHandler.AdminDbInstance.AddAdmin((Admin)user);
-                UserDbHandler.UserDbInstance.AddUser(user);
-            }
-            else if (role == Role.Organizer)
-            {
-                OrganizerDbHandler.OrganizerDbInstance.AddOrganizer((Organizer)user);
-                UserDbHandler.UserDbInstance.AddUser(user);
-            }
-            else if (role == Role.Customer)
-            {
-                CustomerDbHandler.CustomerDbInstance.AddCustomer((Customer)user);
-                UserDbHandler.UserDbInstance.AddUser(user);
-            }
+            UserDbHandler.UserDbInstance.AddUser(user); 
 
         }
         public void Logout()
         {
-            HomePage.HomePageFunction();
+            Program.Main(new string[0]);
         }
 
         public bool ValidateUser(string username)

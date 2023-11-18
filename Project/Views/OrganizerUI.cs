@@ -1,15 +1,24 @@
-﻿using Project.BusinessLayer;
-using Project.Views;
-using Project.Enum;
+﻿using Project.Enum;
 using Project.Models;
+using Project.ViewsInterface;
+using Project.ControllerInterface;
 
-
-namespace Project.UILayer
+namespace Project.Views
 {
-    internal class OrganizerUI
+    public class OrganizerUI: IOrganizerUI
     {
-        
-        public static void OrganizerPage(OrganizerObjects organizer)
+        public IEventUI EventUI { get; }
+        public IOrganizerView OrganizerView { get; }
+        public IAuthController AuthController { get; }
+
+        public OrganizerUI(IEventUI eventUI,IOrganizerView organizerView, IAuthController authController)
+        {
+            EventUI = eventUI;
+            OrganizerView = organizerView;
+            AuthController = authController;
+        }
+
+        public void OrganizerPage(User organizer)
         {
             Message.OrganizerPage();
             OrganizerUIOptions input;
@@ -21,19 +30,22 @@ namespace Project.UILayer
                 {
                     
                     case OrganizerUIOptions.CreateEvent:
-                        CreateEvent(organizer);
+                        EventUI.CreateEvent(organizer.Username);
+                        OrganizerPage(organizer);
                         break;
 
                     case OrganizerUIOptions.ViewPreviousEvents:
-                        ViewEvents(organizer);
+                        OrganizerView.ViewEvents(organizer);
+                        OrganizerPage(organizer);
                         break;
 
                     case OrganizerUIOptions.CancelEvent:
-                        CancelEvent(organizer);
+                        EventUI.CancelEvent();
+                        OrganizerPage(organizer);
                         break;
 
                     case OrganizerUIOptions.LogOut:
-                        AuthController.AuthObject.Logout();
+                        AuthController.Logout();
                         break;
 
                     default:
@@ -45,47 +57,11 @@ namespace Project.UILayer
             
 
         }
-         static void CancelEvent(OrganizerObjects organizer)
-        {
-            ViewEvents(organizer);
-            EventUI.CancelEvent(organizer.eventContoller);
-            OrganizerPage(organizer);
-        }
-
-         static void CreateEvent(OrganizerObjects organizer)
-        {
-            EventUI.CreateEvent(organizer.realOrganizerObject);
-            OrganizerPage(organizer);
-        }
+         
 
 
 
-        public static void ViewEvents(OrganizerObjects organizer)
-        {
-            var allEvents = organizer.eventContoller.GetOrganizerEvents(organizer.realOrganizerObject.Username);
-            EventUI.ShowEvents(allEvents);
-            while (true)
-            {
-                OrganizerUIOptions ip;
-                while (true)
-                {
-                    Message.PressToExit();
-                    ip = (OrganizerUIOptions)(InputValidation.IntegerValidation());
-                    switch (ip)
-                    {
-                        case OrganizerUIOptions.Back:
-                            OrganizerUI.OrganizerPage(organizer);
-                            break;
-
-                        default:
-                            Console.WriteLine(Message.InvalidInputMessage);
-                            continue;
-                    }
-                    break;
-                }
-                break;  
-            }
-        }
+        
 
     }
 }

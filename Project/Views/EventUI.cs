@@ -1,56 +1,40 @@
 ﻿using Project.Controller;
 using Project.ControllerInterface;
+using Project.Helpers;
 using Project.Models;
-
+using Project.ViewsInterface;
 
 namespace Project.Views
-{
-    internal class EventUI
+{ 
+    public class EventUI:IEventUI
     {
         static int eventIdInc = Event.EventIDInc;
-        public static void ViewEvents(IEventController eventController)
+        public IEventController EventController { get; }
+        public IArtistUI ArtistUI { get; }
+        public IVenueUI VenueUI { get; }
+        public IArtistController ArtistController { get; }
+        public IVenueController VenueController { get; }
+        public EventUI(IEventController eventController)
         {
-            var events = eventController.GetAll();
+            EventController=eventController;
+        }
+        public void ViewEvents()
+        {
+            var events = EventController.GetAll();
             Message.ViewEvents();
-            ShowEvents(events);
+            Print.ShowEvents(events);
         }
-        public static void ShowEvents(List<Event> events)
-        {
-            if (events != null)
-            {
-                foreach (Event e in events)
-                {
-                    Console.WriteLine();
-                    Console.WriteLine("Event Id: " + e.Id);
-                    Console.WriteLine("Name: " + e.Name);
-                    Console.WriteLine("Timing: " + e.Artist.Timing);
-                    Console.WriteLine("Artist: " + e.Artist.Name);
-                    Console.WriteLine("Venue: " + e.Venue.Place);
-                    Console.WriteLine("Number of tickets left: " + e.NumOfTicket);
-                    Console.WriteLine("Price per ticket: " + e.Price);
-                    Console.WriteLine();
-                }
-            }
-            else
-            {
-                Error.NotFound("events");
-            }
-        }
-       
-
-       
-        
-        public static void CreateEvent(Organizer organizerOfEvent) 
+             
+        public void CreateEvent(string organizerUsername) 
         {
             var artist = SelectArtist();
             var venue = SelectVenue();
-            var eventName = EnterEventName();
-            var tickets = EnterNumberOfTickets();   
-            var price = EnterPricePerTicket();
+            var eventName = HelperClass.EnterEventName();
+            var tickets = HelperClass.EnterNumberOfTickets();   
+            var price = HelperClass.EnterPricePerTicket();
             var initialTick = tickets;
-            IEventController eventContoller = new EventContoller();
-            var newEvent = new Event(++eventIdInc, eventName, organizerOfEvent, artist, venue, tickets, initialTick, price);
-            if (eventContoller.Add(newEvent))
+            var newEvent = new Event(++eventIdInc, eventName, organizerUsername, artist, venue, tickets, initialTick, price);
+            if (EventController.Add(newEvent))
             {
                 Message.EventAdded();
             }
@@ -60,11 +44,11 @@ namespace Project.Views
             }  
         }
 
-        public static void CancelEvent(IEventController eventController)
+        public void CancelEvent()
         {  
             Console.Write(Message.EnterEventId);
             var deleteEventId = InputValidation.IntegerValidation();
-            if (eventController.Delete(deleteEventId))
+            if (EventController.Delete(deleteEventId))
             {
                 Message.EventDeleted();
             }
@@ -75,17 +59,16 @@ namespace Project.Views
         }
 
 
-        static Artist SelectArtist()
+        private Artist SelectArtist()
         {
-            IArtistController artistController = new ArtistController();
             Console.WriteLine(Message.SelectArtist);
-            ArtistUI.ViewArtists(artistController);
+            ArtistUI.ViewArtists();
             Artist artist;
             while (true)
             {
                 Console.Write(Message.EnterArtistId);
                 int artistId = InputValidation.IntegerValidation();
-                artist = artistController.GetById(artistId);
+                artist = ArtistController.GetById(artistId);
                 if (artist == null)
                 {
                     Console.WriteLine(Message.DoesNotExist);
@@ -95,18 +78,17 @@ namespace Project.Views
             }
             return artist;
         }
-        static Venue SelectVenue()
+        private Venue SelectVenue()
         {
-            IVenueController venueController = new VenueController();
             Console.WriteLine(Message.SelectVenue);
-            VenueUI.ViewVenues(venueController);
+            VenueUI.ViewVenues();
             Venue venue;
             while (true)
             {
                 Console.Write(Message.EnterVenueId);
 
                 int venueId = InputValidation.IntegerValidation();
-                venue = venueController.GetById(venueId);
+                venue = VenueController.GetById(venueId);
                 if (venue == null)
                 {
                     Console.WriteLine(Message.DoesNotExist);
@@ -117,24 +99,6 @@ namespace Project.Views
             return venue;
         }
 
-        static string EnterEventName()
-        {
-            Console.Write(Message.EnterEventName);
-            var eventName = InputValidation.StringValidation();
-            return eventName;
-        }
-        static int EnterNumberOfTickets()
-        {
-            Console.Write(Message.EnterNumOfTickets);
-            var tickets = InputValidation.IntegerValidation();
-            return tickets;
-        }
 
-        static double EnterPricePerTicket()
-        {
-            Console.Write(Message.EnterPricePerTicket);
-            double price = InputValidation.FloatValidation();
-            return price;
-        }
     }
 }

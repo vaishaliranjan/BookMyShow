@@ -10,9 +10,19 @@ namespace Project.Models
         public string Name;
         public string Username;
         public string Email;
-        public Role Role;
         public string Password;
+        public Role Role;
+        
 
+        public User(int userId, string name, string username, string email,string password, Role role)
+        {
+            UserId = userId;
+            Name = name;
+            Username = username;
+            Email = email;
+            Password = password;
+            Role = role;
+        }
     }
 
 }

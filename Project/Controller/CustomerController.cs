@@ -1,5 +1,6 @@
 ﻿using Project.ControllerInterface;
 using Project.Database;
+using Project.Enum;
 using Project.Models;
 using Project.Views;
 
@@ -7,15 +8,17 @@ namespace Project.Controller
 {
     public class CustomerController: ICustomerController 
     {
-        public Customer GetByUsername(string username)
+
+        public User GetByUsername(string username)
         {
-            List<Customer> customers = CustomerDbHandler.CustomerDbInstance.ListOfCustomers;
-            if (customers != null)
+            var users = UserDbHandler.UserDbInstance.ListOfUsers;
+            var Customers = users.FindAll(u => u.Role == Role.Customer);
+            if (Customers != null)
             {
-                Customer customer = null;
+                User customer = null;
                 try
                 {
-                    customer = customers.Single(u => u.Username.ToLower().Equals(username.ToLower()));
+                    customer = Customers.Single(u => u.Username.ToLower().Equals(username.ToLower()));
                     return customer;
                 }
                 catch (Exception ex)
@@ -30,10 +33,11 @@ namespace Project.Controller
             }
         }
 
-        public List<Customer> GetAll()
+        public List<User> GetAll()
         {
-            return  CustomerDbHandler.CustomerDbInstance.ListOfCustomers;
-            
+            var users = UserDbHandler.UserDbInstance.ListOfUsers;
+            var Customers = users.FindAll(u => u.Role == Role.Customer);
+            return Customers;
         }
     }
 }

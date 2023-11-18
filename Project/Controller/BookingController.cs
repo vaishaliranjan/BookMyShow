@@ -7,20 +7,21 @@ namespace Project.Controller
 {
     public class BookingController:IBookingController
     {
+
         public void BookEvent(Booking booking)
         {
             BookingDbHandler.BookingDbInstance.AddBooking(booking);
         }
         public List<Booking> GetAll()
         {
-            List<Booking> bookings = BookingDbHandler.BookingDbInstance.ListOfBookings;
-            return bookings;
+            
+            return BookingDbHandler.BookingDbInstance.ListOfBookings; 
         }
 
         public List<Booking> GetCustomerBookings(string username)
         {
-            var bookings = BookingDbHandler.BookingDbInstance.ListOfBookings;
-            var customerBookings = bookings.FindAll(b=> b.Customer.Username.ToLower().Equals(username.ToLower()));
+            var Bookings = BookingDbHandler.BookingDbInstance.ListOfBookings;
+            var customerBookings = Bookings.FindAll(b=> b.CustomerUsername.ToLower().Equals(username.ToLower()));
             return customerBookings;
 
         }

@@ -1,16 +1,45 @@
 ﻿
+using Project.ControllerInterface;
 using Project.Enum;
-using Project.Objects;
-using Project.UI;
-using Project.UILayer;
+using Project.Helpers;
+using Project.Models;
+using Project.ViewsInterface;
 
 namespace Project.Views
 {
-    public class AdminViewUI
+    public class AdminView: IAdminView
     {
-        public static void ViewEvents(AdminObjects admin)
+        public IEventUI EventUI { get; }
+        public IArtistUI ArtistUI { get; }
+        public IVenueUI VenueUI { get; }
+        public IRegistration Register { get; }
+        public IAdminAdd AdminAdd { get; }
+        public IAdminRemove AdminRemove { get; }
+        public IArtistController ArtistController { get; }
+        public IAdminController AdminController { get; }
+        public IBookingController BookingController { get; }
+        public ICustomerController CustomerController { get; }
+        public IOrganizerController OrganizerController { get; }
+
+        public AdminView(IEventUI eventUI,IArtistUI artistUI, IVenueUI venueUI, IRegistration register, IAdminAdd adminAdd, IAdminRemove adminRemove, IArtistController artistController, IAdminController adminController, IBookingController bookingController, ICustomerController customerController, IOrganizerController organizerController)
         {
-            EventUI.ViewEvents(admin.eventContoller);
+            EventUI = eventUI;
+            ArtistUI = artistUI;
+            VenueUI = venueUI;
+            Register= register;
+            AdminAdd= adminAdd;
+            AdminRemove= adminRemove;
+            ArtistController= artistController;
+            AdminController= adminController;
+            BookingController = bookingController;
+            CustomerController = customerController;
+            OrganizerController = organizerController;
+        }
+
+
+        public void ViewEvents(User admin)
+        {
+            EventUI.ViewEvents();
             Message.AdminViewEventsOptions();
             AdminFuncOptions ip;
             while (true)
@@ -21,16 +50,13 @@ namespace Project.Views
                 {
                     case AdminFuncOptions.AddNew:
                         AdminAdd.AddNewEvent(admin);
-                        AdminUI.AdminPage(admin);
                         break;
 
                     case AdminFuncOptions.Cancel:
-                        AdminDelete.CancelEvent(admin);
-                        AdminUI.AdminPage(admin);
+                        AdminRemove.CancelEvent(admin);
                         break;
 
                     case AdminFuncOptions.Exit:
-                        AdminUI.AdminPage(admin);
                         break;
 
                     default:
@@ -42,9 +68,9 @@ namespace Project.Views
         }
 
 
-        public static void ViewArtists(AdminObjects admin)
+        public void ViewArtists(User admin)
         {
-            ArtistUI.ViewArtists(admin.artistController);
+            ArtistUI.ViewArtists();
             Message.AdminViewArtistOptions();
             AdminFuncOptions input;
             while (true)
@@ -58,8 +84,6 @@ namespace Project.Views
                         break;
 
                     case AdminFuncOptions.Exit:
-                        Console.WriteLine();
-                        AdminUI.AdminPage(admin);
                         break;
 
                     default:
@@ -71,9 +95,9 @@ namespace Project.Views
         }
 
 
-        public static void ViewVenues(AdminObjects admin)
+        public void ViewVenues(User admin)
         {
-            VenueUI.ViewVenues(admin.venueController);
+            VenueUI.ViewVenues();
             Message.AdminViewVenuesOptions();
             AdminFuncOptions input;
             while (true)
@@ -87,7 +111,6 @@ namespace Project.Views
                         break;
 
                     case AdminFuncOptions.Exit:
-                        AdminUI.AdminPage(admin);
                         break;
 
                     default:
@@ -100,10 +123,10 @@ namespace Project.Views
 
 
 
-        public static void ViewOrganizers(AdminObjects admin)
+        public void ViewOrganizers(User admin)
         {
 
-            var organizers = admin.organizationController.GetAll();
+            var organizers = OrganizerController.GetAll();
             Message.ViewOrganizers();
             Print.PrintUsers(organizers);
             Message.AdminViewOrganizerOptions();           
@@ -115,13 +138,11 @@ namespace Project.Views
                 switch (input)
                 {
                     case AdminFuncOptions.AddNew:
-                        RegistrationUI.AddNewUser(Role.Organizer);
-                        AdminUI.AdminPage(admin);
+                        Register.RegisterUser(Role.Organizer);
                         break;
 
                     case AdminFuncOptions.Exit:
                         Console.WriteLine();
-                        AdminUI.AdminPage(admin);
                         break;
 
                     default:
@@ -134,9 +155,9 @@ namespace Project.Views
         }
 
 
-        public static void ViewCustomers(AdminObjects admin)
+        public void ViewCustomers(User admin)
         {
-            var customers = admin.customerController.GetAll();
+            var customers = CustomerController.GetAll();
             Message.ViewCustomers();
             Print.PrintUsers(customers);
             Message.AdminViewCustomerOptions();
@@ -148,13 +169,11 @@ namespace Project.Views
                 switch (input)
                 {
                     case AdminFuncOptions.AddNew:
-                        RegistrationUI.AddNewUser(Role.Customer);
-                        AdminUI.AdminPage(admin);
+                        Register.RegisterUser(Role.Customer);
                         break;
 
                     case AdminFuncOptions.Exit:
                         Console.WriteLine();
-                        AdminUI.AdminPage(admin);
                         break;
 
                     default:
@@ -165,9 +184,9 @@ namespace Project.Views
             }
             Console.ResetColor();
         }
-        public static void ViewAdmins(AdminObjects admin)
+        public void ViewAdmins(User admin)
         {
-            var admins = admin.adminController.GetAll();
+            var admins = AdminController.GetAll();
             Message.ViewAdmins();
             Print.PrintUsers(admins);
             Message.AdminViewAdminOptions();
@@ -180,13 +199,10 @@ namespace Project.Views
                 switch (input)
                 {
                     case AdminFuncOptions.AddNew:
-                        RegistrationUI.AddNewUser(Role.Admin);
-                        AdminUI.AdminPage(admin);
+                        Register.RegisterUser(Role.Admin);
                         break;
 
                     case AdminFuncOptions.Exit:
-                        Console.WriteLine();
-                        AdminUI.AdminPage(admin);
                         break;
 
                     default:
@@ -196,10 +212,10 @@ namespace Project.Views
                 break;
             }
         }
-        public static void ViewBookings(AdminObjects admin)
+        public void ViewBookings(User admin)
         {
-            var bookings = admin.bookingController.GetAll();
-            BookingsUI.ShowBookings(bookings);
+            var bookings = BookingController.GetAll();
+            Print.ShowBookings(bookings);
             Message.AdminViewBookingsOptions();
             BookingsOptions input;
             while (true)
@@ -210,12 +226,10 @@ namespace Project.Views
                 {
                     case BookingsOptions.AddNewBooking:
                         AdminAdd.AddNewBooking(admin);
-                        AdminUI.AdminPage(admin);
                         break;
 
                     case BookingsOptions.Exit:
                         Console.WriteLine();
-                        AdminUI.AdminPage(admin);
                         break;
 
                     default:

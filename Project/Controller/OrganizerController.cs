@@ -1,34 +1,43 @@
 ﻿using Project.ControllerInterface;
 using Project.Database;
+using Project.Enum;
 using Project.Models;
 using Project.Views;
+
 
 namespace Project.Controller
 {
     public class OrganizerController: IOrganizerController
     {
-        public List<Organizer> GetAll()
+        public User GetByUsername(string username)
         {
-
-            return OrganizerDbHandler.OrganizerDbInstance.ListOfOrganizer;
-
+            var users = UserDbHandler.UserDbInstance.ListOfUsers;
+            var Organizers = users.FindAll(u => u.Role == Role.Organizer);
+            if (Organizers != null)
+            {
+                User customer = null;
+                try
+                {
+                    customer = Organizers.Single(u => u.Username.ToLower().Equals(username.ToLower()));
+                    return customer;
+                }
+                catch (Exception ex)
+                {
+                    HelperClass.LogException(ex, "More than one customer with same username.");
+                    return customer;
+                }
+            }
+            else
+            {
+                return null;
+            }
         }
-        public Organizer GetByUsername(string username)
+
+        public List<User> GetAll()
         {
-            Organizer organizer = null;
-            try
-            {
-                organizer = OrganizerDbHandler.OrganizerDbInstance.ListOfOrganizer.Single(u => u.Username.ToLower().Equals(username.ToLower()));
-                return organizer;
-            }
-            catch (Exception ex) 
-            {
-                HelperClass.LogException(ex, "More than one organizer with same username.");
-                return organizer;
-            }
+            var users = UserDbHandler.UserDbInstance.ListOfUsers;
+            var Organizers = users.FindAll(u => u.Role == Role.Organizer);
+            return Organizers;
         }
-        
-
-        
     }
 }
