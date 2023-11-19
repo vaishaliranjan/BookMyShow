@@ -2,10 +2,12 @@
 using Project.Models;
 using Project.Controller;
 using Project.Views;
+using Project.DatabaseInterface;
 
 namespace Project.Database
 {
-    internal class UserDbHandler : DbHandler<User>
+    
+    public class UserDbHandler : DbHandler<User>, IUserDbHandler
     {
         private static UserDbHandler userDbInstance;
         private static string _user_path;

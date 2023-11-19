@@ -1,5 +1,6 @@
 ﻿using Project.ControllerInterface;
 using Project.Database;
+using Project.DatabaseInterface;
 using Project.Models;
 using Project.Views;
 
@@ -7,18 +8,22 @@ namespace Project.Controller
 {
     public class ArtistController: IArtistController
     {
-        
+        public IArtistDbHandler ArtistDbHandler { get;}
+        public ArtistController(IArtistDbHandler artistDbHandler)
+        {
+            ArtistDbHandler = artistDbHandler;
+        }
         public bool Add(Artist artist)
         {
-            return ArtistDbHandler.ArtistDbInstance.AddArtist(artist);
+            return ArtistDbHandler.AddArtist(artist);
         }
         public List<Artist> GetAll()
         {
-            return ArtistDbHandler.ArtistDbInstance.ListOfArtists;
+            return ArtistDbHandler.ListOfArtists;
         }
         public Artist GetById(int id)
         {
-            var Artists= ArtistDbHandler.ArtistDbInstance.ListOfArtists;
+            var Artists= ArtistDbHandler.ListOfArtists;
             Artist choosenArtist = null;
             try
             {
@@ -32,14 +37,14 @@ namespace Project.Controller
                 return choosenArtist;
             }
         }
-        private static bool RemoveArtist(Artist choosenArtist)
+        private bool RemoveArtist(Artist choosenArtist)
         {
-            var Artists = ArtistDbHandler.ArtistDbInstance.ListOfArtists;
+            var Artists = ArtistDbHandler.ListOfArtists;
             var artist = Artists.Single(a => a.ArtistId == choosenArtist.ArtistId);
             if (artist != null)
             {
                 Artists.Remove(artist);
-                return ArtistDbHandler.ArtistDbInstance.RemoveArtist(Artists);
+                return ArtistDbHandler.RemoveArtist(Artists);
             }
             return false;
         }

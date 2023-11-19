@@ -2,10 +2,12 @@
 using Project.Models;
 using Project.Controller;
 using Project.Views;
+using Project.DatabaseInterface;
 
 namespace Project.Database
 {
-    internal class ArtistDbHandler: DbHandler<Models.Artist>
+    
+    public class ArtistDbHandler: DbHandler<Models.Artist>, IArtistDbHandler
     {
         private static ArtistDbHandler artistDbInstance;
         private static string _artist_path;

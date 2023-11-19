@@ -1,6 +1,6 @@
 ﻿
 using Project.ControllerInterface;
-using Project.Database;
+using Project.DatabaseInterface;
 using Project.Enum;
 using Project.Models;
 using Project.Views;
@@ -9,15 +9,20 @@ namespace Project.Controller
 {
     public class AuthController: IAuthController
     {
+        public IUserDbHandler UserDbHandler { get; }
+
         private static AuthController _authManagerObject=null;
-        private AuthController(){}
+        private AuthController(IUserDbHandler userDbHandler)
+        {
+            UserDbHandler = userDbHandler;
+        }
         public static AuthController AuthObject
         {
             get
             {
                 if(_authManagerObject == null)
                 {
-                    _authManagerObject = new AuthController();
+                    _authManagerObject = new AuthController(Database.UserDbHandler.UserDbInstance);
                 }
                 return _authManagerObject;
             }
@@ -25,7 +30,7 @@ namespace Project.Controller
       
         public User Login(string username, string password)
         {
-            List<User> allUsers = UserDbHandler.UserDbInstance.ListOfUsers;
+            List<User> allUsers = UserDbHandler.ListOfUsers;
             foreach (User user in allUsers)
             {
                 if(user.Username.Equals(username, StringComparison.InvariantCultureIgnoreCase) && user.Password.Equals(password))
@@ -37,7 +42,7 @@ namespace Project.Controller
         }
          public void Register(User user, Role role) 
          {
-            UserDbHandler.UserDbInstance.AddUser(user); 
+            UserDbHandler.AddUser(user); 
 
         }
         public void Logout()
@@ -47,7 +52,7 @@ namespace Project.Controller
 
         public bool ValidateUser(string username)
         {
-            var users = UserDbHandler.UserDbInstance.ListOfUsers;
+            var users = UserDbHandler.ListOfUsers;
             foreach (User user in users)
             {
                 if (user.Username.ToLower().Equals(username.ToLower()))

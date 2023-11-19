@@ -1,18 +1,13 @@
-﻿
+﻿using Project.DatabaseInterface;
 using Project.Views;
 
 namespace Project.Database
 {
-    public interface IDbHandler<T> where T: class
-    {
-        bool AddEntry(T obj, List<T> list, string path);
-        bool UpdateEntry(string path, List<T> list);
-    }
-    public abstract class DbHandler<T>:IDbHandler<T> where T : class
+    
+    public abstract class DbHandler<T> : IDbHandler<T> where T : class
     {
         public bool AddEntry(T obj,List<T> list, string path)
-        {
-           
+        {         
             list.Add(obj);
             if(UpdateEntry(path,list)) 
                 return true;
@@ -32,7 +27,6 @@ namespace Project.Database
             }
             return true;
         }
-       
-        
+              
     }
 }

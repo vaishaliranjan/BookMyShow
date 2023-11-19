@@ -1,5 +1,7 @@
 ﻿using Project.Controller;
 using Project.ControllerInterface;
+using Project.Database;
+using Project.DatabaseInterface;
 using Project.ViewsInterface;
 
 namespace Project.Views
@@ -8,14 +10,19 @@ namespace Project.Views
     {
         public static void Main(string[] args)
         {
+            IArtistDbHandler artistDbHandler = ArtistDbHandler.ArtistDbInstance;
+            IBookingDbHandler bookingDbHandler = BookingDbHandler.BookingDbInstance;
+            IEventDbHandler eventDbHandler = EventDbHandler.EventDbInstance;
+            IUserDbHandler userDbHandler = UserDbHandler.UserDbInstance;
+            IVenueDbHandler venueDbHandler = VenueDbHandler.VenueDbInstance;
             IAuthController authController = AuthController.AuthObject;          
-            IArtistController artistController = new ArtistController();
-            IEventController eventController = new EventContoller();
-            IVenueController venueController = new VenueController();
-            IBookingController bookingController = new BookingController();
-            ICustomerController customerController = new CustomerController();
-            IAdminController adminController = new AdminController();
-            IOrganizerController organizerController = new OrganizerController();
+            IArtistController artistController = new ArtistController(artistDbHandler);
+            IEventController eventController = new EventContoller(eventDbHandler);
+            IVenueController venueController = new VenueController(venueDbHandler);
+            IBookingController bookingController = new BookingController(bookingDbHandler);
+            ICustomerController customerController = new CustomerController(userDbHandler);
+            IAdminController adminController = new AdminController(userDbHandler);
+            IOrganizerController organizerController = new OrganizerController(userDbHandler);
             IArtistUI artistUI = new ArtistUI(artistController);
             IEventUI eventUI = new EventUI(eventController);
             IVenueUI venueUI = new VenueUI(venueController);

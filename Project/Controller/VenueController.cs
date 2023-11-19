@@ -1,5 +1,6 @@
 ﻿using Project.ControllerInterface;
 using Project.Database;
+using Project.DatabaseInterface;
 using Project.Models;
 using Project.Views;
 
@@ -7,19 +8,24 @@ namespace Project.Controller
 {
     public class VenueController: IVenueController
     {
-       
+        public IVenueDbHandler VenueDbHandler { get; }
+        public VenueController(IVenueDbHandler venueDbHandler)
+        {
+            VenueDbHandler = venueDbHandler;
+        }
+
         public bool Add(Venue venue)
         {
-            return VenueDbHandler.VenueDbInstance.AddVenue(venue);
+            return VenueDbHandler.AddVenue(venue);
         }
         public List<Venue> GetAll()
         {
-            return VenueDbHandler.VenueDbInstance.ListOfVenues; 
+            return VenueDbHandler.ListOfVenues; 
         }
 
         public Venue GetById(int id)
         {
-            var Venues= VenueDbHandler.VenueDbInstance.ListOfVenues;
+            var Venues= VenueDbHandler.ListOfVenues;
             Venue choosenVenue = null;
 
             try
@@ -36,14 +42,14 @@ namespace Project.Controller
 
 
         }
-        public static bool RemoveVenue(Venue choosenVenue)
+        public bool RemoveVenue(Venue choosenVenue)
         {
-            var Venues = VenueDbHandler.VenueDbInstance.ListOfVenues;
+            var Venues = VenueDbHandler.ListOfVenues;
             var venue = Venues.SingleOrDefault(v => v.VenueId == choosenVenue.VenueId);
             if (venue != null)
             {
                 Venues.Remove(venue);
-                return VenueDbHandler.VenueDbInstance.RemoveVenue(Venues);
+                return VenueDbHandler.RemoveVenue(Venues);
             }
             return false;
         }

@@ -2,10 +2,12 @@
 using Project.Models;
 using Project.Controller;
 using Project.Views;
+using Project.DatabaseInterface;
 
 namespace Project.Database
 {
-    internal class EventDbHandler: DbHandler<Event>
+    
+    public class EventDbHandler: DbHandler<Event>, IEventDbHandler
     {
         private static EventDbHandler eventDbInstance;
         private static string _events_path;
@@ -46,9 +48,9 @@ namespace Project.Database
         }
 
         
-        public void DecTicketToDB(List<Event> list)
+        public bool DecTicketToDB(List<Event> list)
         {
-            UpdateEntry(_events_path,list);
+            return UpdateEntry(_events_path,list);
         }
         public bool RemoveEvent(List<Event> events)
         {         
