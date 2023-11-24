@@ -11,22 +11,11 @@ namespace Project.Controller
     {
         public IUserDbHandler UserDbHandler { get; }
 
-        private static AuthController _authManagerObject=null;
-        private AuthController(IUserDbHandler userDbHandler)
+        public AuthController(IUserDbHandler userDbHandler)
         {
             UserDbHandler = userDbHandler;
         }
-        public static AuthController AuthObject
-        {
-            get
-            {
-                if(_authManagerObject == null)
-                {
-                    _authManagerObject = new AuthController(Database.UserDbHandler.UserDbInstance);
-                }
-                return _authManagerObject;
-            }
-        }
+    
       
         public User Login(string username, string password)
         {
@@ -40,11 +29,11 @@ namespace Project.Controller
             }
             return null;
         }
-         public void Register(User user, Role role) 
+         public bool Register(User user, Role role) 
          {
-            UserDbHandler.AddUser(user); 
+            return UserDbHandler.AddUser(user); 
 
-        }
+         }
         public void Logout()
         {
             Program.Main(new string[0]);
@@ -53,14 +42,14 @@ namespace Project.Controller
         public bool ValidateUser(string username)
         {
             var users = UserDbHandler.ListOfUsers;
-            foreach (User user in users)
+            var user = users.SingleOrDefault(u => u.Username.ToLower().Equals(username.ToLower()));
+            if(user == null)
             {
-                if (user.Username.ToLower().Equals(username.ToLower()))
-                {
-                    return false;
-                }
+                return true;
             }
-            return true;
+            return false;
         }
+
+       
     }
 }

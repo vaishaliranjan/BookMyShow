@@ -14,7 +14,12 @@ namespace Project.Views
         public void ViewArtists()
         {
             var artists = ArtistController.GetAll();
-            Print.ShowArtists(artists);
+            if (artists != null)
+            {
+                Print.ShowArtists(artists);
+                return;
+            }
+            Console.WriteLine("No artist");
         }
         
        

@@ -3,5 +3,8 @@
 
 namespace Project.ControllerInterface
 {
-    public interface IArtistController : IGetAll<Artist>, IAdd<Artist>, IGetByID<Artist> { }
+    public interface IArtistController : IGetAll<Artist>, IAdd<Artist>, IGetByID<Artist>
+    {
+        bool RemoveArtist(Artist choosenArtist);
+    }
 }

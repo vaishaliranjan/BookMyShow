@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Views.Tests", "Views.Tests\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helpers.Tests", "HelpersTests\Helpers.Tests.csproj", "{D3F09969-A933-4FB0-BB24-CE024421CC50}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseTest", "DatabaseTest\DatabaseTest.csproj", "{827E6AB1-B704-4D9E-9C4C-CB481139A064}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Controller.Tests", "DatabaseTest\Controller.Tests.csproj", "{827E6AB1-B704-4D9E-9C4C-CB481139A064}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

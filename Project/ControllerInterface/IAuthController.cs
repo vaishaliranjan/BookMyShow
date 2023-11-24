@@ -11,7 +11,7 @@ namespace Project.ControllerInterface
     public interface IAuthController
     {
         User Login(string username, string password);
-        void Register(User user, Role role);
+        bool Register(User user, Role role);
         void Logout();
         bool ValidateUser(string username);
     }

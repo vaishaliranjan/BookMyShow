@@ -1,5 +1,4 @@
-﻿using Project.Controller;
-using Project.ControllerInterface;
+﻿using Project.ControllerInterface;
 using Project.Helpers;
 using Project.Models;
 using Project.ViewsInterface;
@@ -14,9 +13,13 @@ namespace Project.Views
         public IVenueUI VenueUI { get; }
         public IArtistController ArtistController { get; }
         public IVenueController VenueController { get; }
-        public EventUI(IEventController eventController)
+        public EventUI(IEventController eventController, IArtistUI artistUI,IVenueUI venueUI, IArtistController artistController, IVenueController venueController)
         {
             EventController=eventController;
+            ArtistUI=artistUI;
+            VenueUI=venueUI;
+            ArtistController=artistController;
+            VenueController=venueController;
         }
         public void ViewEvents()
         {

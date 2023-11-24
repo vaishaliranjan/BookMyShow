@@ -19,7 +19,9 @@ namespace Project.Controller
         }
         public List<Artist> GetAll()
         {
-            return ArtistDbHandler.ListOfArtists;
+            List<Artist> Artists = null;
+            Artists= ArtistDbHandler.ListOfArtists;
+            return Artists;
         }
         public Artist GetById(int id)
         {
@@ -37,10 +39,10 @@ namespace Project.Controller
                 return choosenArtist;
             }
         }
-        private bool RemoveArtist(Artist choosenArtist)
+        public bool RemoveArtist(Artist choosenArtist)
         {
             var Artists = ArtistDbHandler.ListOfArtists;
-            var artist = Artists.Single(a => a.ArtistId == choosenArtist.ArtistId);
+            var artist = Artists.SingleOrDefault(a => a.ArtistId == choosenArtist.ArtistId);
             if (artist != null)
             {
                 Artists.Remove(artist);

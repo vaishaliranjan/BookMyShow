@@ -14,9 +14,9 @@ namespace Project.Controller
         {
             BookingDbHandler = bookingDbHandler;
         }
-        public void BookEvent(Booking booking)
+        public bool BookEvent(Booking booking)
         {
-            BookingDbHandler.AddBooking(booking);
+            return BookingDbHandler.AddBooking(booking);
         }
         public List<Booking> GetAll()
         {
@@ -27,7 +27,11 @@ namespace Project.Controller
         public List<Booking> GetCustomerBookings(string username)
         {
             var Bookings = BookingDbHandler.ListOfBookings;
-            var customerBookings = Bookings.FindAll(b=> b.CustomerUsername.ToLower().Equals(username.ToLower()));
+            List<Booking> customerBookings = null;
+            if (Bookings != null)
+            {
+                customerBookings = Bookings.FindAll(b => b.CustomerUsername.ToLower().Equals(username.ToLower()));
+            }
             return customerBookings;
 
         }

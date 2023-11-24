@@ -1,5 +1,4 @@
 ﻿using Project.ControllerInterface;
-using Project.Database;
 using Project.DatabaseInterface;
 using Project.Enum;
 using Project.Models;
@@ -42,7 +41,11 @@ namespace Project.Controller
         public List<User> GetAll()
         {
             var users = UserDbHandler.ListOfUsers;
-            var Customers = users.FindAll(u => u.Role == Role.Customer);
+            List<User> Customers=null;
+            if (users != null)
+            {
+                 Customers = users.FindAll(u => u.Role == Role.Customer);
+            }
             return Customers;
         }
     }

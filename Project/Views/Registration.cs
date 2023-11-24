@@ -19,7 +19,7 @@ namespace Project.Views
            
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
             var name= HelperClass.EnterName();
-            var username= HelperClass.RegisterEnterUsername();
+            var username= RegisterEnterUsername();
             var email= HelperClass.EnterEmail();
             var password = HelperClass.RegisterEnterPassword();
             Console.ResetColor();
@@ -53,6 +53,32 @@ namespace Project.Views
                 Console.WriteLine(Message.ErrorOccurred);
                 RegisterUser(roleInput);
             }
-        }       
+        }
+
+        public string RegisterEnterUsername()
+        {
+
+            string username;
+            while (true)
+            {
+                Console.Write(Message.EnterUsername);
+                username = InputValidation.StringValidation();
+
+                bool r = RegexValidation.IsValidUsername(username);
+                if (r)
+                {
+                    bool res = AuthController.ValidateUser(username);
+                    if (!res)
+                    {
+                        Console.WriteLine(Message.UserAlreadyExists);
+                        continue;
+                    }
+                    break;
+                }
+                Console.WriteLine(Message.OnlyCharacters);
+            }
+            return username;
+
+        }
     }
 }

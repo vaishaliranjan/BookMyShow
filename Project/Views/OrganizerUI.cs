@@ -2,6 +2,8 @@
 using Project.Models;
 using Project.ViewsInterface;
 using Project.ControllerInterface;
+using Project.Controller;
+using Project.Helpers;
 
 namespace Project.Views
 {
@@ -10,12 +12,14 @@ namespace Project.Views
         public IEventUI EventUI { get; }
         public IOrganizerView OrganizerView { get; }
         public IAuthController AuthController { get; }
+        public IEventController EventController { get; }
 
-        public OrganizerUI(IEventUI eventUI,IOrganizerView organizerView, IAuthController authController)
+        public OrganizerUI(IEventUI eventUI,IOrganizerView organizerView, IAuthController authController, IEventController eventController)
         {
             EventUI = eventUI;
             OrganizerView = organizerView;
             AuthController = authController;
+            EventController = eventController;
         }
 
         public void OrganizerPage(User organizer)
@@ -40,7 +44,7 @@ namespace Project.Views
                         break;
 
                     case OrganizerUIOptions.CancelEvent:
-                        EventUI.CancelEvent();
+                        CancelEvent(organizer);
                         OrganizerPage(organizer);
                         break;
 
@@ -57,11 +61,16 @@ namespace Project.Views
             
 
         }
-         
+
+        public void CancelEvent(User organizer)
+        {
+            var events = EventController.GetOrganizerEvents(organizer.Username);
+            Print.ShowEvents(events);
+            EventUI.CancelEvent();
+        }
 
 
 
-        
 
     }
 }

@@ -43,7 +43,11 @@ namespace Project.Controller
         public List<User> GetAll()
         {
             var users = UserDbHandler.ListOfUsers;
-            var Organizers = users.FindAll(u => u.Role == Role.Organizer);
+            List<User> Organizers = null;
+            if (users != null)
+            {
+                Organizers = users.FindAll(u => u.Role == Role.Organizer);
+            }
             return Organizers;
         }
     }

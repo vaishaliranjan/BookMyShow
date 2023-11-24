@@ -18,7 +18,11 @@ namespace Project.Controller
         public List<User> GetAll()
         {
             var users = UserDbHandler.ListOfUsers;
-            var Admins = users.FindAll(u => u.Role == Role.Admin);
+            List<User> Admins = null;
+            if (users != null)
+            {
+                Admins = users.FindAll(u => u.Role == Role.Admin);
+            }
             return Admins;
         }           
        

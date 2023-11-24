@@ -15,7 +15,7 @@ namespace Project.Views
             IEventDbHandler eventDbHandler = EventDbHandler.EventDbInstance;
             IUserDbHandler userDbHandler = UserDbHandler.UserDbInstance;
             IVenueDbHandler venueDbHandler = VenueDbHandler.VenueDbInstance;
-            IAuthController authController = AuthController.AuthObject;          
+            IAuthController authController = new AuthController(userDbHandler);
             IArtistController artistController = new ArtistController(artistDbHandler);
             IEventController eventController = new EventContoller(eventDbHandler);
             IVenueController venueController = new VenueController(venueDbHandler);
@@ -24,13 +24,13 @@ namespace Project.Views
             IAdminController adminController = new AdminController(userDbHandler);
             IOrganizerController organizerController = new OrganizerController(userDbHandler);
             IArtistUI artistUI = new ArtistUI(artistController);
-            IEventUI eventUI = new EventUI(eventController);
             IVenueUI venueUI = new VenueUI(venueController);
+            IEventUI eventUI = new EventUI(eventController,artistUI,venueUI,artistController,venueController);
             IBookingUI bookingUI = new BookingUI(bookingController, eventController,eventUI);
             ICustomerView customerView = new CustomerView(bookingUI, eventUI, bookingController, eventController);
             ICustomerUI customerUI = new CustomerUI(customerView, authController);
             IOrganizerView organizerView = new OrganizerView(eventController);
-            IOrganizerUI organizerUI = new OrganizerUI(eventUI,organizerView,authController);
+            IOrganizerUI organizerUI = new OrganizerUI(eventUI,organizerView,authController,eventController);
             IRegistration register = new Registration(authController);
             IAdminRemove adminRemove = new AdminRemove(eventController, eventUI);
             IAdminAdd adminAdd = new AdminAdd(artistController, venueController,customerController,organizerController, eventUI, bookingUI);

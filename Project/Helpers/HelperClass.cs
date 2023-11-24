@@ -72,31 +72,7 @@ namespace Project.Views
             return name;
         }
 
-        public static string RegisterEnterUsername()
-        {
-            IAuthController authController = AuthController.AuthObject;
-            string username;
-            while (true)
-            {
-                Console.Write(Message.EnterUsername);
-                username = InputValidation.StringValidation();
-
-                bool r = RegexValidation.IsValidUsername(username);
-                if (r)
-                {
-                    bool res = authController.ValidateUser(username);
-                    if (!res)
-                    {
-                        Console.WriteLine(Message.UserAlreadyExists);
-                        continue;
-                    }
-                    break;
-                }
-                Console.WriteLine(Message.OnlyCharacters);
-            }
-            return username;
-
-        }
+        
 
 
 

@@ -51,14 +51,23 @@ namespace Project.Controller
         }
         public List<Event> GetAll()
         {
+            
             var Events = EventDbHandler.ListOfEvents;
-            return Events;
+            if (Events != null)
+            {
+                return Events;
+            }
+            return null;
             
         }
         public List<Event> GetOrganizerEvents(string username)
         {
-            var Events = EventDbHandler.ListOfEvents; 
-            var organizerEvents = Events.FindAll(e => e.OrganizerUsername.ToLower().Equals(username.ToLower()));
+            var Events = EventDbHandler.ListOfEvents;
+            List<Event> organizerEvents = null;
+            if (Events != null)
+            {
+                organizerEvents = Events.FindAll(e => e.OrganizerUsername.Equals(username,StringComparison.InvariantCultureIgnoreCase));             
+            }
             return organizerEvents;
         }
         public bool Add(Event newEvent)
