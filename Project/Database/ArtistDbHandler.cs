@@ -2,14 +2,16 @@
 using Project.Models;
 using Project.Controller;
 using Project.Views;
+using Project.DatabaseInterface;
 
 namespace Project.Database
 {
-    internal class ArtistDbHandler: DbHandler<Artist>
+    
+    public class ArtistDbHandler: DbHandler<Models.Artist>, IArtistDbHandler
     {
         private static ArtistDbHandler artistDbInstance;
         private static string _artist_path;
-        public List<Artist> ListOfArtists { get; set; }
+        public List<Models.Artist> ListOfArtists { get; set; }
         public static ArtistDbHandler ArtistDbInstance
         {
             get
@@ -24,13 +26,13 @@ namespace Project.Database
 
         private ArtistDbHandler()
         {
-            ListOfArtists = new List<Artist>();
+            ListOfArtists = new List<Models.Artist>();
             _artist_path = @"C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Files\Artists.json";
 
             try
             {
                 string artistFileContent = File.ReadAllText(_artist_path);
-                ListOfArtists = JsonConvert.DeserializeObject<List<Artist>>(artistFileContent)!;
+                ListOfArtists = JsonConvert.DeserializeObject<List<Models.Artist>>(artistFileContent)!;
             }
             catch(Exception ex) 
             {

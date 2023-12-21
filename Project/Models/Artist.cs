@@ -10,8 +10,7 @@ namespace Project.Models
         public static int ArtistIdInc = ArtistDbHandler.ArtistDbInstance.ListOfArtists[ArtistDbHandler.ArtistDbInstance.ListOfArtists.Count-1].ArtistId;
 
         public Artist(int artistId,string name, DateTime timing)
-        {
-            
+        {       
             Name = name;
             Timing = timing;
             ArtistId = artistId;

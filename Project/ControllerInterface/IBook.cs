@@ -9,6 +9,6 @@ namespace Project.ControllerInterface
 {
     public interface IBook
     {
-        void BookEvent(Booking booking);
+        bool BookEvent(Booking booking);
     }
 }

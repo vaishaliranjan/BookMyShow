@@ -1,50 +1,84 @@
 [
-    {
-        "UserId": 1,
-        "Name": "Vaishali Ranjan",
-        "Username": "vaishali",
-        "Email": "vaishali@gmail.com",
-        "role": 0,
-        "Password": "vaishali"
-    },
-    {
-        "UserId": 2,
-        "Name": "Ritika",
-        "Username": "ritika",
-        "Email": "ritika@gmail.com",
-        "role": 1,
-        "Password": "ritika"
-    },
-    {
-        "UserId": 3,
-        "Name": "Mehak",
-        "Username": "mehak",
-        "Email": "mehak@gmail.com",
-        "role": 2,
-        "Password": "mehak"
-    },
-    {
-        "UserId": 4,
-        "Name": "Ajay",
-        "Username": "ajay",
-        "Email": "ajay@gmail.com",
-        "role": 0,
-        "Password": "ajay"
-    },
-    {
-        "UserId": 5,
-        "Name": "Akshat",
-        "Username": "akshat",
-        "Email": "akshat@gmail.com",
-        "role": 1,
-        "Password": "akshat"
-    },
-    {
-        "UserId": 6,
-        "Name": "Ayush",
-        "Username": "ayush",
-        "Email": "ayush@gmail.com",
-        "role": 2,
-        "Password": "ayush"
-    }
+  {
+    "UserId": 1,
+    "Name": "Vaishali Ranjan",
+    "Username": "vaishali",
+    "Email": "vaishali@gmail.com",
+    "Password": "vaishali",
+    "Role": 0
+  },
+  {
+    "UserId": 2,
+    "Name": "Ritika",
+    "Username": "ritika",
+    "Email": "ritika@gmail.com",
+    "Password": "ritika",
+    "Role": 1
+  },
+  {
+    "UserId": 3,
+    "Name": "Mehak",
+    "Username": "mehak",
+    "Email": "mehak@gmail.com",
+    "Password": "mehak",
+    "Role": 2
+  },
+  {
+    "UserId": 4,
+    "Name": "Ajay",
+    "Username": "ajay",
+    "Email": "ajay@gmail.com",
+    "Password": "ajay",
+    "Role": 0
+  },
+  
+  {
+    "UserId": 6,
+    "Name": "Ayush",
+    "Username": "ayush",
+    "Email": "ayush@gmail.com",
+    "Password": "ayush",
+    "Role": 2
+  },
+  {
+    "UserId": 7,
+    "Name": "Shakuntala",
+    "Username": "shakuntala",
+    "Email": "shakuntala@gmail.com",
+    "Password": "shakuntala",
+    "Role": 0
+  },
+  {
+    "UserId": 8,
+    "Name": "Garima",
+    "Username": "garima",
+    "Email": "garima@watchguard.com",
+    "Password": "garima",
+    "Role": 0
+  },
+  
+  {
+    "UserId": 10,
+    "Name": "Shantanu",
+    "Username": "shantanu",
+    "Email": "shantanu@gmail.com",
+    "Password": "shantanu",
+    "Role": 1
+  },
+  {
+    "UserId": 11,
+    "Name": "Nani",
+    "Username": "nani",
+    "Email": "nani@gmail.com",
+    "Password": "nani",
+    "Role": 0
+  },
+  {
+    "UserId": 12,
+    "Name": "Shantanu",
+    "Username": "shantanuu",
+    "Email": "shantanu@gmail.com",
+    "Password": "shantanu",
+    "Role": 0
+  }
 ]

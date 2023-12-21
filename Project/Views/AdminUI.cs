@@ -1,55 +1,67 @@
-﻿using Project.BusinessLayer;
+﻿using Project.ControllerInterface;
 using Project.Enum;
-using Project.Objects;
+using Project.Models;
 using Project.Views;
+using Project.ViewsInterface;
 
-
-namespace Project.UILayer
+namespace Project.Views
 {
-    internal class AdminUI
+    public class AdminUI:IAdminUI
     {
-        public static void AdminPage(AdminObjects admin)
+        public IAuthController AuthController { get; }
+        public IAdminView AdminView { get; }
+        public AdminUI(IAdminView adminView, IAuthController authController)
+        {
+            AdminView = adminView;
+            AuthController = authController;
+        }
+        public void AdminPage(User admin)
         {
             Message.AdminPage();
             AdminOptions input;
             while (true)
             {
                 Console.Write(Message.ChooseNum);
-                input = (AdminOptions)InputValidation.IntegerValidation();
-               
+                input = (AdminOptions)InputValidation.IntegerValidation();          
                 switch (input)
                 {
                     case AdminOptions.ViewAdmins:
-                        AdminViewUI.ViewAdmins(admin);
+                        AdminView.ViewAdmins(admin);
+                        AdminPage(admin);
                         break;
 
                     case AdminOptions.ViewArtists:
-                        AdminViewUI.ViewArtists(admin);
+                        AdminView.ViewArtists(admin);
+                        AdminPage(admin);
                         break;
 
                     case AdminOptions.ViewVenues:
-                        AdminViewUI.ViewVenues(admin);
+                        AdminView.ViewVenues(admin);
+                        AdminPage(admin);
                         break;
 
                     case AdminOptions.ViewEvents:
-                        AdminViewUI.ViewEvents(admin);
+                        AdminView.ViewEvents(admin);
+                        AdminPage(admin);
                         break;
                         
                     case AdminOptions.ViewOrganizers:
-                       AdminViewUI.ViewOrganizers(admin);
+                        AdminView.ViewOrganizers(admin);
+                        AdminPage(admin);
                         break;
 
                     case AdminOptions.ViewCustomers:
-                       AdminViewUI.ViewCustomers(admin);
+                        AdminView.ViewCustomers(admin);
+                        AdminPage(admin);
                         break;
 
                     case AdminOptions.ViewBookings:
-                        AdminViewUI.ViewBookings(admin);
-                        
+                        AdminView.ViewBookings(admin);
+                        AdminPage(admin);
                         break;
 
                     case AdminOptions.LogOut:
-                        AuthController.AuthObject.Logout();
+                        AuthController.Logout();
                         break;
 
                     default:

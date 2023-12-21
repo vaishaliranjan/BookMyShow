@@ -1,12 +1,13 @@
 ﻿using Newtonsoft.Json;
 using Project.Controller;
+using Project.DatabaseInterface;
 using Project.Models;
 using Project.Views;
 
 namespace Project.Database
 {
     
-    internal class VenueDbHandler: DbHandler<Venue>
+    public class VenueDbHandler: DbHandler<Venue>, IVenueDbHandler
     {
         private static VenueDbHandler venueDbInstance;
         private static string _venues_path;

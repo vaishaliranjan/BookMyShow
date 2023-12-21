@@ -1,32 +1,47 @@
-﻿using Project.Models;
-using Project.Objects;
-using Project.UILayer;
-
+﻿using Project.ControllerInterface;
+using Project.Helpers;
+using Project.Models;
+using Project.ViewsInterface;
 namespace Project.Views
 {
-    public class AdminAdd
+    public class AdminAdd:IAdminAdd
     {
-        static int artistId = Artist.ArtistIdInc;
-        static int venueId = Venue.VenueIdInc;
-        public static void AddNewEvent(AdminObjects admin)
+        
+
+        public IArtistController ArtistController { get; }
+        public IVenueController VenueController { get; }
+        public IOrganizerController OrganizerController { get; }
+        public ICustomerController CustomerController { get; }
+        public IEventUI EventUI { get; }
+        public IBookingUI BookingUI { get; }    
+        
+
+        public AdminAdd( IArtistController artistController, IVenueController venueController,  ICustomerController customerController, IOrganizerController organizerController,IEventUI eventUI, IBookingUI bookingUI)
         {
-            var organizerOfEvent = SelectOrganizerOfEvent(admin);
-            EventUI.CreateEvent(organizerOfEvent);
-            AdminUI.AdminPage(admin);
+            ArtistController = artistController;
+            VenueController = venueController;
+            CustomerController = customerController;
+            OrganizerController = organizerController;
+            EventUI = eventUI;
+            BookingUI = bookingUI;
+        }
+
+        public void AddNewEvent(User admin)
+        {
+            var organizer = SelectOrganizerOfEvent(admin);
+            EventUI.CreateEvent(organizer.Username);
         }
         
-        public static void AddNewBooking(AdminObjects admin)
+        public void AddNewBooking(User admin)
         {
-            var customerForBooking= SelectCustomerForBooking(admin);    
-            BookingsUI.BookTickets(customerForBooking);
-            AdminUI.AdminPage(admin);
+            var customer= SelectCustomerForBooking(admin);    
+            BookingUI.BookTickets(customer.Username);
         }
 
-
-        public static void AddNewArtist(AdminObjects admin)
+        public void AddNewArtist(User admin)
         {
-            var artist = EnterArtistDetails();
-            if (admin.artistController.Add(artist))
+            var artist = HelperClass.EnterArtistDetails();
+            if (ArtistController.Add(artist))
             {
                 Console.WriteLine(Message.ArtistAdded);
                 Console.ResetColor();
@@ -35,14 +50,12 @@ namespace Project.Views
             {
                 Console.WriteLine(Message.ErrorOccurred);
             }
-            AdminUI.AdminPage(admin);
         }
-
-       
-        public static void AddNewVenue(AdminObjects admin)
+   
+        public void AddNewVenue(User admin)
         {
-            var venue = EnterVenueDetails();    
-            if (admin.venueController.Add(venue))
+            Venue venue = HelperClass.EnterVenueDetails();    
+            if (VenueController.Add(venue))
             {
                 Console.WriteLine(Message.VenueAdded);
                 Console.ResetColor();
@@ -51,38 +64,19 @@ namespace Project.Views
             {
                 Console.WriteLine(Message.ErrorOccurred);
             }
-            AdminUI.AdminPage(admin);
-
         }
 
-        static Venue EnterVenueDetails()
+        private User SelectOrganizerOfEvent(User admin)
         {
-            Console.Write(Message.EnterPlace);
-            var place = InputValidation.StringValidation();
-            var venue = new Venue(++venueId, place);
-            Console.ForegroundColor = ConsoleColor.DarkMagenta;
-            return venue;
-        }
-        static Artist EnterArtistDetails()
-        {
-            Console.Write(Message.EnterName);
-            string name = InputValidation.StringValidation();
-            DateTime dt = InputValidation.DateValidation();
-            var artist = new Artist(++artistId, name, dt);
-            Console.ForegroundColor = ConsoleColor.DarkMagenta;
-            return artist;
-        }
-        static Organizer SelectOrganizerOfEvent(AdminObjects admin)
-        {
-            Organizer organizer;
-            var organizers = admin.organizationController.GetAll();
+            User organizer;
+            var organizers = OrganizerController.GetAll();
             Print.PrintUsers(organizers);
             while (true)
             {
                 Console.WriteLine(Message.SelectOrganizer);
                 Console.Write(Message.EnterUsername);
                 string uname = InputValidation.StringValidation();
-                organizer = admin.organizationController.GetByUsername(uname);
+                organizer = OrganizerController.GetByUsername(uname);
                 if (organizer == null)
                 {
                     Console.WriteLine(Message.DoesNotExist);
@@ -92,18 +86,17 @@ namespace Project.Views
             }
             return organizer;
         }
-        static Customer SelectCustomerForBooking(AdminObjects admin)
+        private User SelectCustomerForBooking(User admin)
         {
-            Customer customer;
-            var customers = admin.customerController.GetAll();
+            User customer;
+            var customers = CustomerController.GetAll();
             Print.PrintUsers(customers);
             while (true)
             {
                 Console.WriteLine(Message.SelectCustomer);
                 Console.Write(Message.EnterUsername);
                 string uname = InputValidation.StringValidation();
-
-                customer = admin.customerController.GetByUsername(uname);
+                customer = CustomerController.GetByUsername(uname);
                 if (customer == null)
                 {
                     Console.WriteLine(Message.DoesNotExist);

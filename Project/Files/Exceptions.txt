@@ -26,3 +26,323 @@ File name: 'C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Prac
 ERROR::   An error occurred while reading the json.
 11/16/2023 2:59:52 AM
 
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.CustomerController.GetByUsername(String username) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\CustomerController.cs:line 27
+
+ERROR::   More than one customer with same username.
+11/20/2023 10:27:40 AM
+
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.OrganizerController.GetByUsername(String username) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\OrganizerController.cs:line 28
+
+ERROR::   More than one customer with same username.
+11/20/2023 10:39:20 AM
+
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.OrganizerController.GetByUsername(String username) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\OrganizerController.cs:line 28
+
+ERROR::   More than one customer with same username.
+11/20/2023 10:45:44 AM
+
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.ArtistController.GetById(Int32 id) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\ArtistController.cs:line 32
+
+ERROR::   More than one artist with same id.
+11/20/2023 11:01:24 AM
+
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.CustomerController.GetByUsername(String username) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\CustomerController.cs:line 26
+
+ERROR::   More than one customer with same username.
+11/20/2023 11:47:16 AM
+
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.OrganizerController.GetByUsername(String username) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\OrganizerController.cs:line 28
+
+ERROR::   More than one customer with same username.
+11/20/2023 11:47:16 AM
+
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.VenueController.GetById(Int32 id) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\VenueController.cs:line 33
+
+ERROR::   More than one venue with same id.
+11/20/2023 11:47:40 AM
+
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.OrganizerController.GetByUsername(String username) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\OrganizerController.cs:line 28
+
+ERROR::   More than one customer with same username.
+11/20/2023 12:23:47 PM
+
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.CustomerController.GetByUsername(String username) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\CustomerController.cs:line 26
+
+ERROR::   More than one customer with same username.
+11/20/2023 12:23:47 PM
+
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.OrganizerController.GetByUsername(String username) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\OrganizerController.cs:line 28
+
+ERROR::   More than one customer with same username.
+11/20/2023 12:23:47 PM
+
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.CustomerController.GetByUsername(String username) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\CustomerController.cs:line 26
+
+ERROR::   More than one customer with same username.
+11/20/2023 2:53:10 PM
+
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.OrganizerController.GetByUsername(String username) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\OrganizerController.cs:line 28
+
+ERROR::   More than one customer with same username.
+11/20/2023 2:53:10 PM
+
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.VenueController.GetById(Int32 id) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\VenueController.cs:line 33
+
+ERROR::   More than one venue with same id.
+11/20/2023 2:53:10 PM
+
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.CustomerController.GetByUsername(String username) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\CustomerController.cs:line 26
+
+ERROR::   More than one customer with same username.
+11/20/2023 2:53:28 PM
+
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.OrganizerController.GetByUsername(String username) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\OrganizerController.cs:line 28
+
+ERROR::   More than one customer with same username.
+11/20/2023 2:53:28 PM
+
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.VenueController.GetById(Int32 id) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\VenueController.cs:line 33
+
+ERROR::   More than one venue with same id.
+11/20/2023 2:53:28 PM
+
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.CustomerController.GetByUsername(String username) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\CustomerController.cs:line 26
+
+ERROR::   More than one customer with same username.
+11/20/2023 2:56:08 PM
+
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.OrganizerController.GetByUsername(String username) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\OrganizerController.cs:line 28
+
+ERROR::   More than one customer with same username.
+11/20/2023 2:56:09 PM
+
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.VenueController.GetById(Int32 id) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\VenueController.cs:line 33
+
+ERROR::   More than one venue with same id.
+11/20/2023 2:56:09 PM
+
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.CustomerController.GetByUsername(String username) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\CustomerController.cs:line 26
+
+ERROR::   More than one customer with same username.
+11/20/2023 2:56:20 PM
+
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.OrganizerController.GetByUsername(String username) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\OrganizerController.cs:line 28
+
+ERROR::   More than one customer with same username.
+11/20/2023 2:56:20 PM
+
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.VenueController.GetById(Int32 id) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\VenueController.cs:line 33
+
+ERROR::   More than one venue with same id.
+11/20/2023 2:56:20 PM
+
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.CustomerController.GetByUsername(String username) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\CustomerController.cs:line 26
+
+ERROR::   More than one customer with same username.
+11/20/2023 2:56:36 PM
+
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.OrganizerController.GetByUsername(String username) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\OrganizerController.cs:line 28
+
+ERROR::   More than one customer with same username.
+11/20/2023 2:56:36 PM
+
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.VenueController.GetById(Int32 id) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\VenueController.cs:line 33
+
+ERROR::   More than one venue with same id.
+11/20/2023 2:56:36 PM
+
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.CustomerController.GetByUsername(String username) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\CustomerController.cs:line 26
+
+ERROR::   More than one customer with same username.
+11/20/2023 3:01:03 PM
+
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.OrganizerController.GetByUsername(String username) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\OrganizerController.cs:line 28
+
+ERROR::   More than one customer with same username.
+11/20/2023 3:01:03 PM
+
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.VenueController.GetById(Int32 id) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\VenueController.cs:line 33
+
+ERROR::   More than one venue with same id.
+11/20/2023 3:01:03 PM
+
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.CustomerController.GetByUsername(String username) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\CustomerController.cs:line 26
+
+ERROR::   More than one customer with same username.
+11/23/2023 10:02:08 AM
+
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.OrganizerController.GetByUsername(String username) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\OrganizerController.cs:line 28
+
+ERROR::   More than one customer with same username.
+11/23/2023 10:02:08 AM
+
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.VenueController.GetById(Int32 id) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\VenueController.cs:line 33
+
+ERROR::   More than one venue with same id.
+11/23/2023 10:02:08 AM
+
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.CustomerController.GetByUsername(String username) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\CustomerController.cs:line 26
+
+ERROR::   More than one customer with same username.
+11/23/2023 10:02:27 AM
+
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.OrganizerController.GetByUsername(String username) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\OrganizerController.cs:line 28
+
+ERROR::   More than one customer with same username.
+11/23/2023 10:02:27 AM
+
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.VenueController.GetById(Int32 id) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\VenueController.cs:line 33
+
+ERROR::   More than one venue with same id.
+11/23/2023 10:02:27 AM
+
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.CustomerController.GetByUsername(String username) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\CustomerController.cs:line 26
+
+ERROR::   More than one customer with same username.
+11/23/2023 12:13:27 PM
+
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.OrganizerController.GetByUsername(String username) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\OrganizerController.cs:line 28
+
+ERROR::   More than one customer with same username.
+11/23/2023 12:13:27 PM
+
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.VenueController.GetById(Int32 id) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\VenueController.cs:line 33
+
+ERROR::   More than one venue with same id.
+11/23/2023 12:13:27 PM
+
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.CustomerController.GetByUsername(String username) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\CustomerController.cs:line 26
+
+ERROR::   More than one customer with same username.
+11/23/2023 12:13:37 PM
+
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.OrganizerController.GetByUsername(String username) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\OrganizerController.cs:line 28
+
+ERROR::   More than one customer with same username.
+11/23/2023 12:13:37 PM
+
+EXCEPTION::   System.InvalidOperationException: Sequence contains no matching element
+   at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at Project.Controller.VenueController.GetById(Int32 id) in C:\Users\vranjan\OneDrive - WatchGuard Technologies Inc\Desktop\Practice\Project\Project\Controller\VenueController.cs:line 33
+
+ERROR::   More than one venue with same id.
+11/23/2023 12:13:37 PM
+

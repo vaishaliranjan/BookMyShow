@@ -3,5 +3,5 @@
 
 namespace Project.ControllerInterface
 {
-    public interface IOrganizerController : IGetAll<Organizer>, IGetByUsername<Organizer> { }
+    public interface IOrganizerController : IGetAll<User>, IGetByUsername<User> { }
 }

@@ -1,11 +1,13 @@
 ﻿using Newtonsoft.Json;
 using Project.Controller;
+using Project.DatabaseInterface;
 using Project.Models;
 using Project.Views;
 
 namespace Project.Database
 {
-    internal class BookingDbHandler:DbHandler<Booking>
+    
+    public class BookingDbHandler:DbHandler<Booking>, IBookingDbHandler
     {
         private static BookingDbHandler bookingDbInstance;
         private static string _bookings_path;

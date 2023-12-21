@@ -1,34 +1,54 @@
 ﻿using Project.ControllerInterface;
 using Project.Database;
+using Project.DatabaseInterface;
+using Project.Enum;
 using Project.Models;
 using Project.Views;
+
 
 namespace Project.Controller
 {
     public class OrganizerController: IOrganizerController
     {
-        public List<Organizer> GetAll()
+        public IUserDbHandler UserDbHandler { get; }
+
+        public OrganizerController(IUserDbHandler userDbHandler)
         {
-
-            return OrganizerDbHandler.OrganizerDbInstance.ListOfOrganizer;
-
+            UserDbHandler = userDbHandler;
         }
-        public Organizer GetByUsername(string username)
+        public User GetByUsername(string username)
         {
-            Organizer organizer = null;
-            try
+            var users = UserDbHandler.ListOfUsers;
+            var Organizers = users.FindAll(u => u.Role == Role.Organizer);
+            if (Organizers != null)
             {
-                organizer = OrganizerDbHandler.OrganizerDbInstance.ListOfOrganizer.Single(u => u.Username.ToLower().Equals(username.ToLower()));
-                return organizer;
+                User customer = null;
+                try
+                {
+                    customer = Organizers.Single(u => u.Username.ToLower().Equals(username.ToLower()));
+                    return customer;
+                }
+                catch (Exception ex)
+                {
+                    HelperClass.LogException(ex, "More than one customer with same username.");
+                    return customer;
+                }
             }
-            catch (Exception ex) 
+            else
             {
-                HelperClass.LogException(ex, "More than one organizer with same username.");
-                return organizer;
+                return null;
             }
         }
-        
 
-        
+        public List<User> GetAll()
+        {
+            var users = UserDbHandler.ListOfUsers;
+            List<User> Organizers = null;
+            if (users != null)
+            {
+                Organizers = users.FindAll(u => u.Role == Role.Organizer);
+            }
+            return Organizers;
+        }
     }
 }

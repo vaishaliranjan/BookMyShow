@@ -1,16 +1,22 @@
-﻿using Project.BusinessLayer;
+﻿using Project.ControllerInterface;
 using Project.Enum;
 using Project.Models;
-using Project.Objects;
 using Project.Views;
+using Project.ViewsInterface;
 
-
-namespace Project.UILayer
+namespace Project.Views
 {
-    internal class CustomerUI
+    public class CustomerUI: ICustomerUI
     {
+        public ICustomerView CustomerView { get; }
+        public IAuthController AuthController { get; }
 
-        public static void CustomerPage(CustomerObjects customer)
+        public CustomerUI(ICustomerView customerView, IAuthController authController)
+        {
+            CustomerView = customerView;
+            AuthController = authController;
+        }
+        public void CustomerPage(User customer)
         {
             Message.CustomerPage();  
             while (true)
@@ -22,15 +28,16 @@ namespace Project.UILayer
                 {
                     case CustomerOptions.ViewEvents:
                         CustomerView.ViewEvents(customer); 
+                        CustomerPage(customer);
                         break;
 
                     case CustomerOptions.ViewPreviousBookings:
                         CustomerView.ViewBookings(customer);
-                        
+                        CustomerPage(customer);
                         break;
 
                     case CustomerOptions.LogOut:
-                        AuthController.AuthObject.Logout();
+                        AuthController.Logout();
                         break;
 
                     default:

@@ -1,76 +1,55 @@
 ﻿
 using Project.ControllerInterface;
-using Project.Database;
+using Project.DatabaseInterface;
 using Project.Enum;
 using Project.Models;
-using Project.UILayer;
+using Project.Views;
 
-
-namespace Project.BusinessLayer
+namespace Project.Controller
 {
     public class AuthController: IAuthController
     {
-        private static AuthController _authManagerObject=null;
-        private AuthController(){}
-        public static AuthController AuthObject
+        public IUserDbHandler UserDbHandler { get; }
+
+        public AuthController(IUserDbHandler userDbHandler)
         {
-            get
-            {
-                if(_authManagerObject == null)
-                {
-                    _authManagerObject = new AuthController();
-                }
-                return _authManagerObject;
-            }
+            UserDbHandler = userDbHandler;
         }
+    
       
         public User Login(string username, string password)
         {
-            List<User> allUsers = UserDbHandler.UserDbInstance.ListOfUsers;
+            List<User> allUsers = UserDbHandler.ListOfUsers;
             foreach (User user in allUsers)
             {
-                if(user.Username.Equals(username, StringComparison.InvariantCultureIgnoreCase) && user.Password.ToLower().Equals(password.ToLower()))
+                if(user.Username.Equals(username, StringComparison.InvariantCultureIgnoreCase) && user.Password.Equals(password))
                 {
                     return user;
                 }
             }
             return null;
         }
-         public  void Register(User user, Role role) 
+         public bool Register(User user, Role role) 
          {
-            if (role == Role.Admin)
-            {
-                AdminDbHandler.AdminDbInstance.AddAdmin((Admin)user);
-                UserDbHandler.UserDbInstance.AddUser(user);
-            }
-            else if (role == Role.Organizer)
-            {
-                OrganizerDbHandler.OrganizerDbInstance.AddOrganizer((Organizer)user);
-                UserDbHandler.UserDbInstance.AddUser(user);
-            }
-            else if (role == Role.Customer)
-            {
-                CustomerDbHandler.CustomerDbInstance.AddCustomer((Customer)user);
-                UserDbHandler.UserDbInstance.AddUser(user);
-            }
+            return UserDbHandler.AddUser(user); 
 
-        }
+         }
         public void Logout()
         {
-            HomePage.HomePageFunction();
+            Program.Main(new string[0]);
         }
 
         public bool ValidateUser(string username)
         {
-            var users = UserDbHandler.UserDbInstance.ListOfUsers;
-            foreach (User user in users)
+            var users = UserDbHandler.ListOfUsers;
+            var user = users.SingleOrDefault(u => u.Username.ToLower().Equals(username.ToLower()));
+            if(user == null)
             {
-                if (user.Username.ToLower().Equals(username.ToLower()))
-                {
-                    return false;
-                }
+                return true;
             }
-            return true;
+            return false;
         }
+
+       
     }
 }

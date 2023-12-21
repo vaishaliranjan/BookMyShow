@@ -1,37 +1,27 @@
-﻿using Project.Controller;
-using Project.ControllerInterface;
-using Project.Models;
-using Project.UILayer;
+﻿using Project.ControllerInterface;
+using Project.Helpers;
+using Project.ViewsInterface;
 
 namespace Project.Views
 {
-    public class ArtistUI
+    public class ArtistUI:IArtistUI
     {
-        public static void ViewArtists(IArtistController artistController)
+        IArtistController ArtistController { get; }
+        public ArtistUI(IArtistController artistController)
         {
-            var artists = artistController.GetAll();
-            ShowArtists(artists);
+            ArtistController = artistController;
         }
-        static void ShowArtists(List<Artist> artists)
+        public void ViewArtists()
         {
+            var artists = ArtistController.GetAll();
             if (artists != null)
             {
-                Message.ViewArtists();
-                foreach (var artist in artists)
-                {
-                    Console.WriteLine("Artist Id: " + artist.ArtistId);
-                    Console.WriteLine("Artist Name: " + artist.Name);
-                    Console.WriteLine("Artist Time: " + artist.Timing);
-                    Console.WriteLine();
-                }
-                Console.ResetColor();
+                Print.ShowArtists(artists);
+                return;
             }
-            else
-            {
-                Error.NotFound("artists");
-            }
-            
+            Console.WriteLine("No artist");
         }
+        
        
     }
 }

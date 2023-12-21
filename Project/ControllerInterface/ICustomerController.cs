@@ -3,5 +3,5 @@
 
 namespace Project.ControllerInterface
 {
-    public interface ICustomerController : IGetAll<Customer>, IGetByUsername<Customer> { }
+    public interface ICustomerController : IGetAll<User>, IGetByUsername<User> { }
 }

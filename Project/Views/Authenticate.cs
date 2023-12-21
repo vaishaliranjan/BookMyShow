@@ -1,43 +1,46 @@
-﻿using Project.BusinessLayer;
-using Project.Models;
-using Project.Views;
-using Project.Objects;
-using Project.Enum;
+﻿using Project.Enum;
 using Project.ControllerInterface;
+using Project.ViewsInterface;
 
-namespace Project.UILayer
+namespace Project.Views
 {
-    public static  class Authenticate
+    public class Authenticate:IAuthenticate
     {
-        
+        public IAuthController AuthController { get; }
+        public IAdminUI AdminUI { get; }
+        public ICustomerUI CustomerUI { get; }
+        public IOrganizerUI OrganizerUI { get; }
+        public Authenticate(IAuthController authController, IAdminUI adminUI, ICustomerUI customerUI, IOrganizerUI organizerUI)
+        {
+            AuthController = authController;
+            AdminUI = adminUI;
+            CustomerUI = customerUI;
+            OrganizerUI = organizerUI;
+        }
 
-        public static void Login()
+        public void Login()
         {
             while (true)
             {
-                //IAuthController authController = AuthController.AuthObject;
-                string username = EnterUsername();
-                string password = EnterPassword();
-                var user = AuthController.AuthObject.Login(username, password);
+                string username = HelperClass.EnterUsername();
+                string password = HelperClass.EnterPassword();
+                var user = AuthController.Login(username, password);
                 Console.ResetColor();
                 if (user != null)
                 {
                     if (user.Role==Role.Admin)
                     {
-                        var newAdmin = new Admin(user.UserId, user.Name, user.Username, user.Email, user.Password, user.Role) ;
-                        AdminUI.AdminPage(new AdminObjects(newAdmin));
+                        AdminUI.AdminPage(user);
                         break;
                     }
                     else if (user.Role==Role.Customer)
                     {
-                        var newCustomer = new Customer(user.UserId, user.Name, user.Username, user.Email, user.Password, user.Role);
-                        CustomerUI.CustomerPage(new CustomerObjects(newCustomer));
+                        CustomerUI.CustomerPage(user);
                         break;
                     }
                     else if (user.Role==Role.Organizer)
                     {
-                        var newOrganizer = new Organizer(user.UserId, user.Name, user.Username, user.Email, user.Password, user.Role);
-                        OrganizerUI.OrganizerPage(new OrganizerObjects(newOrganizer));
+                        OrganizerUI.OrganizerPage(user);
                         break;
                     }
                 }
@@ -45,24 +48,10 @@ namespace Project.UILayer
                 {
                     Console.WriteLine(Message.WrongCredentials);
                     continue;
-                }  
-                
-            }
-
-            static string EnterUsername()
-            {
-                Console.Write(Message.EnterUsername);
-                var username = InputValidation.StringValidation();
-                return username;
-            }
-            static string EnterPassword()
-            {
-                Console.Write(Message.EnterPassword);
-                var password = HelperClass.HideCharacter();
-                return password;
-            }
+                }                 
+            }           
         }
+
         
     }
 }
-

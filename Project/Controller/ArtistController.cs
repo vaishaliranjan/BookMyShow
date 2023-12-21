@@ -1,5 +1,6 @@
 ﻿using Project.ControllerInterface;
 using Project.Database;
+using Project.DatabaseInterface;
 using Project.Models;
 using Project.Views;
 
@@ -7,20 +8,28 @@ namespace Project.Controller
 {
     public class ArtistController: IArtistController
     {
+        public IArtistDbHandler ArtistDbHandler { get;}
+        public ArtistController(IArtistDbHandler artistDbHandler)
+        {
+            ArtistDbHandler = artistDbHandler;
+        }
         public bool Add(Artist artist)
         {
-            return ArtistDbHandler.ArtistDbInstance.AddArtist(artist);
+            return ArtistDbHandler.AddArtist(artist);
         }
         public List<Artist> GetAll()
         {
-            return ArtistDbHandler.ArtistDbInstance.ListOfArtists;
+            List<Artist> Artists = null;
+            Artists= ArtistDbHandler.ListOfArtists;
+            return Artists;
         }
         public Artist GetById(int id)
         {
+            var Artists= ArtistDbHandler.ListOfArtists;
             Artist choosenArtist = null;
             try
             {
-                choosenArtist = ArtistDbHandler.ArtistDbInstance.ListOfArtists.Single(a => a.ArtistId == id);
+                choosenArtist = Artists.Single(a => a.ArtistId == id);
                 RemoveArtist(choosenArtist);
                 return choosenArtist;
             }
@@ -30,14 +39,14 @@ namespace Project.Controller
                 return choosenArtist;
             }
         }
-        private static bool RemoveArtist(Artist choosenArtist)
+        public bool RemoveArtist(Artist choosenArtist)
         {
-            var listOfArtists = ArtistDbHandler.ArtistDbInstance.ListOfArtists;
-            var artist = listOfArtists.Single(a => a.ArtistId == choosenArtist.ArtistId);
+            var Artists = ArtistDbHandler.ListOfArtists;
+            var artist = Artists.SingleOrDefault(a => a.ArtistId == choosenArtist.ArtistId);
             if (artist != null)
             {
-                listOfArtists.Remove(artist);
-                return ArtistDbHandler.ArtistDbInstance.RemoveArtist(listOfArtists);
+                Artists.Remove(artist);
+                return ArtistDbHandler.RemoveArtist(Artists);
             }
             return false;
         }
